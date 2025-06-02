@@ -4,19 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Models\ListaTarefas;
 use Illuminate\Http\Request;
+use Auth;
 
 class ListaDeTarefasController extends Controller
 {
     public function __construct(ListaTarefas $listaTarefas){
-      $this->listaTarefas = $listaTarefas;
+        $this->listaTarefas = $listaTarefas;
     }
+  
+   
     /**
      * Summary of index
      * @return void
      */
 
     public function index(){
-        $indexTarefas = $this->listaTarefas->select('id','titulo','descricao')->get();
+        $indexTarefas = $this->listaTarefas->select('id','titulo','descricao','status')->get();
         return view('dashboard',@compact('indexTarefas'));
     }
     /**
@@ -34,8 +37,12 @@ class ListaDeTarefasController extends Controller
      */
 
     public function store(Request $request){
-        $create = $this->listaTarefas->create($request->all());
-        return redirect()->route('dashboard')->with('success', 'Permissões do usuário alterada com sucesso.');
+        $create = $this->listaTarefas->create([
+            'titulo' => $request->input('titulo'),
+            'descricao'=> $request->input('descricao'),
+            'user_id'=> Auth::id(),
+        ]);
+        return redirect()->route('index.tarefas')->with('success', 'Permissões do usuário alterada com sucesso.');
     }
     /**
      * Summary of edit
@@ -47,7 +54,6 @@ class ListaDeTarefasController extends Controller
       $editTarefa = $this->listaTarefas->select('id','titulo','descricao')
       ->where('id',$id)
       ->first();
-
       return view('listaTarefas.editTarefas',@compact('editTarefa'));
     }
     /**
@@ -55,15 +61,16 @@ class ListaDeTarefasController extends Controller
      * @return void
      */
 
-    public function update(Request $request){
+    public function update(Request $request,$id){
         $titulo = $request->input('titulo');
         $descricao = $request->input('descricao');
          $storeTarefa = $this->listaTarefas->select('id','titulo','descricao')
         ->where('id',$id)->update([
             'titulo' => $titulo, 
-            'descricao' => $descricao
+            'descricao' => $descricao,
+            'user_id' => Auth::id(),
         ]);
-         return redirect()->route('listadetarefas.index')->with('success', 'Permissões do usuário alterada com sucesso.');
+         return redirect()->route('index.tarefas')->with('success', 'Permissões do usuário alterada com sucesso.');
     }
     /**
      * Summary of delete
