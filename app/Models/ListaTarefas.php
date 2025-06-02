@@ -9,6 +9,6 @@ class ListaTarefas extends Model
     protected $table = 'lista_tarefas';
 
     protected $fillable = [
-        'titulo','descricao','status','created_at'
+        'titulo','descricao','status','created_at','user_id'
     ];
 }
