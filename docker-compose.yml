@@ -1,0 +1,63 @@
+services:
+  php:
+    build:
+      context: .
+      dockerfile: .docker/php-fpm/Dockerfile
+    volumes:
+      - ./:/app
+    networks:
+      - laravel
+    depends_on:
+      - todoList-db
+
+  nginx:
+    build:
+      context: .
+      dockerfile: .docker/nginx/Dockerfile
+    volumes:
+      - ./:/app
+    ports:
+      - "8000:80"
+    depends_on:
+      - php
+    networks:
+      - laravel
+
+  todoList-db:
+    image: mysql:8.0
+    volumes:
+      - .docker/db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root     
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "3307:3306"
+    networks:
+      - laravel
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: todoList-db
+      PMA_USER: root
+      PMA_PASSWORD: root
+    ports:
+      - "8888:80"
+    networks:
+      - laravel
+
+  npm:
+    image: node:current-alpine
+    container_name: npm
+    working_dir: /app
+    volumes:
+      - ./:/app
+    entrypoint: [ "tail", "-f", "/dev/null" ] # Mantém o container rodando
+    networks:
+      - laravel
+
+networks:
+  laravel:
+    driver: bridge
