@@ -9,7 +9,39 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("You're logged in!") }}
+                   <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Titulo</th>
+      <th scope="col">Descricao</th>
+      <th scope="col">Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach ($indexTarefas as $index)
+      
+    <tr>
+      <th scope="row">1</th>
+      <td>{{$index->titulo}}</td>
+      <td>{{$index->descricao}}</td>
+      <td>Status</td>
+    </tr>
+    @endforeach
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>Status</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>John</td>
+      <td>Doe</td>
+      <td>Status</td>
+    </tr>
+  </tbody>
+</table>
                 </div>
             </div>
         </div>
