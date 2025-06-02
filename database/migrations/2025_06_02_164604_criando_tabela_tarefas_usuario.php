@@ -15,6 +15,7 @@ return new class extends Migration
        $table->bigIncrements('id');
        $table->text('titulo');
        $table->text('descricao');
+       $table->enum('status', ['pendente', 'concluida'])->default('pendente');
        $table->dateTime('created_at');
        $table->dateTime('updated_at');
        $table->dateTime('deleted_at')->nullable();
