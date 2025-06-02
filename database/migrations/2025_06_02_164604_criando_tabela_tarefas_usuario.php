@@ -11,7 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        
+      Schema::create('lista_tarefas', function (Blueprint $table) {
+       $table->bigIncrements('id');
+       $table->text('titulo');
+       $table->text('descricao');
+       $table->dateTime('created_at');
+       $table->dateTime('updated_at');
+       $table->dateTime('deleted_at')->nullable();
+      });
     }
 
     /**
@@ -19,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists("");
+        Schema::dropIfExists("lista_tarefas");
     }
 };
