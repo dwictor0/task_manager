@@ -12,9 +12,10 @@ return new class extends Migration
     public function up(): void
     {
       Schema::create('lista_tarefas', function (Blueprint $table) {
-       $table->bigIncrements('id');
+       $table->id();
        $table->text('titulo');
        $table->text('descricao');
+       $table->integer('user_id')->nullable();
        $table->enum('status', ['pendente', 'concluida'])->default('pendente');
        $table->dateTime('created_at');
        $table->dateTime('updated_at');
