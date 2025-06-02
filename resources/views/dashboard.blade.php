@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard') }}
+            {{ __('System - Gestão de Vagas') }}
         </h2>
     </x-slot>
 
@@ -16,6 +16,7 @@
       <th scope="col">Titulo</th>
       <th scope="col">Descricao</th>
       <th scope="col">Status</th>
+      <th scope="col">Ações</th>
     </tr>
   </thead>
   <tbody>
@@ -23,27 +24,18 @@
       
     <tr>
       <th scope="row">1</th>
-      <td>{{$index->titulo}}</td>
-      <td>{{$index->descricao}}</td>
-      <td>Status</td>
+      <td class="sm:px-6">{{$index->titulo}}</td>
+      <td class="sm:px-6">{{$index->descricao}}</td>
+      <td class="sm:px-6">{{$index->status}}</td>
+      <td><button type="submit" class="btn btn-danger sm:px-6"><a href="{{ route('tarefas.edit', ['tarefa' => $index->id]) }}">Editar</a></button></td>
     </tr>
+   
     @endforeach
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>Status</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>John</td>
-      <td>Doe</td>
-      <td>Status</td>
-    </tr>
   </tbody>
 </table>
-                </div>
-            </div>
+</div>
+</div>
         </div>
-    </div>
-</x-app-layout>
+      </div>
+    </x-app-layout>
+    
