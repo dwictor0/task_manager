@@ -166,11 +166,11 @@ class ListaDeTarefasController extends Controller
                 $tarefa->forceDelete();
 
                 return redirect()->route('tarefas.index');
-            } else {
+            } 
                 $tarefa->delete();
-
+                
                 return redirect()->route('tarefas.index');
-            }
+                
         } catch (Exception $e) {
             $message = $e->getMessage();
             Log::error("Erro ao processar a exclusão da tarefa:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
