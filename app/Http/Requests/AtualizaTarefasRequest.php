@@ -30,6 +30,7 @@ class AtualizaTarefasRequest extends FormRequest
     {
         return [
           'titulo.required'=> 'Não é possivel atualizar uma tarefa sem informar o titulo!.',
+          'titulo.max'=> 'A tarefa não pode ser atualizada se o titulo tiver mais de 255 caracteres!.',
         ];
     }
 }
