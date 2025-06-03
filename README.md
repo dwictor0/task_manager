@@ -9,7 +9,7 @@
 
 ## 🚀 Funcionalidades
 
-- ✅ Criar, editar e excluir tarefas
+- ✅ Criar,listar, editar e excluir tarefas
 - 🗂️ Organizar tarefas por status (pendente,concluida)
 - 🔍 Filtro de tarefas por status, pendente e concluida.
 - 💡 Interface reativa com Livewire (sem recarregamento de página)
