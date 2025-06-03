@@ -6,6 +6,8 @@ use App\Http\Requests\CriacaoDeTarefasRequest;
 use App\Models\ListaTarefas;
 use Illuminate\Http\Request;
 use Auth;
+use Exception;
+use Illuminate\Support\Facades\Log;
 
 class ListaDeTarefasController extends Controller
 {
@@ -23,10 +25,17 @@ class ListaDeTarefasController extends Controller
      */
 
     public function index(){
-        $indexTarefas = $this->listaTarefas->select('id','titulo','descricao','status','created_at','deleted_at','user_id')
-         ->where('user_id',Auth::id())->withTrashed()->get();
+        try {
+            $indexTarefas = $this->listaTarefas->select('id','titulo','descricao','status','created_at','deleted_at','user_id')
+             ->where('user_id',Auth::id())->withTrashed()->get();
 
-        return view('dashboard',@compact('indexTarefas'));
+             return view('dashboard',@compact('indexTarefas'));
+        } catch (Exception $e) {
+            $message = $e->getMessage();
+            Log::error("Erro ao carregar as tarefas:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
+            echo $message;
+        }
+
     }
     /**
      * Summary of create
@@ -44,12 +53,19 @@ class ListaDeTarefasController extends Controller
      */
 
     public function store(CriacaoDeTarefasRequest $request){
-        $create = $this->listaTarefas->create([
-            'titulo' => $request->input('titulo'),
-            'descricao'=> $request->input('descricao'),
-            'user_id'=> Auth::id(),
-        ]);
-        return redirect()->route('dashboard')->with('success', 'Permissões do usuário alterada com sucesso.');
+        try {
+            $create = $this->listaTarefas->create([
+                'titulo' => $request->input('titulo'),
+                'descricao'=> $request->input('descricao'),
+                'user_id'=> Auth::id(),
+            ]);
+            
+            return redirect()->route('dashboard')->with('success', 'Permissões do usuário alterada com sucesso.');
+        } catch (Exception $e) {
+           $message = $e->getMessage();
+           Log::error("Erro ao executar a criação da tarefa:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
+           echo $message;
+        }
     }
     /**
      * Summary of edit
@@ -59,9 +75,15 @@ class ListaDeTarefasController extends Controller
      */
 
     public function edit($id){
-      $editTarefa = $this->listaTarefas->select('id','titulo','descricao')->where('id',$id)->first();
+        try {
+            $editTarefa = $this->listaTarefas->select('id','titulo','descricao')->where('id',$id)->first();
+            return view('listaTarefas.editTarefas',@compact('editTarefa'));
+        } catch (Exception $e) {
+           $message = $e->getMessage();
+           Log::error("Erro ao carregar os dados para edição da tarefa:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
+           echo $message;
+        }
 
-      return view('listaTarefas.editTarefas',@compact('editTarefa'));
     }
     /**
      * Summary of update
@@ -72,18 +94,24 @@ class ListaDeTarefasController extends Controller
      */
 
     public function update(AtualizaTarefasRequest $request,$id){
-        $titulo = $request->input('titulo');
-        $descricao = $request->input('descricao');
-        
-        $tarefaStatusUpdate = 'concluida';
-        $storeTarefa = $this->listaTarefas->select('id','titulo','descricao')
-        ->where('id',$id)->update([
-            'titulo' => $titulo, 
-            'descricao' => $descricao,
-            'status' => $tarefaStatusUpdate,
-            'user_id' => Auth::id(),
-        ]);
-         return redirect()->route('dashboard');
+        try {
+            $titulo = $request->input('titulo');
+            $descricao = $request->input('descricao');
+            
+            $tarefaStatusUpdate = 'concluida';
+            $storeTarefa = $this->listaTarefas->select('id','titulo','descricao')
+            ->where('id',$id)->update([
+                'titulo' => $titulo, 
+                'descricao' => $descricao,
+                'status' => $tarefaStatusUpdate,
+                'user_id' => Auth::id(),
+            ]);
+             return redirect()->route('dashboard');
+        } catch (Exception $e) {
+           $message = $e->getMessage();
+           Log::error("Erro ao realizar a edição da tarefa:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
+           echo $message;
+        }
     }
     /**
      * Summary of delete
@@ -99,27 +127,39 @@ class ListaDeTarefasController extends Controller
      */
 
     public function destroy($id){
-        $tarefa = ListaTarefas::withTrashed()->findOrFail($id);
-    
-        if ($tarefa->trashed()) {
-            $tarefa->forceDelete();
-    
-            return redirect()->route('tarefas.index');
-        } else {
-            $tarefa->delete();
-    
-            return redirect()->route('tarefas.index');
+        try {
+            $tarefa = ListaTarefas::withTrashed()->findOrFail($id);
+        
+            if ($tarefa->trashed()) {
+                $tarefa->forceDelete();
+        
+                return redirect()->route('tarefas.index');
+            } else {
+                $tarefa->delete();
+        
+                return redirect()->route('tarefas.index');
+            }
+        } catch (Exception $e) {
+           $message = $e->getMessage();
+           Log::error("Erro ao processar a exclusão da tarefa:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
+           echo $message;
         }
     }
     public function restore($id){
-        $tarefa = $this->listaTarefas->withTrashed()->find($id);
-        $tarefa->restore();  
-        
-        $statusTarefaPadrao = 'pendente';
-        $atualizaTarefa = $this->listaTarefas->select('id','status')->where('id',$id)->update([
-            'status' => $statusTarefaPadrao,
-        ]);
+        try {
+            $tarefa = $this->listaTarefas->withTrashed()->find($id);
+            $tarefa->restore();  
+            
+            $statusTarefaPadrao = 'pendente';
+            $atualizaTarefa = $this->listaTarefas->select('id','status')->where('id',$id)->update([
+                'status' => $statusTarefaPadrao,
+            ]);
 
-         return redirect()->route('dashboard');      
+             return redirect()->route('dashboard');      
+        } catch (Exception $e) {
+           $message = $e->getMessage();
+           Log::error("Erro ao tentar restaurar a tarefa excluida:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
+           echo $message;
+        }
     }
 }
