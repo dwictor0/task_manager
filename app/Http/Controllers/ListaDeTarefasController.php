@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CriacaoDeTarefasRequest;
 use App\Models\ListaTarefas;
 use Illuminate\Http\Request;
 use Auth;
@@ -40,13 +41,13 @@ class ListaDeTarefasController extends Controller
      * @return void
      */
 
-    public function store(Request $request){
+    public function store(CriacaoDeTarefasRequest $request){
         $create = $this->listaTarefas->create([
             'titulo' => $request->input('titulo'),
             'descricao'=> $request->input('descricao'),
             'user_id'=> Auth::id(),
         ]);
-        return redirect()->route('index.tarefas')->with('success', 'Permissões do usuário alterada com sucesso.');
+        return redirect()->route('dashboard')->with('success', 'Permissões do usuário alterada com sucesso.');
     }
     /**
      * Summary of edit
@@ -78,7 +79,7 @@ class ListaDeTarefasController extends Controller
             'descricao' => $descricao,
             'user_id' => Auth::id(),
         ]);
-         return redirect()->route('index.tarefas')->with('success', 'Permissões do usuário alterada com sucesso.');
+         return redirect()->route('dashboard')->with('success', 'Permissões do usuário alterada com sucesso.');
     }
     /**
      * Summary of delete
