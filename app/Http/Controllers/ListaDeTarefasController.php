@@ -31,7 +31,7 @@ class ListaDeTarefasController extends Controller
      * Método com as regras de validação.
      *
      * Summary of index
-     * @param array $indexTarefas - Executa a consulta para obter todas as tarefas.
+     * @param object $indexTarefas - Executa a consulta para obter todas as tarefas.
      *
      * @return bool
      */
@@ -39,7 +39,7 @@ class ListaDeTarefasController extends Controller
     public function index()
     {
         try {
-            $indexTarefas = $this->listaTarefas->select('id', 'titulo', 'descricao', 'status', 'created_at', 'deleted_at', 'user_id')
+            $indexTarefas = (object) $this->listaTarefas->select('id', 'titulo', 'descricao', 'status', 'created_at', 'deleted_at', 'user_id')
                 ->where('user_id', Auth::id())->withTrashed()->get();
 
             return view('dashboard', @compact('indexTarefas'));
@@ -61,7 +61,10 @@ class ListaDeTarefasController extends Controller
     }
     /**
      * Summary of store
-     * @param $create - Recebe os dados da requisição para criar a vaga.
+     * @param string $titulo
+     * @param string $descricao
+     * @param integer $userID
+     * @param object $create - Recebe os dados da requisição para criar a vaga.
      * @param \Illuminate\Http\Request $request
      * @return void
      */
@@ -69,10 +72,14 @@ class ListaDeTarefasController extends Controller
     public function store(CriacaoDeTarefasRequest $request)
     {
         try {
-            $create = $this->listaTarefas->create([
-                'titulo' => $request->input('titulo'),
-                'descricao' => $request->input('descricao'),
-                'user_id' => Auth::id(),
+            $titulo = (string) $request->input('titulo');
+            $descricao = (string) $request->input('descricao');
+            $userID = (integer) Auth::id();
+
+            $create = (object) $this->listaTarefas->create([
+                'titulo' => $titulo,
+                'descricao' => $descricao,
+                'user_id' => $userID,
             ]);
 
             return redirect()->route('dashboard')->with('success', 'Permissões do usuário alterada com sucesso.');
@@ -84,15 +91,15 @@ class ListaDeTarefasController extends Controller
     }
     /**
      * Summary of edit
-     * @param $editTarefa - Identifica a vaga pelo id para que seja possivel atualizar as informações.
-     * @param mixed $id - Obtém da requisição o ID da vaga.
+     * @param object $editTarefa - Identifica a vaga pelo id para que seja possivel atualizar as informações.
+     * @param integer $id - Obtém da requisição o ID da vaga.
      * @return void
      */
 
     public function edit($id)
     {
         try {
-            $editTarefa = $this->listaTarefas->select('id', 'titulo', 'descricao')->where('id', $id)->first();
+            $editTarefa = (object) $this->listaTarefas->select('id', 'titulo', 'descricao')->where('id', $id)->first();
             return view('listaTarefas.editTarefas', @compact('editTarefa'));
         } catch (Exception $e) {
             $message = $e->getMessage();
@@ -105,23 +112,26 @@ class ListaDeTarefasController extends Controller
      * Summary of update
      * @param string $titulo - Armazena o título da vaga que será atualizado pela requisição.
      * @param string $descricao - Armazena a descricao da vaga que será atualizado pela requisição.
-     * @param mixed  $storeTarefa - Atualiza as colunas com os valores das variáveis definidas..
+     * @param integer $userID
+     * @param string $tarefaStatusUpdate 
+     * @param object $storeTarefa - Atualiza as colunas com os valores das variáveis definidas..
      * @return void
      */
 
     public function update(AtualizaTarefasRequest $request, $id)
     {
         try {
-            $titulo = $request->input('titulo');
-            $descricao = $request->input('descricao');
+            $titulo = (string) $request->input('titulo');
+            $descricao = (string) $request->input('descricao');
+            $userID = (integer) Auth::id();
 
-            $tarefaStatusUpdate = 'concluida';
-            $storeTarefa = $this->listaTarefas->select('id', 'titulo', 'descricao')
+            $tarefaStatusUpdate = (string) 'concluida';
+            $storeTarefa = (object) $this->listaTarefas->select('id', 'titulo', 'descricao')
                 ->where('id', $id)->update([
                         'titulo' => $titulo,
                         'descricao' => $descricao,
                         'status' => $tarefaStatusUpdate,
-                        'user_id' => Auth::id(),
+                        'user_id' => $userID,
                     ]);
             return redirect()->route('dashboard');
         } catch (Exception $e) {
@@ -141,13 +151,16 @@ class ListaDeTarefasController extends Controller
     }
     /**
      * Summary of destroy
+     * 
+     * @param integer $id
+     * @param object $tarefa
      * @return void
      */
 
     public function destroy($id)
     {
         try {
-            $tarefa = ListaTarefas::withTrashed()->findOrFail($id);
+            $tarefa = (object) $this->listaTarefas->withTrashed()->findOrFail($id);
 
             if ($tarefa->trashed()) {
                 $tarefa->forceDelete();
@@ -167,10 +180,10 @@ class ListaDeTarefasController extends Controller
     public function restore($id)
     {
         try {
-            $tarefa = $this->listaTarefas->withTrashed()->find($id);
+            $tarefa = (object) $this->listaTarefas->withTrashed()->find($id);
             $tarefa->restore();
 
-            $statusTarefaPadrao = 'pendente';
+            $statusTarefaPadrao = (string) 'pendente';
             $atualizaTarefa = $this->listaTarefas->select('id', 'status')->where('id', $id)->update([
                 'status' => $statusTarefaPadrao,
             ]);
