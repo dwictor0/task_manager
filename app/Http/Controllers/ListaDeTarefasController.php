@@ -30,12 +30,13 @@ class ListaDeTarefasController extends Controller
     /**
      * Summary of index
      * @param object $indexTarefas - Executa a consulta para obter todas as tarefas.
-     *
+     * @param integer $userID 
      * @return bool
      */
     public function index()
     {
         try {
+            $userID = (integer) Auth::id();
             $indexTarefas = (object) $this->listaTarefas->select('id', 'titulo', 'descricao', 'status', 'created_at', 'deleted_at', 'user_id')
                 ->where('user_id', Auth::id())->withTrashed()->get();
 
