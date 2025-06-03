@@ -8,11 +8,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', [ListaDeTarefasController::class, 'index'])->name('index.tarefas')->middleware(['auth', 'verified']);
+Route::get('/dashboard', [ListaDeTarefasController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::resource('tarefas', ListaDeTarefasController::class);
-    Route::get('/lista-tarefas', [ListaDeTarefasController::class, 'dashboard'])->name('dashboard.tarefas');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
