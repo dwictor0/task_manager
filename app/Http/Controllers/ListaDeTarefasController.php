@@ -28,8 +28,6 @@ class ListaDeTarefasController extends Controller
     }
 
     /**
-     * Método com as regras de validação.
-     *
      * Summary of index
      * @param object $indexTarefas - Executa a consulta para obter todas as tarefas.
      *
