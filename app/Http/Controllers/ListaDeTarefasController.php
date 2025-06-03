@@ -177,6 +177,15 @@ class ListaDeTarefasController extends Controller
             echo $message;
         }
     }
+    
+    /**
+     * Summary of restore
+     * @param integer $id
+     * @param object $tarefa
+     * @param string $statusTarefaPadrao
+     * @param boolean $atualizaTarefa
+     * @return mixed|\Illuminate\Http\RedirectResponse
+     */
     public function restore($id)
     {
         try {
