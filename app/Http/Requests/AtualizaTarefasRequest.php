@@ -22,7 +22,7 @@ class AtualizaTarefasRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'titulo' => 'required',
+            'titulo' => 'required|max:255',
         ];
     }
 
