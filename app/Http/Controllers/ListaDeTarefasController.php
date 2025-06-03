@@ -37,9 +37,7 @@ class ListaDeTarefasController extends Controller
     {
         try {
             $userId = (integer) Auth::id();
-            $indexTarefas = (object) $this->listaTarefas->select('id', 'titulo', 'descricao', 'status', 'created_at', 'deleted_at', 'user_id')
-                ->where('user_id', Auth::id())->withTrashed()->get();
-
+            $indexTarefas = (object) $this->listaTarefas->where('user_id', Auth::id())->withTrashed()->get();
             return view('dashboard', @compact('indexTarefas'));
         } catch (Exception $e) {
             $message = $e->getMessage();
