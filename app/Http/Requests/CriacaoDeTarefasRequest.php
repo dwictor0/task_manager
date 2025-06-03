@@ -30,6 +30,7 @@ class CriacaoDeTarefasRequest extends FormRequest
     {
         return[
             'titulo.required' => 'Para realizar a criação de uma tarefa informe o titulo!',
+            'titulo.max' => 'O titulo da tarefa não pode conter mais de 255 caracteres!',
         ];
     }
 }
