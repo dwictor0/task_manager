@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Log;
 
 class ListaDeTarefasController extends Controller
 {
+    private $listaTarefas;
     public function __construct(ListaTarefas $listaTarefas)
     {
         $this->listaTarefas = $listaTarefas;
