@@ -29,7 +29,7 @@ class CriacaoDeTarefasRequest extends FormRequest
     public function messages(): array
     {
         return[
-            'titulo.required' => 'Para realizar a criação de uma vaga informe o titulo!',
+            'titulo.required' => 'Para realizar a criação de uma tarefa informe o titulo!',
         ];
     }
 }
