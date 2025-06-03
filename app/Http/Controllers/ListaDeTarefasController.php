@@ -35,7 +35,6 @@ class ListaDeTarefasController extends Controller
      *
      * @return bool
      */
-
     public function index()
     {
         try {
@@ -54,11 +53,11 @@ class ListaDeTarefasController extends Controller
      * Summary of create
      * @return \Illuminate\Contracts\View\View
      */
-
     public function create()
     {
         return view('listaTarefas.createTarefas');
     }
+
     /**
      * Summary of store
      * @param string $titulo
@@ -68,7 +67,6 @@ class ListaDeTarefasController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return void
      */
-
     public function store(CriacaoDeTarefasRequest $request)
     {
         try {
@@ -89,13 +87,13 @@ class ListaDeTarefasController extends Controller
             echo $message;
         }
     }
+
     /**
      * Summary of edit
      * @param object $editTarefa - Identifica a vaga pelo id para que seja possivel atualizar as informações.
      * @param integer $id - Obtém da requisição o ID da vaga.
      * @return void
      */
-
     public function edit($id)
     {
         try {
@@ -108,6 +106,7 @@ class ListaDeTarefasController extends Controller
         }
 
     }
+
     /**
      * Summary of update
      * @param string $titulo - Armazena o título da vaga que será atualizado pela requisição.
@@ -117,7 +116,6 @@ class ListaDeTarefasController extends Controller
      * @param object $storeTarefa - Atualiza as colunas com os valores das variáveis definidas..
      * @return void
      */
-
     public function update(AtualizaTarefasRequest $request, $id)
     {
         try {
@@ -140,15 +138,16 @@ class ListaDeTarefasController extends Controller
             echo $message;
         }
     }
+
     /**
      * Summary of delete
      * @return void
      */
-
     public function delete()
     {
 
     }
+
     /**
      * Summary of destroy
      * 
@@ -156,7 +155,6 @@ class ListaDeTarefasController extends Controller
      * @param object $tarefa
      * @return void
      */
-
     public function destroy($id)
     {
         try {
