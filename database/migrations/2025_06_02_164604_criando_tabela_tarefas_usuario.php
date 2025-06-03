@@ -14,7 +14,7 @@ return new class extends Migration
       Schema::create('lista_tarefas', function (Blueprint $table) {
        $table->id();
        $table->text('titulo');
-       $table->text('descricao');
+       $table->text('descricao')->nullable();
        $table->integer('user_id')->nullable();
        $table->enum('status', ['pendente', 'concluida'])->default('pendente');
        $table->dateTime('created_at');
