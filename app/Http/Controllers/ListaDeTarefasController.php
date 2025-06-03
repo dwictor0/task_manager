@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Requests\AtualizaTarefasRequest;
 use App\Http\Requests\CriacaoDeTarefasRequest;
 use App\Models\ListaTarefas;
 use Illuminate\Http\Request;
@@ -23,7 +23,9 @@ class ListaDeTarefasController extends Controller
      */
 
     public function index(){
-        $indexTarefas = $this->listaTarefas->select('id','titulo','descricao','status')->get();
+        $indexTarefas = $this->listaTarefas->select('id','titulo','descricao','status','created_at','deleted_at','user_id')
+         ->where('user_id',Auth::id())->withTrashed()->get();
+
         return view('dashboard',@compact('indexTarefas'));
     }
     /**
@@ -57,9 +59,8 @@ class ListaDeTarefasController extends Controller
      */
 
     public function edit($id){
-      $editTarefa = $this->listaTarefas->select('id','titulo','descricao')
-      ->where('id',$id)
-      ->first();
+      $editTarefa = $this->listaTarefas->select('id','titulo','descricao')->where('id',$id)->first();
+
       return view('listaTarefas.editTarefas',@compact('editTarefa'));
     }
     /**
@@ -70,16 +71,19 @@ class ListaDeTarefasController extends Controller
      * @return void
      */
 
-    public function update(Request $request,$id){
+    public function update(AtualizaTarefasRequest $request,$id){
         $titulo = $request->input('titulo');
         $descricao = $request->input('descricao');
-         $storeTarefa = $this->listaTarefas->select('id','titulo','descricao')
+        
+        $tarefaStatusUpdate = 'concluida';
+        $storeTarefa = $this->listaTarefas->select('id','titulo','descricao')
         ->where('id',$id)->update([
             'titulo' => $titulo, 
             'descricao' => $descricao,
+            'status' => $tarefaStatusUpdate,
             'user_id' => Auth::id(),
         ]);
-         return redirect()->route('dashboard')->with('success', 'Permissões do usuário alterada com sucesso.');
+         return redirect()->route('dashboard');
     }
     /**
      * Summary of delete
@@ -94,7 +98,28 @@ class ListaDeTarefasController extends Controller
      * @return void
      */
 
-    public function destroy(){
+    public function destroy($id){
+        $tarefa = ListaTarefas::withTrashed()->findOrFail($id);
+    
+        if ($tarefa->trashed()) {
+            $tarefa->forceDelete();
+    
+            return redirect()->route('tarefas.index');
+        } else {
+            $tarefa->delete();
+    
+            return redirect()->route('tarefas.index');
+        }
+    }
+    public function restore($id){
+        $tarefa = $this->listaTarefas->withTrashed()->find($id);
+        $tarefa->restore();  
+        
+        $statusTarefaPadrao = 'pendente';
+        $atualizaTarefa = $this->listaTarefas->select('id','status')->where('id',$id)->update([
+            'status' => $statusTarefaPadrao,
+        ]);
 
+         return redirect()->route('dashboard');      
     }
 }
