@@ -30,13 +30,13 @@ class ListaDeTarefasController extends Controller
     /**
      * Summary of index
      * @param object $indexTarefas - Executa a consulta para obter todas as tarefas.
-     * @param integer $userID 
+     * @param integer $userId 
      * @return bool
      */
     public function index()
     {
         try {
-            $userID = (integer) Auth::id();
+            $userId = (integer) Auth::id();
             $indexTarefas = (object) $this->listaTarefas->select('id', 'titulo', 'descricao', 'status', 'created_at', 'deleted_at', 'user_id')
                 ->where('user_id', Auth::id())->withTrashed()->get();
 
@@ -61,7 +61,7 @@ class ListaDeTarefasController extends Controller
      * Summary of store
      * @param string $titulo
      * @param string $descricao
-     * @param integer $userID
+     * @param integer $userId
      * @param object $create - Recebe os dados da requisição para criar a vaga.
      * @param \Illuminate\Http\Request $request
      * @return void
@@ -71,12 +71,12 @@ class ListaDeTarefasController extends Controller
         try {
             $titulo = (string) $request->input('titulo');
             $descricao = (string) $request->input('descricao');
-            $userID = (integer) Auth::id();
+            $userId = (integer) Auth::id();
 
             $create = (object) $this->listaTarefas->create([
                 'titulo' => $titulo,
                 'descricao' => $descricao,
-                'user_id' => $userID,
+                'user_id' => $userId,
             ]);
 
             return redirect()->route('dashboard')->with('success', 'Permissões do usuário alterada com sucesso.');
@@ -110,7 +110,7 @@ class ListaDeTarefasController extends Controller
      * Summary of update
      * @param string $titulo - Armazena o título da vaga que será atualizado pela requisição.
      * @param string $descricao - Armazena a descricao da vaga que será atualizado pela requisição.
-     * @param integer $userID
+     * @param integer $userId
      * @param string $tarefaStatusUpdate 
      * @param object $storeTarefa - Atualiza as colunas com os valores das variáveis definidas..
      * @return void
@@ -120,7 +120,7 @@ class ListaDeTarefasController extends Controller
         try {
             $titulo = (string) $request->input('titulo');
             $descricao = (string) $request->input('descricao');
-            $userID = (integer) Auth::id();
+            $userId = (integer) Auth::id();
 
             $tarefaStatusUpdate = (string) 'concluida';
             $storeTarefa = (object) $this->listaTarefas->select('id', 'titulo', 'descricao')
@@ -128,7 +128,7 @@ class ListaDeTarefasController extends Controller
                         'titulo' => $titulo,
                         'descricao' => $descricao,
                         'status' => $tarefaStatusUpdate,
-                        'user_id' => $userID,
+                        'user_id' => $userId,
                     ]);
             return redirect()->route('dashboard');
         } catch (Exception $e) {
