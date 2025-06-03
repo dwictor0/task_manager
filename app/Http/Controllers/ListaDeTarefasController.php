@@ -11,7 +11,17 @@ use Illuminate\Support\Facades\Log;
 
 class ListaDeTarefasController extends Controller
 {
+
+    /**
+     * Summary of listaTarefas
+     * @var 
+     */
     private $listaTarefas;
+    
+    /**
+     * Summary of __construct
+     * @param \App\Models\ListaTarefas $listaTarefas
+     */
     public function __construct(ListaTarefas $listaTarefas)
     {
         $this->listaTarefas = $listaTarefas;
