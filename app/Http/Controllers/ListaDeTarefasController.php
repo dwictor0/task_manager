@@ -48,6 +48,7 @@ class ListaDeTarefasController extends Controller
         }
 
     }
+    
     /**
      * Summary of create
      * @return \Illuminate\Contracts\View\View
