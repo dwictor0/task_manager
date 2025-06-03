@@ -12,10 +12,13 @@ class ListaDeTarefasController extends Controller
         $this->listaTarefas = $listaTarefas;
     }
   
-   
     /**
+     * Método com as regras de validação.
+     *
      * Summary of index
-     * @return void
+     * @param array $indexTarefas - Executa a consulta para obter todas as tarefas.
+     *
+     * @return bool
      */
 
     public function index(){
@@ -24,7 +27,7 @@ class ListaDeTarefasController extends Controller
     }
     /**
      * Summary of create
-     * @return void
+     * @return \Illuminate\Contracts\View\View
      */
 
     public function create(){
@@ -32,6 +35,7 @@ class ListaDeTarefasController extends Controller
     }
     /**
      * Summary of store
+     * @param $create - Recebe os dados da requisição para criar a vaga.
      * @param \Illuminate\Http\Request $request
      * @return void
      */
@@ -46,7 +50,8 @@ class ListaDeTarefasController extends Controller
     }
     /**
      * Summary of edit
-     * @param mixed $id
+     * @param $editTarefa - Identifica a vaga pelo id para que seja possivel atualizar as informações.
+     * @param mixed $id - Obtém da requisição o ID da vaga.
      * @return void
      */
 
@@ -58,6 +63,9 @@ class ListaDeTarefasController extends Controller
     }
     /**
      * Summary of update
+     * @param string $titulo - Armazena o título da vaga que será atualizado pela requisição.
+     * @param string $descricao - Armazena a descricao da vaga que será atualizado pela requisição.
+     * @param mixed  $storeTarefa - Atualiza as colunas com os valores das variáveis definidas..
      * @return void
      */
 
