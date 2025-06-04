@@ -68,10 +68,16 @@ docker-compose up -d
 ```bash
 chown -R www-data:www-data storage
 ```
+5.Entre dentro do container do node e após entrar execute npm install e npm run build.
+```bash
+docker exec -it node sh
+npm install
+npm run build
+```
 5. Rode as migrations dentro do container do php<br>
 Para criar as tabelas do banco de dados:
 ```bash
-docker exec -it app php artisan migrate
+php artisan migrate
 ```
 ## Versão Atual
 - Criei status para controlar melhor o fluxo das tarefas. As mensagens de erro e sucesso ficaram mais claras. Também usei componentes Blade para organizar o código e configurei o projeto com Docker para facilitar a instalação.
