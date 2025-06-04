@@ -73,7 +73,7 @@
                             </span>
                             <span>
                                 Desenvolvido por:
-                                <a href="https://laracasts.com" target="_blank" class="inline-flex items-center space-x-1 font-medium underline underline-offset-4 text-[#f53003] dark:text-[#FF4433] ml-1">
+                                <a href="#"  class="inline-flex items-center space-x-1 font-medium underline underline-offset-4 text-[#f53003] dark:text-[#FF4433] ml-1">
                                     <span>Daniel Wictor</span>
                                     <svg
                                         width="10"
@@ -103,7 +103,7 @@
                 </div>
                 <div class="bg-[#fff2f2] dark:bg-[#1D0002] relative lg:-ml-px -mb-px lg:mb-0 rounded-t-lg lg:rounded-t-none lg:rounded-r-lg aspect-[335/376] lg:aspect-auto w-full lg:w-[438px] shrink-0 overflow-hidden">
                     {{-- Logo Website --}}
-         <div style="background-image: url('{{ asset('task.jpeg') }}'); width: 35rem; height: 25rem; background-size: cover;"></div>
+         <div style="background-image: url('{{ asset('task.jpg') }}'); width: 35rem; height: 25rem; background-size: cover;"></div>
 
                     </svg>
 
