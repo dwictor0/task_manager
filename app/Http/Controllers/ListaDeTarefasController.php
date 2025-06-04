@@ -193,7 +193,6 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
 
             if ($tarefa->trashed()) {
                 $tarefa->forceDelete();
-
             } 
             DB::commit();
                 $tarefa->delete();
