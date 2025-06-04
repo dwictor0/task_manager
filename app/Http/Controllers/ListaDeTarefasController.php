@@ -186,11 +186,11 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
             if ($tarefa->trashed()) {
                 $tarefa->forceDelete();
 
-                return redirect()->route('tarefas.index');
+                return redirect()->route('dashboard');
             } 
                 $tarefa->delete();
                 
-                return redirect()->route('tarefas.index');
+                return redirect()->route('dashboard');
                 
         } catch (Exception $e) {
             $message = $e->getMessage();
