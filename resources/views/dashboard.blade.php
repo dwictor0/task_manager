@@ -1,23 +1,9 @@
 <x-app-layout>
-  <x-slot name="header">
-    <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-      {{ __('System - Gestão de Tarefas') }}
-    </h2>
-
-
-    <div class="row">
-      <select name="filtro_status" id="filtro_status">
-        <option value="">Selecione</option>
-        <option value="Pendente">Pendente</option>
-        <option value="Concluida">Concluida</option>
-      </select>
-    </div>
-
-  </x-slot>
 
   <div class="py-12">
     <div class="mx-auto sm:px-6 lg:px-8">
       <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+        <x-filter-board></x-filter-board>
         <div class="p-6 text-gray-900 dark:text-gray-100">
           <table class="min-w-full table-auto border-separate border-spacing-y-2 text-left">
             <thead>
@@ -26,6 +12,7 @@
                 <th scope="col" class="px-6 py-3">Titulo</th>
                 <th scope="col" class="px-6 py-3">Descricao</th>
                 <th scope="col" class="px-6 py-3">Status</th>
+                <th scope="col" class="px-6 py-3">Data de Criação</th>
                 <th scope="col" class="px-6 py-3">Ações</th>
               </tr>
             </thead>
@@ -48,27 +35,27 @@
             @if(isset($index->deleted_at))
           <form action="{{ route('tarefas.restore', ['id' => $index->id]) }}" method="POST" class="inline">
           @csrf
-          <td><button type="submit"
-            class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700">Restaurar</button></td>
+          <td><x-restore-button></x-restore-button></td>
           </form>
           <form action="{{ route('tarefas.destroy', ['tarefa' => $index->id]) }}" method="POST">
           @csrf
           @method('DELETE')
-          <td><button type="submit" class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700">Excluir
-            Permanentemente</button></td>
+          <td><x-trash-button> {{ __('Excluir Permanentemente') }}</x-trash-button></td>
           </form>
         @else
-          <td><button type="submit" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"><a
-            href="{{ route('tarefas.edit', ['tarefa' => $index->id]) }}">Editar</a></button></td>
+          <td class="px-6 py-3">{{ $index->created_at->format('d-m-Y') }}</td>
+          <td>
+          <a href="{{ route('tarefas.edit', ['tarefa' => $index->id]) }}">
+          <x-edit-button></x-edit-button>
+          </a>
+          </td>
           <form action="{{ route('tarefas.destroy', ['tarefa' => $index->id]) }}" method="POST" class="inline">
           @method('DELETE')
           @csrf
-          <td><button type="submit" class="sm:px-5">Lixeira</button></td>
+          <td><x-trash-button>{{ __('Excluir') }}</x-trash-button></td>
           </form>
         @endif
             </tr>
-
-
         @endforeach
             </tbody>
           </table>
