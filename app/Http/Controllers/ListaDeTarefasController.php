@@ -37,7 +37,7 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     }
 
     /**
-     * Método index
+     * Método Index
      *
      * @return View
      * @author dwictor0
@@ -57,7 +57,7 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     }
 
     /**
-     * Método create
+     * Método Create
      *
      * @return View
      * @author dwictor0
@@ -68,8 +68,8 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     }
 
     /**
+     * Método Store
      * @param CriacaoDeTarefasRequestAlias $request
-     *
      * @return View|Redirect
      */
     public function store (CriacaoDeTarefasRequest $request): View|RedirectResponse
@@ -98,8 +98,8 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
 
 
     /**
+     * Método Edit
      * @param ListaTarefasAlias $tarefa
-     *
      * @return View
      */
     public function edit (ListaTarefas $tarefa): View
@@ -117,9 +117,9 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     }
 
     /**
+     * Método Update
      * @param AtualizaTarefasRequestAlias $request
      * @param ListaTarefasAlias           $tarefa
-     *
      * @return View|RedirectResponse
      */
     public function update (AtualizaTarefasRequest $request, ListaTarefas $tarefa): View|RedirectResponse
@@ -150,6 +150,7 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     }
 
     /**
+     * Método IndexSoftDelete
      * @return View
      */
     public function IndexSoftDelete (): View
@@ -168,8 +169,8 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     }
 
     /**
+     * Método Destroy
      * @param $id
-     *
      * @return View|RedirectResponse
      */
     public function destroy ($id): View|RedirectResponse
@@ -195,10 +196,8 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     }
 
     /**
-     * Método restore
-     *
+     * Método Restore
      * @param integer $id - Armazena o ID da tarefa da requisição.
-     *
      * @return View|RedirectResponse
      * @author dwictor0
      */
