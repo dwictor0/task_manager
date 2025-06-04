@@ -9,6 +9,7 @@ services:
       - laravel
     depends_on:
       - todoList-db
+    entrypoint: [ "sh", "-c", "chown -R www-data:www-data storage && php artisan migrate && php-fpm " ]
 
   nginx:
     build:
@@ -28,7 +29,7 @@ services:
     volumes:
       - .docker/db_data:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: root     
+      MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_USER: ${DB_USERNAME}
       MYSQL_PASSWORD: ${DB_PASSWORD}
@@ -54,9 +55,9 @@ services:
     working_dir: /app
     volumes:
       - ./:/app
-    entrypoint: [ "tail", "-f", "/dev/null" ] # Mantém o container rodando
     networks:
       - laravel
+    entrypoint: [ "sh", "-c", "npm install && npm run build && tail -f /dev/null" ]
 
 networks:
   laravel:
