@@ -1,22 +1,20 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Http\Requests\AtualizaTarefasRequest;
 use App\Http\Requests\AtualizaTarefasRequest as AtualizaTarefasRequestAlias;
-use App\Http\Requests\CriacaoDeTarefasRequest;
 use App\Http\Requests\CriacaoDeTarefasRequest as CriacaoDeTarefasRequestAlias;
-use App\ListaDeTarefasInterface;
-use App\Models\ListaTarefas;
-
 use App\Models\ListaTarefas as ListaTarefasAlias;
-
+use App\Http\Requests\CriacaoDeTarefasRequest;
 use Illuminate\Contracts\View\View;
+use App\ListaDeTarefasInterface;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Auth;
-use Exception;
+use App\Models\ListaTarefas;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
+use Exception;
+use DB;
+use Auth;
 
 class ListaDeTarefasController extends Controller implements ListaDeTarefasInterface
 {
