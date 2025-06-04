@@ -5,7 +5,6 @@ use App\Http\Requests\AtualizaTarefasRequest;
 use App\Http\Requests\CriacaoDeTarefasRequest;
 use App\ListaDeTarefasInterface;
 use App\Models\ListaTarefas;
-use Illuminate\Http\Request;
 use Auth;
 use Exception;
 use Illuminate\Support\Facades\Log;
