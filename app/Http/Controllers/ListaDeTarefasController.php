@@ -14,13 +14,15 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
 {
 
     /**
-     * Summary of listaTarefas
+     * Summary of $listaTarefas
+     * @author dwictor0 
      * @var 
      */
     private $listaTarefas;
     
     /**
-     * Summary of __construct
+     * Método __construct
+     * @author dwictor0 
      * @param \App\Models\ListaTarefas $listaTarefas
      */
     public function __construct(ListaTarefas $listaTarefas)
@@ -29,10 +31,11 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     }
 
     /**
-     * Summary of index
+     * Método index
+     * @author dwictor0 
      * @param object $indexTarefas - Executa a consulta para obter todas as tarefas.
-     * @param integer $userId 
-     * @return bool
+     * @param integer $userId - ID do usuario que está visualizando as tarefas.
+     * @return \Illuminate\Contracts\View\View
      */
     public function index()
     {
@@ -50,7 +53,8 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     }
     
     /**
-     * Summary of create
+     * Método create
+     * @author dwictor0 
      * @return \Illuminate\Contracts\View\View
      */
     public function create()
@@ -59,13 +63,15 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     }
 
     /**
-     * Summary of store
-     * @param string $titulo
-     * @param string $descricao
-     * @param integer $userId
+     * Método store
+     * @author dwictor0 
+     * @param \App\Http\Requests\CriacaoDeTarefasRequest $request
+     * @param string $titulo - Titulo da tarefa que está sendo criada.
+     * @param string $descricao - Descricao fornecida na criação da tarefa
+     * @param integer $userId - ID do usuario que realizou a criação da tarefa.
      * @param object $create - Recebe os dados da requisição para criar a vaga.
      * @param \Illuminate\Http\Request $request
-     * @return void
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
      */
     public function store(CriacaoDeTarefasRequest $request)
     {
@@ -89,10 +95,12 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     }
 
     /**
-     * Summary of edit
+     * Método edit
+     * @author dwictor0 
+     * @param \App\Models\ListaTarefas $tarefa
      * @param object $editTarefa - Identifica a vaga pelo id para que seja possivel atualizar as informações.
-     * @param integer $id - Obtém da requisição o ID da vaga.
-     * @return void
+     * @param integer $tarefa - Identifica a tarefa através do id da requisição para que seja possivel realizar a atualização.
+     * @return \Illuminate\Contracts\View\View
      */
     public function edit(ListaTarefas $tarefa)
     {
@@ -108,13 +116,16 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     }
 
     /**
-     * Summary of update
-     * @param string $titulo - Armazena o título da vaga que será atualizado pela requisição.
-     * @param string $descricao - Armazena a descricao da vaga que será atualizado pela requisição.
-     * @param integer $userId
-     * @param string $tarefaStatusUpdate 
-     * @param object $storeTarefa - Atualiza as colunas com os valores das variáveis definidas..
-     * @return void
+     * Método update
+     * @author dwictor0
+     * @param \App\Http\Requests\AtualizaTarefasRequest $request
+     * @param \App\Models\ListaTarefas $tarefa
+     * @param string $titulo - Título da tarefa recebido pela requisição.
+     * @param string $descricao - Texto atualizado da descrição conforme valor da requisição.
+     * @param string $tarefaStatusUpdate - Status da tarefa obtido pela requisição
+     * @param integer $userId - ID do usuario que está realizando a atualização.
+     * @param object $storeTarefa - Atualiza as colunas com os valores das variáveis definidas.
+     * @return mixed|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
      */
     public function update(AtualizaTarefasRequest $request,ListaTarefas $tarefa)
     {
@@ -138,8 +149,10 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
         }
     }
 
-    /**
-     * Summary of delete
+    /** 
+     * Método delete
+     * @author dwictor0 
+     * @param $indexTarefasDeleted - Pega todas as tarefas que estão com soft-delete.
      * @return \Illuminate\Contracts\View\View
      */
     public function delete()
@@ -159,10 +172,10 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     }
 
     /**
-     * Summary of destroy
-     * 
-     * @param integer $id
-     * @param object $tarefa
+     * Método destroy
+     * @author dwictor0 
+     * @param integer $id - Armazena o ID da tarefa da requisição.
+     * @param object $tarefa - Busca a tarefa da requisição para aplicar soft delete ou exclusão permanente conforme a condicional.
      * @return void
      */
     public function destroy($id)
@@ -187,12 +200,11 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     }
     
     /**
-     * Summary of restore
-     * @param integer $id
-     * @param object $tarefa
-     * @param string $statusTarefaPadrao
-     * @param boolean $atualizaTarefa
-     * @return mixed|\Illuminate\Http\RedirectResponse
+     * Método restore
+     * @author dwictor0 
+     * @param integer $id - Armazena o ID da tarefa da requisição.
+     * @param object $tarefa - Busca a tarefa pelo ID, incluindo as com soft-delete
+     * @return \Illuminate\Http\RedirectResponse 
      */
     public function restore($id)
     {
