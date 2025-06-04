@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Auth;
 use Exception;
 use Illuminate\Support\Facades\Log;
+use DB;
 
 class ListaDeTarefasController extends Controller implements ListaDeTarefasInterface
 {
@@ -76,20 +77,23 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     public function store(CriacaoDeTarefasRequest $request)
     {
         try {
+            DB::beginTransaction();
             $titulo = (string) $request->input('titulo');
             $descricao = (string) $request->input('descricao');
             $userId = (integer) Auth::id();
-
+            
+            DB::commit();
             $create = (object) $this->listaTarefas->create([
                 'titulo' => $titulo,
                 'descricao' => $descricao,
                 'user_id' => $userId,
             ]);
 
-            return redirect()->route('dashboard')->with('success', 'Permissões do usuário alterada com sucesso.');
+            return redirect()->route('dashboard')->with('success', 'Tarefa criada com sucesso!.');
         } catch (Exception $e) {
             $message = $e->getMessage();
             Log::error("Erro ao executar a criação da tarefa:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
+            DB::rollBack();
             return view('errors.exception',@compact('message'));
         }
     }
@@ -130,21 +134,24 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     public function update(AtualizaTarefasRequest $request,ListaTarefas $tarefa)
     {
         try {
+            DB::beginTransaction();
             $tarefaStatusUpdate = (string) $request->input('status');
             $titulo = (string) $request->input('titulo');
             $descricao = (string) $request->input('descricao');
             $userId = (integer) Auth::id();
 
+            DB::commit();
             $tarefa->where('id', $tarefa->id)->update([
                         'titulo' => $titulo,
                         'descricao' => $descricao,
                         'status' => $tarefaStatusUpdate,
                         'user_id' => $userId,
                     ]);
-            return redirect()->route('dashboard');
+            return redirect()->route('dashboard')->with('success','Tarefa atualizada!');
         } catch (Exception $e) {
             $message = $e->getMessage();
             Log::error("Erro ao realizar a edição da tarefa:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
+            DB::rollBack();
             return view('errors.exception',@compact('message'));
         }
     }
@@ -181,20 +188,22 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     public function destroy($id)
     {
         try {
+            DB::beginTransaction();
             $tarefa = (object) $this->listaTarefas->withTrashed()->findOrFail($id);
 
             if ($tarefa->trashed()) {
                 $tarefa->forceDelete();
 
-                return redirect()->route('dashboard');
             } 
+            DB::commit();
                 $tarefa->delete();
                 
-                return redirect()->route('dashboard');
+                return redirect()->route('dashboard')->with('success','Tarefa deletada com sucesso!');
                 
         } catch (Exception $e) {
             $message = $e->getMessage();
             Log::error("Erro ao processar a exclusão da tarefa:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
+            DB::rollBack();
             return view('errors.exception',@compact('message'));
         }
     }
@@ -209,13 +218,17 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     public function restore($id)
     {
         try {
+            DB::beginTransaction();
+            
             $tarefa = (object) $this->listaTarefas->withTrashed()->find($id);
             $tarefa->restore();
 
-            return redirect()->route('dashboard');
+            DB::commit();
+            return redirect()->route('dashboard')->with('success','A tarefa foi restaurada com sucesso!');
         } catch (Exception $e) {
             $message = $e->getMessage();
             Log::error("Erro ao tentar restaurar a tarefa excluida:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
+            DB::rollBack();
             return view('errors.exception',@compact('message'));
         }
     }
