@@ -73,5 +73,9 @@ Para criar as tabelas do banco de dados:
 ```bash
 docker exec -it app php artisan migrate
 ```
+## Versão Atual
+- Criei status para controlar melhor o fluxo das tarefas. As mensagens de erro e sucesso ficaram mais claras. Também usei componentes Blade para organizar o código e configurei o projeto com Docker para facilitar a instalação.
 
+## Versões Futuras
+-Vou incluir filtros mais avançados para facilitar a busca das tarefas. Também quero adicionar notificações para lembrar prazos e melhorar a interface para ficar mais intuitiva.
 
