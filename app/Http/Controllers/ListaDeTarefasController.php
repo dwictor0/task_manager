@@ -147,6 +147,7 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
                         'status' => $tarefaStatusUpdate,
                         'user_id' => $userId,
                     ]);
+                    
             return redirect()->route('dashboard')->with('success','Tarefa atualizada!');
         } catch (Exception $e) {
             $message = $e->getMessage();
@@ -197,8 +198,7 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
             DB::commit();
                 $tarefa->delete();
                 
-                return redirect()->route('dashboard')->with('success','Tarefa deletada com sucesso!');
-                
+                return redirect()->route('dashboard')->with('success','Tarefa deletada com sucesso!');               
         } catch (Exception $e) {
             $message = $e->getMessage();
             Log::error("Erro ao processar a exclusão da tarefa:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
@@ -223,6 +223,7 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
             $tarefa->restore();
 
             DB::commit();
+
             return redirect()->route('dashboard')->with('success','A tarefa foi restaurada com sucesso!');
         } catch (Exception $e) {
             $message = $e->getMessage();
