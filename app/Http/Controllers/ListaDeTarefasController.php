@@ -26,10 +26,8 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
 
     /**
      * Método __construct
-     *
-     * @param ListaTarefas $listaTarefas
-     *
      * @author dwictor0
+     * @param ListaTarefas $listaTarefas
      */
     public function __construct (ListaTarefas $listaTarefas)
     {
@@ -38,7 +36,6 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
 
     /**
      * Método Index
-     *
      * @return View
      * @author dwictor0
      */
@@ -58,7 +55,6 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
 
     /**
      * Método Create
-     *
      * @return View
      * @author dwictor0
      */
@@ -69,6 +65,7 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
 
     /**
      * Método Store
+     * @author dwictor0
      * @param CriacaoDeTarefasRequestAlias $request
      * @return View|Redirect
      */
@@ -99,6 +96,7 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
 
     /**
      * Método Edit
+     * @author dwictor0
      * @param ListaTarefasAlias $tarefa
      * @return View
      */
@@ -118,8 +116,9 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
 
     /**
      * Método Update
+     * @author dwictor0
      * @param AtualizaTarefasRequestAlias $request
-     * @param ListaTarefasAlias           $tarefa
+     * @param ListaTarefasAlias $tarefa
      * @return View|RedirectResponse
      */
     public function update (AtualizaTarefasRequest $request, ListaTarefas $tarefa): View|RedirectResponse
@@ -151,6 +150,7 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
 
     /**
      * Método IndexSoftDelete
+     * @author dwictor0 
      * @return View
      */
     public function IndexSoftDelete (): View
@@ -171,6 +171,7 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     /**
      * Método Destroy
      * @param $id
+     * @author dwictor0 
      * @return View|RedirectResponse
      */
     public function destroy ($id): View|RedirectResponse
