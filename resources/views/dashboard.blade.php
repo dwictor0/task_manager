@@ -4,13 +4,13 @@
     <div class="mx-auto sm:px-6 lg:px-8">
       <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         @if(session('success'))
-  <div class="alert-success">
-    <strong>Sucesso!</strong>
-    <p class="mt-2">
-      {{ session('success') }}
-    </p>
-  </div>
-@endif
+      <div class="alert-success">
+        <strong>Sucesso!</strong>
+        <p class="mt-2">
+        {{ session('success') }}
+        </p>
+      </div>
+    @endif
         <x-filter-board></x-filter-board>
         <div class="p-6 text-gray-900 dark:text-gray-100">
           <table class="min-w-full table-auto border-separate border-spacing-y-2 text-left">
@@ -73,7 +73,7 @@
   </div>
 </x-app-layout>
 <style>
-    .alert-success {
+  .alert-success {
     background-color: #d4edda;
     border: 1px solid #c3e6cb;
     color: #155724;
@@ -86,18 +86,18 @@
   document.addEventListener("DOMContentLoaded", function () {
     const selectFiltro = document.getElementById("filtro_status");
 
-    
+
     selectFiltro.addEventListener("change", function () {
       const statusSelecionado = this.value.toLowerCase();
-      
+
       const linhas = document.querySelectorAll("tbody tr");
-      
+
       linhas.forEach(linha => {
         const celulas = linha.getElementsByTagName("td");
         const statusCelula = celulas[3] ? celulas[3].innerText.trim().toLowerCase() : "";
         console.log(statusCelula);
-        
-        
+
+
         if (!statusSelecionado || statusCelula === statusSelecionado) {
           linha.style.display = "";
         } else {
