@@ -16,7 +16,7 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     /**
      * Summary of $listaTarefas
      * @author dwictor0 
-     * @var 
+     * @var $listaTarefas
      */
     private $listaTarefas;
     
