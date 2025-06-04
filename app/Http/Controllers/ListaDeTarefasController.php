@@ -144,7 +144,18 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
      */
     public function delete()
     {
-
+        try {
+            $indexTarefasDeleted = (object) $this->listaTarefas
+            ->where('user_id', Auth::id())
+            ->whereNotNull('deleted_at')
+            ->withTrashed()->get();
+      
+            return view('listaTarefas.deletedTarefas',@compact('indexTarefasDeleted'));
+        } catch (Exception $e) {
+            $message = $e->getMessage();
+            Log::error("Erro ao listar as tarefas excluidas:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
+            return view('errors.exception',@compact('message'));
+        }
     }
 
     /**
