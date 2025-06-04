@@ -97,7 +97,7 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     public function edit(ListaTarefas $tarefa)
     {
         try {
-            $tarefa = (object) $this->listaTarefas->select('id', 'titulo', 'descricao')->where('id', $tarefa->id)->first();
+            $tarefa = (object) $this->listaTarefas->select('id', 'titulo', 'descricao','status')->where('id', $tarefa->id)->first();
             return view('listaTarefas.editTarefas', @compact('tarefa'));
         } catch (Exception $e) {
             $message = $e->getMessage();
@@ -119,11 +119,11 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     public function update(AtualizaTarefasRequest $request,ListaTarefas $tarefa)
     {
         try {
+            $tarefaStatusUpdate = (string) $request->input('status');
             $titulo = (string) $request->input('titulo');
             $descricao = (string) $request->input('descricao');
             $userId = (integer) Auth::id();
 
-            $tarefaStatusUpdate = (string) 'concluida';
             $tarefa->where('id', $tarefa->id)->update([
                         'titulo' => $titulo,
                         'descricao' => $descricao,
@@ -199,11 +199,6 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
         try {
             $tarefa = (object) $this->listaTarefas->withTrashed()->find($id);
             $tarefa->restore();
-
-            $statusTarefaPadrao = (string) 'pendente';
-            $atualizaTarefa = $this->listaTarefas->select('id', 'status')->where('id', $id)->update([
-                'status' => $statusTarefaPadrao,
-            ]);
 
             return redirect()->route('dashboard');
         } catch (Exception $e) {
