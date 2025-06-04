@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 use App\Http\Requests\AtualizaTarefasRequest;
 use App\Http\Requests\CriacaoDeTarefasRequest;
+use App\ListaDeTarefasInterface;
 use App\Models\ListaTarefas;
 use Illuminate\Http\Request;
 use Auth;
 use Exception;
 use Illuminate\Support\Facades\Log;
 
-class ListaDeTarefasController extends Controller
+class ListaDeTarefasController extends Controller implements ListaDeTarefasInterface
 {
 
     /**
@@ -37,12 +38,13 @@ class ListaDeTarefasController extends Controller
     {
         try {
             $userId = (integer) Auth::id();
-            $indexTarefas = (object) $this->listaTarefas->where('user_id', Auth::id())->withTrashed()->get();
+            $indexTarefas = (object) $this->listaTarefas->where('user_id', Auth::id())->get();
+
             return view('dashboard', @compact('indexTarefas'));
         } catch (Exception $e) {
             $message = $e->getMessage();
             Log::error("Erro ao carregar as tarefas:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
-            echo $message;
+            return view('errors.exception',@compact('message'));
         }
 
     }
@@ -82,7 +84,7 @@ class ListaDeTarefasController extends Controller
         } catch (Exception $e) {
             $message = $e->getMessage();
             Log::error("Erro ao executar a criação da tarefa:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
-            echo $message;
+            return view('errors.exception',@compact('message'));
         }
     }
 
@@ -100,7 +102,7 @@ class ListaDeTarefasController extends Controller
         } catch (Exception $e) {
             $message = $e->getMessage();
             Log::error("Erro ao carregar os dados para edição da tarefa:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
-            echo $message;
+            return view('errors.exception',@compact('message'));
         }
 
     }
@@ -132,13 +134,13 @@ class ListaDeTarefasController extends Controller
         } catch (Exception $e) {
             $message = $e->getMessage();
             Log::error("Erro ao realizar a edição da tarefa:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
-            echo $message;
+            return view('errors.exception',@compact('message'));
         }
     }
 
     /**
      * Summary of delete
-     * @return void
+     * @return \Illuminate\Contracts\View\View
      */
     public function delete()
     {
@@ -169,7 +171,7 @@ class ListaDeTarefasController extends Controller
         } catch (Exception $e) {
             $message = $e->getMessage();
             Log::error("Erro ao processar a exclusão da tarefa:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
-            echo $message;
+            return view('errors.exception',@compact('message'));
         }
     }
     
@@ -196,7 +198,7 @@ class ListaDeTarefasController extends Controller
         } catch (Exception $e) {
             $message = $e->getMessage();
             Log::error("Erro ao tentar restaurar a tarefa excluida:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
-            echo $message;
+            return view('errors.exception',@compact('message'));
         }
     }
 }
