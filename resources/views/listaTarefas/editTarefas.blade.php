@@ -23,20 +23,20 @@
           </ul>
         </div>
     @endif
-        <form action="{{ route('tarefas.update', ['tarefa' => $editTarefa->id]) }}" method="POST">
+        <form action="{{ route('tarefas.update', ['tarefa' => $tarefa->id]) }}" method="POST">
           @csrf
           @method('PUT')
           <div class="mb-4">
             <label for="titulo" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Título</label>
             <input type="text" name="titulo" id="titulo"
               class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 dark:bg-gray-700 text-white"
-              value="{{ $editTarefa->titulo }}">
+              value="{{ $tarefa->titulo }}">
           </div>
 
           <div class="mb-4">
             <label for="descricao" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Descrição</label>
             <textarea name="descricao" id="descricao" rows="5"
-              class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 dark:bg-gray-700 text-white resize-y">{{$editTarefa->descricao }}</textarea>
+              class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 dark:bg-gray-700 text-white resize-y">{{$tarefa->descricao }}</textarea>
           </div>
 
           <div>
