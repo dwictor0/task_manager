@@ -92,11 +92,11 @@ class ListaDeTarefasController extends Controller
      * @param integer $id - Obtém da requisição o ID da vaga.
      * @return void
      */
-    public function edit($id)
+    public function edit(ListaTarefas $tarefa)
     {
         try {
-            $editTarefa = (object) $this->listaTarefas->select('id', 'titulo', 'descricao')->where('id', $id)->first();
-            return view('listaTarefas.editTarefas', @compact('editTarefa'));
+            $tarefa = (object) $this->listaTarefas->select('id', 'titulo', 'descricao')->where('id', $tarefa->id)->first();
+            return view('listaTarefas.editTarefas', @compact('tarefa'));
         } catch (Exception $e) {
             $message = $e->getMessage();
             Log::error("Erro ao carregar os dados para edição da tarefa:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
@@ -114,7 +114,7 @@ class ListaDeTarefasController extends Controller
      * @param object $storeTarefa - Atualiza as colunas com os valores das variáveis definidas..
      * @return void
      */
-    public function update(AtualizaTarefasRequest $request, $id)
+    public function update(AtualizaTarefasRequest $request,ListaTarefas $tarefa)
     {
         try {
             $titulo = (string) $request->input('titulo');
@@ -122,8 +122,7 @@ class ListaDeTarefasController extends Controller
             $userId = (integer) Auth::id();
 
             $tarefaStatusUpdate = (string) 'concluida';
-            $storeTarefa = (object) $this->listaTarefas->select('id', 'titulo', 'descricao')
-                ->where('id', $id)->update([
+            $tarefa->where('id', $tarefa->id)->update([
                         'titulo' => $titulo,
                         'descricao' => $descricao,
                         'status' => $tarefaStatusUpdate,
