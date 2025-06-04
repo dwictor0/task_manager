@@ -39,6 +39,15 @@
               class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 dark:bg-gray-700 text-white resize-y">{{$tarefa->descricao }}</textarea>
           </div>
 
+           <div class="mb-6">
+            <label for="status" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Status</label>
+            <select name="status" id="status"
+              class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 dark:bg-gray-700 text-white">
+              <option value="{{ $tarefa->status }}" selected>Selecione o status</option>
+              <option value="pendente">Pendente</option>
+              <option value="concluida">Concluída</option>
+            </select>
+          </div>
           <div>
             <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
               Salvar
