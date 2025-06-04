@@ -44,44 +44,19 @@ Copie o arquivo .env.example para .env:
 ```bash
 cp .env.example .env
 ```
-Configure as variáveis conforme necessário. Exemplo de configuração mínima:
-```bash
-APP_NAME=Laravel
-APP_ENV=local
-APP_KEY=
-APP_DEBUG=true
-APP_URL=http://localhost
-
-DB_CONNECTION=mysql
-DB_HOST=mysql
-DB_PORT=3306
-DB_DATABASE=laravel
-DB_USERNAME=root
-DB_PASSWORD=root
-```
 3. Subir os containers com Docker<br>
  Para iniciar o ambiente:
 ```bash
 docker-compose up -d 
 ```
-4. Dentro do container do PHP rode o comando para liberar as permissões
+4.Caso aconteça algum erro de conexão ou alguma inconsistência rode esses comandos.<br>
+ Após remover os containers do docker rode o comando indicado no indice 2 
 ```bash
-chown -R www-data:www-data storage
-```
-5.Entre dentro do container do node e após entrar execute npm install e npm run build.
-```bash
-docker exec -it node sh
-npm install
-npm run build
-```
-5. Rode as migrations dentro do container do php<br>
-Para criar as tabelas do banco de dados:
-```bash
-php artisan migrate
-```
+docker compose down --rmi all
+``` 
 ## Versão Atual
 - Criei status para controlar melhor o fluxo das tarefas. As mensagens de erro e sucesso ficaram mais claras. Também usei componentes Blade para organizar o código e configurei o projeto com Docker para facilitar a instalação.
 
 ## Versões Futuras
--Vou incluir filtros mais avançados para facilitar a busca das tarefas. Também quero adicionar notificações para lembrar prazos e melhorar a interface para ficar mais intuitiva.
+- Vou incluir filtros mais avançados para facilitar a busca das tarefas. Também quero adicionar notificações para lembrar prazos e melhorar a interface para ficar mais intuitiva.
 
