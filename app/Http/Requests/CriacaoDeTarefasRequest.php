@@ -23,7 +23,6 @@ class CriacaoDeTarefasRequest extends FormRequest
     {
         return [
             'titulo' => 'required|max:255',
-            'descricao' => 'sometimes|required',
         ];
     }
     public function messages(): array
