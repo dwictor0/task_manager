@@ -10,7 +10,7 @@
     <div class="container mt-5">
         <div class="alert alert-danger" role="alert">
             <h4 class="alert-heading">Ocorreu um erro!</h4>
-            <p>{{ $message }}</p>
+            <p>ERROR 500</p>
             <hr>
         </div>
     </div>
