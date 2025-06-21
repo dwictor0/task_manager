@@ -73,7 +73,7 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     {
         try {
             DB::beginTransaction();
-            $titulo = (string)$request->input('titulo');
+            $titulo = (string) $request->input('titulo');
             $descricao = (string)$request->input('descricao');
             $userId = (integer)Auth::id();
 
@@ -104,8 +104,9 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     {
         try {
             $tarefaId = $tarefa->id;
-            $tarefa = $this->listaTarefas->select('id', 'titulo', 'descricao', 'status')->first($tarefaId);
-
+            $tarefa = $this->listaTarefas->select('id', 'titulo', 'descricao', 'status')
+             ->where('id',$tarefaId)
+             ->first();
             return view('listaTarefas.editTarefas', @compact('tarefa'));
         } catch (Exception $e) {
             Log::error("Erro ao carregar os dados para edição da tarefa:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
