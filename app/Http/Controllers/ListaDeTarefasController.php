@@ -10,6 +10,7 @@ use Illuminate\Contracts\View\View;
 use App\ListaDeTarefasInterface;
 use Illuminate\Http\RedirectResponse;
 use App\Models\ListaTarefas;
+use App\Services\TarefasService;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Exception;
@@ -23,15 +24,17 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
      * @var ListaTarefas
      */
     private ListaTarefas $listaTarefas;
+    private TarefasService $tarefasService;
 
     /**
      * Método __construct
      * @author dwictor0
      * @param ListaTarefas $listaTarefas
      */
-    public function __construct (ListaTarefas $listaTarefas)
+    public function __construct (ListaTarefas $listaTarefas,TarefasService $tarefasService)
     {
         $this->listaTarefas = $listaTarefas;
+        $this->tarefasService = $tarefasService;
     }
 
     /**
@@ -41,16 +44,9 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
      */
     public function index (): View
     {
-        try {
-            $userId = (integer)Auth::id();
-            $indexTarefas = $this->listaTarefas->where('user_id', $userId)->get();
+        $tarefas = $this->tarefasService->indexTarefas();
 
-            return view('dashboard', @compact('indexTarefas'));
-        } catch (Exception $e) {
-            Log::error("Erro ao carregar as tarefas:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
-            return view('errors.exception');
-        }
-
+        return view('dashboard', @compact('tarefas'));
     }
 
     /**
@@ -73,18 +69,10 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     {
         try {
             DB::beginTransaction();
-            $titulo = (string) $request->input('titulo');
-            $descricao = (string)$request->input('descricao');
-            $userId = (integer)Auth::id();
-
-            $this->listaTarefas->create([
-                'titulo' => $titulo,
-                'descricao' => $descricao,
-                'user_id' => $userId,
-            ]);
+            
+            $this->tarefasService->criarTarefas($request);
 
             DB::commit();
-
             return redirect()->route('dashboard')->with('success', 'Tarefa criada com sucesso!.');
         } catch (Exception $e) {
             DB::rollBack();
@@ -104,9 +92,8 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     {
         try {
             $tarefaId = $tarefa->id;
-            $tarefa = $this->listaTarefas->select('id', 'titulo', 'descricao', 'status')
-             ->where('id',$tarefaId)
-             ->first();
+            $tarefa = $this->tarefasService->buscarTarefa($tarefaId);
+        
             return view('listaTarefas.editTarefas', @compact('tarefa'));
         } catch (Exception $e) {
             Log::error("Erro ao carregar os dados para edição da tarefa:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
@@ -127,20 +114,9 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
         try {
             DB::beginTransaction();
 
-            $tarefaStatusUpdate = (string)$request->input('status');
-            $titulo = (string)$request->input('titulo');
-            $descricao = (string)$request->input('descricao');
-            $userId = (integer)Auth::id();
-
-            $tarefa->update([
-                'titulo' => $titulo,
-                'descricao' => $descricao,
-                'status' => $tarefaStatusUpdate,
-                'user_id' => $userId,
-            ]);
+            $this->tarefasService->atualizaTarefa($request,$tarefa);
 
             DB::commit();
-
             return redirect()->route('dashboard')->with('success', 'Tarefa atualizada!');
         } catch (Exception $e) {
             DB::rollBack();
@@ -157,12 +133,9 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     public function IndexSoftDelete (): View
     {
         try {
-            $indexTarefasDeleted = $this->listaTarefas
-                ->where('user_id', Auth::id())
-                ->whereNotNull('deleted_at')
-                ->withTrashed()->get();
-
-            return view('listaTarefas.deletedTarefas', @compact('indexTarefasDeleted'));
+            $index = $this->tarefasService->buscaTarefaDeletada();
+            
+            return view('listaTarefas.deletedTarefas', @compact('index'));
         } catch (Exception $e) {
             Log::error("Erro ao listar as tarefas excluidas:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
             return view('errors.exception');
@@ -179,13 +152,8 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     {
         try {
             DB::beginTransaction();
-            $tarefa = $this->listaTarefas->withTrashed()->findOrFail($id);
-
-            if ($tarefa->trashed()) {
-                $tarefa->forceDelete();
-            } else {
-                $tarefa->delete();
-            }
+            
+            $this->tarefasService->deletarTarefa($id);
 
             DB::commit();
 
@@ -208,8 +176,7 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
         try {
             DB::beginTransaction();
 
-            $tarefa = $this->listaTarefas->withTrashed()->findOrFail($id);
-            $tarefa->restore();
+            $this->tarefasService->restaurarTarefa($id);
 
             DB::commit();
 
