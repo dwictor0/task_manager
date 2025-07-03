@@ -25,7 +25,7 @@
               </tr>
             </thead>
             <tbody>
-              @foreach ($indexTarefas as $index)
+              @foreach ($tarefas as $index)
 
             <tr class="bg-white dark:bg-gray-800 border rounded">
             <td class="px-6 py-3">{{ $index->id }}</td>
