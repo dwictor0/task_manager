@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 use App\Http\Requests\AtualizaTarefasRequest;
-use App\Http\Requests\AtualizaTarefasRequest as AtualizaTarefasRequestAlias;
-use App\Http\Requests\CriacaoDeTarefasRequest as CriacaoDeTarefasRequestAlias;
-use App\Models\ListaTarefas as ListaTarefasAlias;
 use App\Http\Requests\CriacaoDeTarefasRequest;
 use Illuminate\Contracts\View\View;
 use App\ListaDeTarefasInterface;
@@ -62,7 +59,7 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     /**
      * Método Store
      * @author dwictor0
-     * @param CriacaoDeTarefasRequestAlias $request
+     * @param CriacaoDeTarefasRequest $request
      * @return View|Redirect
      */
     public function store (CriacaoDeTarefasRequest $request): View|RedirectResponse
@@ -152,7 +149,7 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     {
         try {
             DB::beginTransaction();
-            
+             
             $this->tarefasService->deletarTarefa($id);
 
             DB::commit();

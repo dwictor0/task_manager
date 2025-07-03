@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\ListaTarefas;
+use App\Events\TestePusherEvent;
 use Auth;
 
 
@@ -48,6 +49,8 @@ class TarefasService
             'descricao' => $descricao,
             'user_id' => $userId,
         ]);
+
+        broadcast(new TestePusherEvent($userId));
 
     }
 

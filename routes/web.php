@@ -3,9 +3,15 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ListaDeTarefasController;
+use App\Events\TestePusherEvent;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/test', function () {
+    broadcast(new TestePusherEvent('Mensagem de teste!'));
+    return 'Evento enviado!';
 });
 
 Route::get('/dashboard', [ListaDeTarefasController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
