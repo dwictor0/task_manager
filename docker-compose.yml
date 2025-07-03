@@ -9,7 +9,8 @@ services:
       - laravel
     depends_on:
       - todoList-db
-    entrypoint: [ "sh", "-c", "chown -R www-data:www-data storage && php artisan migrate && php-fpm " ]
+    entrypoint: [ "sh", "-c", "composer install && chown -R www-data:www-data storage && php artisan migrate && php-fpm" ]
+
 
   nginx:
     build:
