@@ -16,7 +16,7 @@ return new class extends Migration
        $table->text('titulo');
        $table->text('descricao')->nullable();
        $table->integer('user_id')->nullable();
-       $table->enum('status', ['pendente', 'concluida'])->default('pendente');
+       $table->enum('status', ['pendente', 'concluida','em_progresso'])->default('pendente');
        $table->dateTime('created_at');
        $table->dateTime('updated_at');
        $table->dateTime('deleted_at')->nullable();
