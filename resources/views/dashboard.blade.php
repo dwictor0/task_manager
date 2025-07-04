@@ -12,14 +12,15 @@
     <td>Cód.Tarefa</td>
     <td>Título</td>
     <td>Descrição</td>
+    <td>Status</td>
     <td>Ações</td>
     </tr>
     <tr>
     @foreach ($tarefas as $tarefa)
       <td>{{ $tarefa->id }}</td>
-
       <td>{{ $tarefa->titulo }}</td>
       <td>{{ $tarefa->descricao }}</td>
+      <td>{{ $tarefa->status }}</td>
       <td>
       
       <div class="d-flex align">
