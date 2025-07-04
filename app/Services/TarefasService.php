@@ -5,11 +5,14 @@ namespace App\Services;
 use App\Models\ListaTarefas;
 use App\Events\TestePusherEvent;
 use Auth;
+use Date;
+use DateTime;
 
 
 class TarefasService
 {
     private ListaTarefas $listaTarefas;
+    
 
     /**
      * Create a new class instance.
@@ -42,38 +45,53 @@ class TarefasService
     {
         $titulo = (string) $request->input('titulo');
         $descricao = (string) $request->input('descricao');
+        $dataValidade = $request->input('data_vencimento');
+        $status = $request->input('status');
+        $prioridadeTarefa = $request->input('prioridade');
         $userId = (integer) Auth::id();
+        
+        
+        $data = new DateTime($dataValidade);
+     
+
 
         $this->listaTarefas->create([
             'titulo' => $titulo,
             'descricao' => $descricao,
+            'data_de_vencimento' => $data->format("Y-m-d"),
+            'prioridade' => $prioridadeTarefa,
+            'status' => $status,
             'user_id' => $userId,
         ]);
 
-        broadcast(new TestePusherEvent($userId));
+      
 
     }
 
     public function buscarTarefa($tarefaId)
     {
-        $tarefa = $this->listaTarefas->select('id', 'titulo', 'descricao', 'status')
+        $tarefa = $this->listaTarefas->select('id', 'titulo', 'descricao', 'status','data_de_vencimento')
              ->where('id',$tarefaId)
              ->first();
-        
+  
+
         return $tarefa;
     }
 
     public function atualizaTarefa($request,$tarefa)
     {
+    
         $tarefaStatusUpdate = (string) $request->input('status');
         $titulo = (string) $request->input('titulo');
         $descricao = (string) $request->input('descricao');
+        $dataValidade = $request->input('data_vencimento');
         $userId = (integer) Auth::id();
 
         $tarefa->update([
                 'titulo' => $titulo,
                 'descricao' => $descricao,
                 'status' => $tarefaStatusUpdate,
+                'data_de_vencimento' => $dataValidade,
                 'user_id' => $userId,
         ]);
     }
