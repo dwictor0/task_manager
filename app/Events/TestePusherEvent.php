@@ -38,4 +38,9 @@ class TestePusherEvent implements ShouldBroadcast
     {
         return 'evento-teste';
     }
+
+    public function broadcastWith()
+    {
+        return ['message' => $this->message];
+    }
 }
