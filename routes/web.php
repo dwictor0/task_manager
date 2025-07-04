@@ -9,9 +9,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/test', function () {
-    broadcast(new TestePusherEvent('Mensagem de teste!'));
-    return 'Evento enviado!';
+Route::get('/test/pusher', function () {
+       broadcast(new TestePusherEvent('Mensagem de teste!'));
+       return 'Evento enviado.';
 });
 
 Route::get('/dashboard', [ListaDeTarefasController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
