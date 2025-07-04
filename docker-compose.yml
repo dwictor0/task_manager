@@ -11,7 +11,6 @@ services:
       - todoList-db
     entrypoint: [ "sh", "-c", "composer install && chown -R www-data:www-data storage && php artisan migrate && php-fpm" ]
 
-
   nginx:
     build:
       context: .
@@ -49,6 +48,14 @@ services:
       - "8888:80"
     networks:
       - laravel
+
+  redis-todolist:
+    image: redis:alpine
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      REDIS_PORT: ${REDIS_PORT}
+    networks:
+     - laravel
 
   npm:
     image: node:current-alpine
