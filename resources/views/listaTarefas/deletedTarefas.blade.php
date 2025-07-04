@@ -1,62 +1,68 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Tarefas Deletadas')
 
 @section('content_header')
-  <h1 class="text-center">Gerenciamento de Tarefas</h1>
+  <h1 class="text-center text-danger">
+    <i class="fas fa-trash-alt"></i> Tarefas Deletadas
+  </h1>
 @endsection
 
 @section('content')
-  <table class="table table-dark">
-    <tr>
-    <td>Cód.Tarefa</td>
-    <td>Título</td>
-    <td>Descrição</td>
-    <td>Status</td>
-    <td>Ações</td>
-    </tr>
-    <tr>
-    @foreach ($index as $tarefa)
-      <td>{{ $tarefa->id }}</td>
-      @if(isset($tarefa->deleted_at))
-      <td>{{ $tarefa->titulo }} - DELETED</td>
-      @else
-      <td class="px-6 py-3">{{$tarefa->titulo}}</td>
-      @endif
+  <div class="row">
+    @forelse ($index as $tarefa)
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card border-danger shadow">
+          <div class="card-header bg-danger text-white d-flex justify-content-between">
+            <span><i class="fas fa-exclamation-circle mr-2"></i>Tarefa #{{ $tarefa->id }}</span>
+            <span class="badge badge-light text-dark">{{ ucfirst($tarefa->status) }}</span>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{ $tarefa->titulo }}</h5>
+            <p class="card-text text-muted">{{ $tarefa->descricao }}</p>
 
-      @if($tarefa->descricao != null)
-      <td>{{ $tarefa->descricao }}</td>
-      @else
-      <td class="px-6 py-3 text-gray-500 italic">N/A</td>
-      @endif
+            <p><strong>Prioridade:</strong>
+              <span class="badge 
+                @if($tarefa->prioridade === 'alta') badge-danger 
+                @elseif($tarefa->prioridade === 'media') badge-warning 
+                @else badge-info 
+                @endif">
+                {{ ucfirst($tarefa->prioridade) }}
+              </span>
+            </p>
 
+            <p><strong>Vencimento:</strong>
+              {{ \Carbon\Carbon::parse($tarefa->data_de_vencimento)->format('d/m/Y') }}
+            </p>
 
-      <td>{{ $tarefa->status }}</td>
-      <td>
+            <div class="d-flex justify-content-between">
+              {{-- Botão restaurar --}}
+              <form action="{{ route('tarefas.restore', $tarefa->id) }}" method="POST" class="mr-2 w-100 me-1">
+                @csrf
+                <button type="submit" class="btn btn-success btn-sm btn-block">
+                  <i class="fas fa-undo-alt"></i> Restaurar
+                </button>
+              </form>
 
-      <div class="d-flex align">
-
-      <div class="trashbutton">
+              {{-- Botão excluir permanentemente --}}
+              <form action="{{ route('tarefas.destroy', $tarefa->id) }}" method="POST" class="w-100 ms-1"
+                onsubmit="return confirm('Tem certeza que deseja excluir esta tarefa permanentemente? Esta ação não pode ser desfeita.');">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger btn-sm btn-block">
+                  <i class="fas fa-trash"></i> Excluir Permanentemente
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="d-flex gap-3">
-          <form action="{{ route('tarefas.restore', ['id' => $tarefa->id]) }}" method="POST" class="inline">
-          @csrf
-          <td><x-restore-button></x-restore-button></td>
-          </form>
-
-          <form action="{{ route('tarefas.destroy', ['tarefa' => $tarefa->id]) }}" method="POST">
-          @csrf
-          @method('DELETE')
-          <td><x-trash-button>
-            {{ __('Excluir Permanentemente') }}
-          </x-trash-button></td>
-          </form>
-
+    @empty
+      <div class="col-12">
+        <div class="alert alert-info text-center">
+          Nenhuma tarefa deletada encontrada.
+        </div>
       </div>
-      </div>
-
-      </td>
-      </tr>
-    @endforeach
-  </table>
+    @endforelse
+  </div>
 @endsection
