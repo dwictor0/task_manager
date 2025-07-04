@@ -91,4 +91,20 @@
       </div>
     </div>
   </div>
+ <script src="https://js.pusher.com/8.4.0/pusher.min.js"></script>
+  <script>
+
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('2c0d6c5c3b525a1e9679', {
+      cluster: 'us2'
+    });
+
+    var channel = pusher.subscribe('canal-teste');
+    channel.bind('evento-teste', function(data) {
+      console.log('Hello Channel');
+      
+    });
+  </script>
 @endsection
