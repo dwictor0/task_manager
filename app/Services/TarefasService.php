@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Models\ListaTarefas;
-use App\Events\TestePusherEvent;
+use App\Events\PusherEvent;
 use Auth;
 use Exception;
 use Illuminate\Support\Carbon;
@@ -66,7 +66,7 @@ class TarefasService
                 'user_id' => $userId,
             ]);
             DB::commit();
-            event(new TestePusherEvent($tarefa));
+            event(new PusherEvent($tarefa));
         } catch (Exception $e) {
             DB::rollBack();
             Log::error("Erro ao criar tarefa: {$e->getMessage()}");
@@ -113,7 +113,7 @@ class TarefasService
                 'user_id' => $userId,
             ]);
             DB::commit();
-            event(new TestePusherEvent($tarefa));
+            event(new PusherEvent($tarefa));
             
         } catch (Exception $e) {
             DB::rollBack();
@@ -155,7 +155,7 @@ class TarefasService
             }
             
             DB::commit();
-            event(new TestePusherEvent($tarefa));
+            event(new PusherEvent($tarefa));
         } catch (Exception $e) {
             DB::rollBack();
             Log::error("Erro ao deletar a tarefa {$e->getMessage()}");
@@ -179,7 +179,7 @@ class TarefasService
             $tarefa->restore();
     
             DB::commit();
-            event(new TestePusherEvent($tarefa));
+            event(new PusherEvent($tarefa));
             
         } catch (Exception $e) {
             DB::rollBack();
