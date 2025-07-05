@@ -33,8 +33,7 @@ class TarefasService
             $userId = (integer) Auth::id();
             $indexTarefas = $this->listaTarefas->where('user_id', $userId)->get();
 
-            return $indexTarefas;
-
+            return $this->listaTarefas->where('user_id',$userId)->get();
         } catch (Exception $e) {
             Log::error("Erro ao carregar as tarefas:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
             return view('errors.exception');
