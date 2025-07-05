@@ -25,6 +25,11 @@ class CriacaoDeTarefasRequest extends FormRequest
             'titulo' => 'required|max:255',
         ];
     }
+
+    /**
+     * Summary of messages
+     * @return array{titulo.max: string, titulo.required: string}
+     */
     public function messages(): array
     {
         return[
