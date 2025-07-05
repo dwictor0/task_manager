@@ -30,7 +30,7 @@ class TestePusherEvent implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new Channel('canal-teste'),
+            new PrivateChannel('usuario.' . $this->message->user_id),
         ];
     }
 
@@ -41,6 +41,6 @@ class TestePusherEvent implements ShouldBroadcast
 
     public function broadcastWith()
     {
-        return ['message' => $this->message];
+        return ['tarefa' => $this->message];
     }
 }
