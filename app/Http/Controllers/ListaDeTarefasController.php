@@ -9,7 +9,6 @@ use Illuminate\Http\RedirectResponse;
 use App\Models\ListaTarefas;
 use App\Services\TarefasService;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Http\Request;
 use Exception;
 use DB;
 use Auth;
