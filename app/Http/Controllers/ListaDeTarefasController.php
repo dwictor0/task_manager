@@ -174,7 +174,7 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
      * Summary of controleTarefas
      * @return View
      */
-    public function controleTarefas()
+    public function controleTarefas(): View
     {
         $userId = (integer) Auth::id();
 
