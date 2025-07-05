@@ -1,18 +1,23 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Jobs\EnviarAlertaTarefaJob;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ListaDeTarefasController;
 use App\Events\TestePusherEvent;
+use App\Models\ListaTarefas;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Broadcast;
+
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/test/pusher', function () {
-       broadcast(new TestePusherEvent('Mensagem de teste!'));
-       return 'Evento enviado.';
+Route::post('/pusher/auth', function (Request $request) {
+    return Broadcast::auth($request);
 });
+
 
 Route::get('/dashboard', [ListaDeTarefasController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
