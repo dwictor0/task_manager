@@ -360,7 +360,7 @@ return [
         [
             'text' => 'Tarefas',
             'icon_color' => 'red',
-            'url' => '#',
+            'url' => '/controle',
         ],
       
     ],
