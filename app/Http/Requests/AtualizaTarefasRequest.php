@@ -26,6 +26,10 @@ class AtualizaTarefasRequest extends FormRequest
         ];
     }
 
+    /**
+     * Summary of messages
+     * @return array{titulo.max: string, titulo.required: string}
+     */
     public function messages(): array
     {
         return [
