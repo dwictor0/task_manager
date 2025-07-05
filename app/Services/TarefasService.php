@@ -58,6 +58,7 @@ class TarefasService
             'status' => $status,
             'user_id' => $userId,
         ]);
+            event(new TestePusherEvent($titulo));
     }
 
     public function buscarTarefa($tarefaId)
@@ -84,6 +85,7 @@ class TarefasService
             'data_de_vencimento' => $dataValidade,
             'user_id' => $userId,
         ]);
+            event(new TestePusherEvent($tarefa));
     }
 
     public function buscaTarefaDeletada()
