@@ -14,19 +14,30 @@ class DashboardContainer extends Component
 
     protected $tarefasService;
 
+    /**
+     * Summary of mount
+     * @param \App\Services\TarefasService $tarefas
+     * @return void
+     */
     public function mount(TarefasService $tarefas)
     {
         $this->tarefasService = $tarefas;
         $this->atualizarTarefas();
     }
 
-
+    /**
+     * Summary of atualizarTarefas
+     * @return void
+     */
     public function atualizarTarefas()
     {
         $this->tarefas = app(\App\Services\TarefasService::class)->indexTarefas();
     }
 
-
+    /**
+     * Summary of render
+     * @return \Illuminate\Contracts\View\View
+     */
     public function render()
     {
         return view('livewire.dashboard-container', ['tarefas' => $this->tarefas]);
