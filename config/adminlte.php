@@ -320,10 +320,18 @@ return [
             'url' => 'admin/blog',
             'can' => 'manage-blog',
         ],
+        ['header' => 'TAREFAS'],
+        [
+            'text' => 'Inicio',
+            'url' => '/dashboard',
+            'icon' => 'fa fa-home',
+            // 'label' => 4,
+            'label_color' => 'success',
+        ],
         [
             'text' => 'Criar Tarefas',
             'url' => 'tarefas/create',
-            'icon' => 'far fa-fw fa-file',
+            'icon' => 'fa fa-calendar',
             // 'label' => 4,
             'label_color' => 'success',
         ],
@@ -331,60 +339,18 @@ return [
 [
             'text' => 'Tarefas Excluidas',
             'url' => '/deleted',
-            'icon' => 'far fa-fw fa-file',
+            'icon' => 'fa fa-trash',
             // 'label' => 4,
             'label_color' => 'success',
         ],        
-        ['header' => 'account_settings'],
+        ['header' => 'CONFIGURAÇÕES'],
         [
-            'text' => 'profile',
+            'text' => 'Usuário',
             'url' => '/profile',
             'icon' => 'fas fa-fw fa-user',
         ],
-        [
-            'text' => 'change_password',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
-        [
-            'text' => 'multilevel',
-            'icon' => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                        ],
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-            ],
-        ],
-        ['header' => 'TAREFAS'],
+       
+        ['header' => 'CONTROLE - TAREFAS'],
         [
             'text' => 'Prioridade - Alta',
             'icon_color' => 'red',
