@@ -65,11 +65,8 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     public function store (CriacaoDeTarefasRequest $request): View|RedirectResponse
     {
         try {
-            DB::beginTransaction();
-            
             $this->tarefasService->criarTarefas($request);
-
-            DB::commit();
+            
             return redirect()->route('dashboard')->with('success', 'Tarefa criada com sucesso!.');
         } catch (Exception $e) {
             DB::rollBack();
@@ -91,7 +88,6 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
             $tarefaId = $tarefa->id;
             $tarefa = $this->tarefasService->buscarTarefa($tarefaId);
        
-        
             return view('listaTarefas.editTarefas', compact('tarefa'));
         } catch (Exception $e) {
             Log::error("Erro ao carregar os dados para edição da tarefa:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
@@ -110,11 +106,8 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     public function update (AtualizaTarefasRequest $request, ListaTarefas $tarefa): View|RedirectResponse
     {
         try {
-            DB::beginTransaction();
-
             $this->tarefasService->atualizaTarefa($request, $tarefa);
-
-            DB::commit();
+       
             return redirect()->route('dashboard')->with('success', 'Tarefa atualizada!');
         } catch (Exception $e) {
             DB::rollBack();
@@ -149,11 +142,7 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     public function destroy (int $id): View|RedirectResponse
     {
         try {
-            DB::beginTransaction();
-             
-            $this->tarefasService->deletarTarefa($id);
-
-            DB::commit();
+            $this->tarefasService->deletarTarefa($id);    
 
             return redirect()->route('dashboard')->with('success', 'Tarefa deletada com sucesso!');
         } catch (Exception $e) {
@@ -172,11 +161,7 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     public function restore (int $id): View|RedirectResponse
     {
         try {
-            DB::beginTransaction();
-
             $this->tarefasService->restaurarTarefa($id);
-
-            DB::commit();
 
             return redirect()->route('dashboard')->with('success', 'A tarefa foi restaurada com sucesso!');
         } catch (Exception $e) {
