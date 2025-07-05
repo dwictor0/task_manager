@@ -18,4 +18,5 @@ interface ListaDeTarefasInterface
     public function indexSoftDelete(): View;
     public function destroy(int $id): View|RedirectResponse;
     public function restore(int $id): View|RedirectResponse;
+    public function controleTarefas(): View;
 }
