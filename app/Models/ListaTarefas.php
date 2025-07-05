@@ -9,9 +9,6 @@ class ListaTarefas extends Model
 {
   use SoftDeletes;
   protected $table = 'lista_tarefas';
-  protected $dates = [
-    'data_de_vencimento'
-  ];
   protected $fillable = [
     'titulo',
     'descricao',
