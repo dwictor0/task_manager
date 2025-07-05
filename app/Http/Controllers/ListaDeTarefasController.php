@@ -66,7 +66,7 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     {
         try {
             $this->tarefasService->criarTarefas($request);
-            
+
             return redirect()->route('dashboard')->with('success', 'Tarefa criada com sucesso!.');
         } catch (Exception $e) {
             DB::rollBack();
@@ -171,6 +171,10 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
         }
     }
 
+    /**
+     * Summary of controleTarefas
+     * @return View
+     */
     public function controleTarefas()
     {
         $userId = (integer) Auth::id();
