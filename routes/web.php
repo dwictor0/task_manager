@@ -24,6 +24,7 @@ Route::middleware('auth')->group(function () {
     });
     Route::resource('tarefas', ListaDeTarefasController::class);
     Route::post('/restore/{id}', [ListaDeTarefasController::class, 'restore'])->name('tarefas.restore');
+    Route::get('/controle', [ListaDeTarefasController::class,'controleTarefas'])->name('tarefas.controle');
     Route::get('/deleted', [ListaDeTarefasController::class, 'IndexSoftDelete'])->name('tarefas.delete');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
