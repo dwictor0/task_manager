@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'System - Tarefas')
 
 @section('content_header')
   <h1 class="text-center">Editar Tarefa</h1>
