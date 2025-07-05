@@ -117,11 +117,11 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     }
 
     /**
-     * Método IndexSoftDelete
+     * Método indexSoftDelete
      * @author dwictor0 
      * @return View
      */
-    public function IndexSoftDelete (): View
+    public function indexSoftDelete (): View
     {
         try {
             $index = $this->tarefasService->buscaTarefaDeletada();
