@@ -14,14 +14,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('/pusher/auth', function (Request $request) {
-    return Broadcast::auth($request);
-});
 
 
 Route::get('/dashboard', [ListaDeTarefasController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::post('/pusher/auth', function (Request $request) {
+        return Broadcast::auth($request);
+    });
     Route::resource('tarefas', ListaDeTarefasController::class);
     Route::post('/restore/{id}', [ListaDeTarefasController::class, 'restore'])->name('tarefas.restore');
     Route::get('/deleted', [ListaDeTarefasController::class, 'IndexSoftDelete'])->name('tarefas.delete');
