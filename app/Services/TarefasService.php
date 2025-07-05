@@ -51,7 +51,7 @@ class TarefasService
         $userId = (integer) Auth::id();
         $data = Carbon::parse($request->input('data_vencimento'));
 
-        $this->listaTarefas->create([
+        $tarefa = $this->listaTarefas->create([
             'titulo' => $titulo,
             'descricao' => $descricao,
             'data_de_vencimento' => $data,
@@ -59,7 +59,7 @@ class TarefasService
             'status' => $status,
             'user_id' => $userId,
         ]);
-        event(new TestePusherEvent($titulo));
+        event(new TestePusherEvent($tarefa));
     }
 
     public function buscarTarefa($tarefaId)
@@ -108,6 +108,8 @@ class TarefasService
         } else {
             $tarefa->delete();
         }
+        event(new TestePusherEvent($tarefa));
+
     }
 
     public function restaurarTarefa($id)
@@ -115,6 +117,9 @@ class TarefasService
         $tarefa = $this->listaTarefas->withTrashed()->findOrFail($id);
 
         $tarefa->restore();
+
+        event(new TestePusherEvent($tarefa));
+
     }
     public function buscarTarefasProximas(int $minutosAntes = 30)
     {
