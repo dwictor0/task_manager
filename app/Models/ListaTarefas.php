@@ -22,6 +22,6 @@ class ListaTarefas extends Model
     'data_de_vencimento'
   ];
   protected $casts = [
-    'data_de_vencimento' => 'date',
+     'data_de_vencimento' => 'datetime:Y-m-d H:i:s',
   ];
 }
