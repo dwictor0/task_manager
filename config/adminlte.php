@@ -335,11 +335,17 @@ return [
             // 'label' => 4,
             'label_color' => 'success',
         ],
-       
-[
+        [
             'text' => 'Tarefas Excluidas',
             'url' => '/deleted',
             'icon' => 'fa fa-trash',
+            // 'label' => 4,
+            'label_color' => 'success',
+        ],
+        [
+            'text' => 'Horizon',
+            'url' => 'http://localhost:8000/horizon/dashboard',
+            'icon' => 'fa fa-rocket',
             // 'label' => 4,
             'label_color' => 'success',
         ],        
@@ -352,20 +358,11 @@ return [
        
         ['header' => 'CONTROLE - TAREFAS'],
         [
-            'text' => 'Prioridade - Alta',
+            'text' => 'Tarefas',
             'icon_color' => 'red',
             'url' => '#',
         ],
-        [
-            'text' => 'Prioridade - Média',
-            'icon_color' => 'yellow',
-            'url' => '#',
-        ],
-        [
-            'text' => 'Prioridade - Baixa',
-            'icon_color' => 'cyan',
-            'url' => '#',
-        ],
+      
     ],
 
     /*
