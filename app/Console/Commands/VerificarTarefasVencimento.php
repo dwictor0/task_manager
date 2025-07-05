@@ -5,7 +5,10 @@ namespace App\Console\Commands;
 use App\Jobs\EnviarAlertaTarefaJob;
 use App\Models\ListaTarefas;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
+use Str;
 
 class VerificarTarefasVencimento extends Command
 {
@@ -21,27 +24,32 @@ class VerificarTarefasVencimento extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Verifica tarefas com vencimento nos próximos 30 minutos e dispara alertas';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-    \Log::info('Comando VerificarTarefasVencimento executado.');
-    $agora = Carbon::now()->startOfMinute(); 
+        try {
+            Log::info('Comando VerificarTarefasVencimento executado.');
+            $agora = Carbon::now()->startOfMinute();
 
-    $limite = $agora->copy()->addMinutes(30);
+            $limite = $agora->copy()->addMinutes(30);
 
 
-    $tarefas = ListaTarefas::where('alerta_enviado', false)
-        ->whereBetween('data_de_vencimento', [$agora, $limite])
-        ->pluck('id'); 
+            $tarefas = ListaTarefas::where('alerta_enviado', false)
+                ->whereBetween('data_de_vencimento', [$agora, $limite])
+                ->pluck('id');
 
-    foreach ($tarefas as $tarefaId) {
-        EnviarAlertaTarefaJob::dispatch($tarefaId);
-    }
+            foreach ($tarefas as $tarefaId) {
+                EnviarAlertaTarefaJob::dispatch($tarefaId);
+            }
+            $this->info(count($tarefas) . ' ' . Str::plural('tarefa', count($tarefas)) . ' encontrada(s) e alertas disparados.');
 
-    $this->info(count($tarefas) . " tarefa(s) vencidas encontradas e alertas disparados.");
+        } catch (Exception $e) {
+            Log::error("Erro ao verificar tarefas próximas do vencimento {$e->getMessage()}");
+            $this->error("Erro ao executar comando. Consulte os logs.");
+        }
     }
 }
