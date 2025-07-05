@@ -185,4 +185,10 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
             return view('errors.exception');
         }
     }
+
+    public function controleTarefas()
+    {
+        
+        return view('listaTarefas.controleTarefas');
+    }
 }
