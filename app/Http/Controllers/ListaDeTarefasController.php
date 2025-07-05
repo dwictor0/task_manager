@@ -90,8 +90,9 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
         try {
             $tarefaId = $tarefa->id;
             $tarefa = $this->tarefasService->buscarTarefa($tarefaId);
+       
         
-            return view('listaTarefas.editTarefas', @compact('tarefa'));
+            return view('listaTarefas.editTarefas', compact('tarefa'));
         } catch (Exception $e) {
             Log::error("Erro ao carregar os dados para edição da tarefa:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
             return view('errors.exception');
