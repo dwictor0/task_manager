@@ -29,11 +29,14 @@ class VerificarTarefasVencimento extends Command
     public function handle()
     {
     \Log::info('Comando VerificarTarefasVencimento executado.');
-    $agora = Carbon::now();
+    $agora = Carbon::now()->startOfMinute(); 
+
+    $limite = $agora->copy()->addMinutes(30);
+
 
     $tarefas = ListaTarefas::where('alerta_enviado', false)
-        ->where('data_de_vencimento', '<=', $agora)
-        ->pluck('id'); // só pega os IDs
+        ->whereBetween('data_de_vencimento', [$agora, $limite])
+        ->pluck('id'); 
 
     foreach ($tarefas as $tarefaId) {
         EnviarAlertaTarefaJob::dispatch($tarefaId);
