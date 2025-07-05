@@ -34,6 +34,7 @@ class TarefasService
             $userId = (integer) Auth::id();
             $indexTarefas = $this->listaTarefas->where('user_id', $userId)->get();
 
+
             return $this->listaTarefas->where('user_id', $userId)->get();
         } catch (Exception $e) {
             Log::error("Erro ao carregar as tarefas:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
@@ -58,7 +59,7 @@ class TarefasService
             'status' => $status,
             'user_id' => $userId,
         ]);
-            event(new TestePusherEvent($titulo));
+        event(new TestePusherEvent($titulo));
     }
 
     public function buscarTarefa($tarefaId)
@@ -85,7 +86,7 @@ class TarefasService
             'data_de_vencimento' => $dataValidade,
             'user_id' => $userId,
         ]);
-            event(new TestePusherEvent($tarefa));
+        event(new TestePusherEvent($tarefa));
     }
 
     public function buscaTarefaDeletada()
@@ -125,5 +126,20 @@ class TarefasService
             ->whereBetween('data_de_vencimento', [$agora, $limite])
             ->get();
     }
+
+    public function filtraTarefaPorCampo(string $campo, array $valores, int $userId): array
+    {
+        $totais = [];
+
+        foreach ($valores as $valor) {
+            $totais[$valor] = $this->listaTarefas
+                ->where('user_id', $userId)
+                ->where($campo, $valor)
+                ->count();
+        }
+
+        return $totais;
+    }
+
 
 }
