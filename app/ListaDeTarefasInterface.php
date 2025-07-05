@@ -16,6 +16,6 @@ interface ListaDeTarefasInterface
     public function edit(ListaTarefas $tarefa): View;
     public function update(AtualizaTarefasRequest $request, ListaTarefas $tarefa): View|RedirectResponse;
     public function IndexSoftDelete(): View;
-    public function destroy($id): View|RedirectResponse;
-    public function restore($id): View|RedirectResponse;
+    public function destroy(int $id): View|RedirectResponse;
+    public function restore(int $id): View|RedirectResponse;
 }
