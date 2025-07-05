@@ -16,25 +16,73 @@
   </div>
 @endif
 
+
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 @endsection
 
 @section('content')
  <livewire:dashboard-container></livewire:dashboard-container>
-  
+
  <script src="https://js.pusher.com/8.4.0/pusher.min.js"></script>
+ 
   <script>
 
-    // Enable pusher logging - don't include this in production
+    
     Pusher.logToConsole = true;
 
-    var pusher = new Pusher('2c0d6c5c3b525a1e9679', {
-      cluster: 'us2'
-    });
-
-    var channel = pusher.subscribe('canal-teste');
+   var pusher = new Pusher('2c0d6c5c3b525a1e9679', {
+    cluster: 'us2',
+    authEndpoint: '/pusher/auth',
+    auth: {
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        }
+    }
+});
+var userId = @json(auth()->id());
+var channel = pusher.subscribe('private-usuario.' + userId);
     channel.bind('evento-teste', function(data) {
-      console.log('Hello Channel');
+          window.livewire.emit('tarefaAtualizada');
+
+        console.log('Tarefa atualizada:', data.tarefa);
       
     });
   </script>
+@endsection
+@section('js')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://js.pusher.com/8.4.0/pusher.min.js"></script>
+
+<script>
+  
+  const ctx = document.getElementById('tarefasChart').getContext('2d');
+  const tarefasChart = new Chart(ctx, {
+    
+  });
+
+
+  Pusher.logToConsole = true;
+
+  var pusher = new Pusher('2c0d6c5c3b525a1e9679', {
+    cluster: 'us2',
+    authEndpoint: '/pusher/auth',
+    auth: {
+      headers: {
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+      }
+    }
+  });
+
+  var userId = @json(auth()->id());
+  var channel = pusher.subscribe('private-usuario.' + userId);
+
+  channel.bind('evento-teste', function(data) {
+    
+    if(window.livewire) {
+      window.livewire.emit('tarefaAtualizada');
+    }
+    console.log('Tarefa atualizada:', data.tarefa);
+  });
+</script>
 @endsection
