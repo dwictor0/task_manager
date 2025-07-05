@@ -9,15 +9,16 @@ class ListaTarefas extends Model
 {
   use SoftDeletes;
   protected $table = 'lista_tarefas';
+
   protected $fillable = [
     'titulo',
     'descricao',
     'status',
-    'created_at',
     'user_id',
     'prioridade',
     'data_de_vencimento'
   ];
+  
   protected $casts = [
      'data_de_vencimento' => 'datetime:Y-m-d H:i:s',
   ];
