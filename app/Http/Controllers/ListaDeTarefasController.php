@@ -39,7 +39,7 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
      * @return View
      * @author dwictor0
      */
-    public function index (): View
+    public function index(): View
     {
         $tarefas = $this->tarefasService->indexTarefas();
 
@@ -112,7 +112,7 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
         try {
             DB::beginTransaction();
 
-            $this->tarefasService->atualizaTarefa($request,$tarefa);
+            $this->tarefasService->atualizaTarefa($request, $tarefa);
 
             DB::commit();
             return redirect()->route('dashboard')->with('success', 'Tarefa atualizada!');
@@ -188,7 +188,12 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
 
     public function controleTarefas()
     {
+        $userId = (integer) Auth::id();
+
+        $totalTarefasPrioridade = $this->tarefasService->contarPorCampo('prioridade', ['alta', 'media', 'baixa'], $userId);
+        $totalTarefasStatus = $this->tarefasService->contarPorCampo('status', ['pendente', 'em_progresso', 'concluida'], $userId);
         
-        return view('listaTarefas.controleTarefas');
+
+        return view('listaTarefas.controleTarefas', @compact(['totalTarefasPrioridade', $totalTarefasPrioridade,'totalTarefasStatus' ,$totalTarefasStatus]));
     }
 }
