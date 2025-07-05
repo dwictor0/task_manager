@@ -82,7 +82,7 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     /**
      * Método Edit
      * @author dwictor0
-     * @param ListaTarefasAlias $tarefa
+     * @param ListaTarefas $tarefa
      * @return View
      */
     public function edit (ListaTarefas $tarefa): View
@@ -103,8 +103,8 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     /**
      * Método Update
      * @author dwictor0
-     * @param AtualizaTarefasRequestAlias $request
-     * @param ListaTarefasAlias $tarefa
+     * @param AtualizaTarefasRequest $request
+     * @param ListaTarefas $tarefa
      * @return View|RedirectResponse
      */
     public function update (AtualizaTarefasRequest $request, ListaTarefas $tarefa): View|RedirectResponse
