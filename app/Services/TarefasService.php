@@ -8,6 +8,7 @@ use Auth;
 use Date;
 use DateTime;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 
 class TarefasService
@@ -44,6 +45,8 @@ class TarefasService
 
     public function criarTarefas($request)
     {
+        DB::beginTransaction();
+        
         $titulo = (string) $request->input('titulo');
         $descricao = (string) $request->input('descricao');
         $status = $request->input('status');
@@ -59,6 +62,7 @@ class TarefasService
             'status' => $status,
             'user_id' => $userId,
         ]);
+        DB::commit();
         event(new TestePusherEvent($tarefa));
     }
 
@@ -72,7 +76,8 @@ class TarefasService
 
     public function atualizaTarefa($request, $tarefa)
     {
-
+        DB::beginTransaction();
+       
         $tarefaStatusUpdate = (string) $request->input('status');
         $titulo = (string) $request->input('titulo');
         $descricao = (string) $request->input('descricao');
@@ -86,6 +91,8 @@ class TarefasService
             'data_de_vencimento' => $dataValidade,
             'user_id' => $userId,
         ]);
+        
+        DB::commit();
         event(new TestePusherEvent($tarefa));
     }
 
@@ -101,6 +108,8 @@ class TarefasService
 
     public function deletarTarefa($id)
     {
+        DB::beginTransaction();
+
         $tarefa = $this->listaTarefas->withTrashed()->findOrFail($id);
 
         if ($tarefa->trashed()) {
@@ -108,16 +117,21 @@ class TarefasService
         } else {
             $tarefa->delete();
         }
+        
+        DB::commit();
         event(new TestePusherEvent($tarefa));
 
     }
 
     public function restaurarTarefa($id)
     {
+        DB::beginTransaction();
+
         $tarefa = $this->listaTarefas->withTrashed()->findOrFail($id);
 
         $tarefa->restore();
 
+        DB::commit();
         event(new TestePusherEvent($tarefa));
 
     }
