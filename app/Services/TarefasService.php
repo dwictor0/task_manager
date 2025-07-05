@@ -95,12 +95,12 @@ class TarefasService
 
     public function buscaTarefaDeletada()
     {
-        $indexTarefasDeleted = $this->listaTarefas
+         return $this->listaTarefas
          ->where('user_id', Auth::id())
          ->whereNotNull('deleted_at')
          ->withTrashed()->get();
         
-        return $indexTarefasDeleted;
+      
     }
 
     public function deletarTarefa($id)
