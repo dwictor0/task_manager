@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Tarefas Deletadas')
+@section('title', 'System - Tarefas')
 
 @section('content_header')
   <h1 class="text-center text-danger">
