@@ -21,6 +21,9 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists("lista_tarefas");
+       Schema::table('lista_tarefas', function (Blueprint $table) {
+            $table->dropColumn('data_de_vencimento');
+            $table->dropColumn('prioridade');
+        });
     }
 };
