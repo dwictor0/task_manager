@@ -146,7 +146,7 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
      * @author dwictor0 
      * @return View|RedirectResponse
      */
-    public function destroy ($id): View|RedirectResponse
+    public function destroy (int $id): View|RedirectResponse
     {
         try {
             DB::beginTransaction();
@@ -169,7 +169,7 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
      * @return View|RedirectResponse
      * @author dwictor0
      */
-    public function restore ($id): View|RedirectResponse
+    public function restore (int $id): View|RedirectResponse
     {
         try {
             DB::beginTransaction();
