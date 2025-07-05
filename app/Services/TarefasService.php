@@ -69,12 +69,10 @@ class TarefasService
 
     public function buscarTarefa($tarefaId)
     {
-        $tarefa = $this->listaTarefas->select('id', 'titulo', 'descricao', 'status','data_de_vencimento')
+      return $this->listaTarefas->select('id', 'titulo', 'descricao', 'status','data_de_vencimento')
              ->where('id',$tarefaId)
              ->first();
-  
 
-        return $tarefa;
     }
 
     public function atualizaTarefa($request,$tarefa)
