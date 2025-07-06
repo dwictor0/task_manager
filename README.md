@@ -45,8 +45,15 @@ Siga os passos abaixo para rodar o projeto localmente:
     docker-compose down --rmi all
     docker-compose up -d
     ```
+5. Para monitorar e gerenciar as filas com uma interface visual, utilize o Horizon , ative o painel com o comando:
+   ```bash
+    php artisan horizon 
+    ```
+6. Para gerar as credenciais do arquivo .env, execute o seguinte comando:
+   ```bash
+     php artisan key:generate
+   ```
 
----
 
 ## 🛠️ **Deploy em Produção**
 
@@ -143,7 +150,21 @@ Optou-se anteriormente por utilizar o AdminLTE pela sua vasta gama de componente
 Embora o projeto tenha sido estruturado para permitir tradução via resources/lang, o suporte completo a múltiplos idiomas ainda não foi entregue nesta versão.
 
 #### Motivo técnico:
-Priorizamos a implementação de funcionalidades críticas como alertas, agendamento, filas e reatividade. O suporte multilíngue está mapeado como item da próxima entrega.
+Priorizei a implementação de funcionalidades críticas como alertas, agendamento, filas e reatividade. O suporte multilíngue está mapeado como item da próxima entrega.
+
+## 9. 📊 Visualização de Tarefas com Gráficos e Cards
+Embora ainda não tenha sido implementado um filtro dinâmico por status diretamente na tabela principal, foi criada uma tela de controle que apresenta as tarefas de forma visual com:
+
+Gráfico de prioridades (alta, média, baixa)
+
+Cards informativos com a contagem de tarefas por status (pendente, em progresso, concluída)
+
+## Justificativa técnica:
+Permite rápida análise do estado geral das tarefas
+
+Fornece uma visão macro para usuários gestores
+
+Reduz carga de interação com a tabela principal
 
 #### Proximas Atualizações:
 - Alternância entre idiomas no painel
@@ -152,6 +173,7 @@ Priorizamos a implementação de funcionalidades críticas como alertas, agendam
 - Sistema de autenticação por níveis de permissão (admin, usuário)
 - Histórico de alterações de tarefas
 - Upload de anexos em tarefas
+- Implementação de DataTables na tabela de tarefas para permitir paginação, ordenação e busca eficiente, facilitando o uso com grandes volumes de dados
 ---
 *"Como Obi-Wan Kenobi disse a Anakin Skywalker: 'Você deu o primeiro passo em uma longa jornada, jovem padawan.' Este projeto, assim como a jornada de Anakin, foi repleto de desafios e obstáculos superados. Com ele, um grande avanço foi conquistado, mas o aprendizado continua. O próximo nível de maestria está agora ao alcance. Que a Força do código esteja com você"*
 
