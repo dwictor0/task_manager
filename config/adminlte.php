@@ -356,10 +356,10 @@ return [
             'icon' => 'fas fa-fw fa-user',
         ],
        
-        ['header' => 'CONTROLE - TAREFAS'],
+        ['header' => 'CONTROLE'],
         [
             'text' => 'Tarefas',
-            'icon_color' => 'red',
+            'icon' => 'fa fa-cog',
             'url' => '/controle',
         ],
       
