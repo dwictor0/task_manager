@@ -40,7 +40,7 @@
 
             <div class="form-group mb-4">
               <label for="data_vencimento">Data de Vencimento</label>
-              <input type="datetime-local" name="data_vencimento" id="data_vencimento" class="form-control">
+              <input type="date" name="data_vencimento" id="data_vencimento" class="form-control">
             </div>
 
             <div class="text-end">
