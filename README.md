@@ -49,10 +49,30 @@ Siga os passos abaixo para rodar o projeto localmente:
    ```bash
     php artisan horizon 
     ```
+- Após executar o comando a interface pode ser acessada na URL<br>
+     ```bash
+         http://localhost:8000/horizon
+     ```
 6. Para gerar as credenciais do arquivo .env, execute o seguinte comando:
    ```bash
      php artisan key:generate
    ```
+
+## 🔧 Configuração do WebSocket (Pusher)
+
+Para que as notificações em tempo real funcionem corretamente, é necessário configurar o serviço de broadcasting com o **Pusher**.
+
+No arquivo `.env`, adicione suas credenciais:
+
+```env
+BROADCAST_DRIVER=pusher
+PUSHER_APP_ID=your-app-id
+PUSHER_APP_KEY=your-app-key
+PUSHER_APP_SECRET=your-app-secret
+PUSHER_APP_CLUSTER=us2
+```
+
+
 
 
 ## 🛠️ **Deploy em Produção**
@@ -66,7 +86,16 @@ Siga os passos abaixo para rodar o projeto localmente:
     ```bash
     php artisan queue:work
     ```
-    Para monitorar as filas, você pode utilizar o **Laravel Horizon**.
+
+## ⚠️ **Nota sobre produção:**
+
+
+>Em ambiente de produção, executar o comando de verificação a cada 5 segundos pode causar sobrecarga desnecessária, especialmente com um número elevado de usuários ou tarefas.
+
+>A frequência ideal para execução do scheduler dependerá do nível de criticidade do sistema. Em geral, um intervalo de 1 minuto é suficiente para verificar tarefas com vencimento próximo:
+
+>Se a urgência de verificação for menor (ex: alertas diários), o agendamento pode ser ajustado para rodar a cada 5 ou 10 minutos
+
 
 ---
 
@@ -83,6 +112,31 @@ Se encontrar algum erro durante a execução, aqui estão algumas dicas para sol
     - Caso haja problemas com a rede, tente reiniciar o Docker ou limpar volumes e imagens antigas.
 
 ---
+
+## 🧱 Arquitetura da Solução 
+O sistema segue o padrão MVC com camadas bem definidas:
+
+1. **Controller:** Recebe a requisição e delega à camada de serviço.
+
+2. **Service:** Contém a lógica de negócio.
+
+3. **Jobs:** Executam operações assíncronas.
+
+4. **Scheduler:** Verifica periodicamente tarefas com vencimento próximo.
+
+5. **Broadcast (Pusher):** Envia atualizações em tempo real ao frontend via Livewire.
+
+## 🔄 Fluxo:
+1. Uma tarefa é criada com data de vencimento.
+
+2. O agendador (php artisan app:verificar-tarefas-vencimento) é executado a cada 5 segundos (ambiente de desenvolvimento).
+
+3. Ele despacha um Job para verificar e alertar tarefas vencendo.
+
+4. O Job emite um evento via Pusher.
+
+5. O frontend escuta o evento via Livewire e atualiza a interface automaticamente.
+
 
 ## 💡 **Decisões Arquiteturais**
 
@@ -166,6 +220,12 @@ Fornece uma visão macro para usuários gestores
 
 Reduz carga de interação com a tabela principal
 
+## 10. ✉️ Notificação por E-mail — Em Desenvolvimento
+Embora a estrutura do sistema já esteja preparada para envio de e-mails no Job, a funcionalidade de notificação por e-mail não foi implementada nesta versão.
+
+## Justificativa Técnica:
+A prioridade foi dada ao envio de alertas via WebSocket e à estabilidade do sistema assíncrono.
+
 #### Proximas Atualizações:
 - Alternância entre idiomas no painel
 - Textos externos extraídos para arquivos de tradução
@@ -174,6 +234,8 @@ Reduz carga de interação com a tabela principal
 - Histórico de alterações de tarefas
 - Upload de anexos em tarefas
 - Implementação de DataTables na tabela de tarefas para permitir paginação, ordenação e busca eficiente, facilitando o uso com grandes volumes de dados
+- Integração com serviços como Mailtrap, SMTP ou Mailgun.
+- Histórico de notificações enviadas.
 ---
 *"Como Obi-Wan Kenobi disse a Anakin Skywalker: 'Você deu o primeiro passo em uma longa jornada, jovem padawan.' Este projeto, assim como a jornada de Anakin, foi repleto de desafios e obstáculos superados. Com ele, um grande avanço foi conquistado, mas o aprendizado continua. O próximo nível de maestria está agora ao alcance. Que a Força do código esteja com você"*
 
