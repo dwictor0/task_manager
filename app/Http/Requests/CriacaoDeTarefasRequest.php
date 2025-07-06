@@ -23,6 +23,7 @@ class CriacaoDeTarefasRequest extends FormRequest
     {
         return [
             'titulo' => 'required|max:255',
+            'prioridade' => 'required',
         ];
     }
 
@@ -35,6 +36,7 @@ class CriacaoDeTarefasRequest extends FormRequest
         return[
             'titulo.required' => 'Para realizar a criação de uma tarefa informe o titulo!',
             'titulo.max' => 'O titulo da tarefa não pode conter mais de 255 caracteres!',
+            'prioridade.required' => 'Não é possivel atualizar sem informar a prioridade da tarefa!',
         ];
     }
 }
