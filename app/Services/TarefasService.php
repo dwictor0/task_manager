@@ -83,7 +83,7 @@ class TarefasService
      */
     public function buscarTarefa($tarefaId)
     {
-        return $this->listaTarefas->select('id', 'titulo', 'descricao', 'status', 'data_de_vencimento')
+        return $this->listaTarefas->select('id', 'titulo', 'descricao', 'status', 'data_de_vencimento','prioridade')
             ->where('id', $tarefaId)
             ->first();
 
@@ -104,6 +104,7 @@ class TarefasService
             $titulo = (string) $request->input('titulo');
             $descricao = (string) $request->input('descricao');
             $dataValidade = $request->input('data_vencimento');
+            $prioridade = $request->input('prioridade');
             $userId = (integer) Auth::id();
     
             $tarefa->update([
@@ -111,6 +112,7 @@ class TarefasService
                 'descricao' => $descricao,
                 'status' => $tarefaStatusUpdate,
                 'data_de_vencimento' => $dataValidade,
+                'prioridade' => $prioridade,
                 'user_id' => $userId,
             ]);
             DB::commit();
