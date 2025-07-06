@@ -55,8 +55,9 @@ class TarefasService
             $status = $request->input('status');
             $prioridadeTarefa = $request->input('prioridade');
             $userId = (integer) Auth::id();
-            $data = Carbon::parse($request->input('data_vencimento'));
-    
+            $data = Carbon::parse($request->input('data_vencimento') . ' ' . now()->format('H:i:s'));
+
+            
             $tarefa = $this->listaTarefas->create([
                 'titulo' => $titulo,
                 'descricao' => $descricao,
