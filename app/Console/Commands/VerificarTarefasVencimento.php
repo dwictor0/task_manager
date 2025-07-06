@@ -32,7 +32,6 @@ class VerificarTarefasVencimento extends Command
     public function handle()
     {
         try {
-            Log::info('Comando VerificarTarefasVencimento executado.');
             $agora = Carbon::now()->startOfMinute();
 
             $limite = $agora->copy()->addMinutes(30);
