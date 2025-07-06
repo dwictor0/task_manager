@@ -28,6 +28,16 @@
             </div>
 
             <div class="form-group mb-4">
+              <label for="prioridade" class="form-label">Prioridade</label>
+              <select name="prioridade" id="prioridade" class="form-control">
+                <option value="{{ $tarefa->prioridade }}" selected>{{ ucfirst($tarefa->prioridade) }}</option>
+                <option value="alta">Alta</option>
+                <option value="media">Média</option>
+                <option value="baixa">Baixa</option>
+              </select>
+            </div>        
+
+            <div class="form-group mb-4">
               <label for="status" class="form-label">Status</label>
               <select name="status" id="status" class="form-control">
                 <option value="{{ $tarefa->status }}" selected>{{ ucfirst($tarefa->status) }}</option>
