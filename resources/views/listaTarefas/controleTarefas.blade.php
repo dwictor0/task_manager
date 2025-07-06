@@ -4,9 +4,6 @@
 
 @section('content_header')
 
-
-
-
 @endsection
 
 @section('content')
@@ -59,16 +56,16 @@
   let tarefaPrioridadeBaixa  = $('#prioridade_baixa').val();
   
   const tarefasChart = new Chart(ctx, {
-    type: 'bar', // pode ser 'line', 'pie', etc.
+    type: 'bar', 
     data: {
-      labels: ['Alta', 'Média', 'Baixa'], // categorias
+      labels: ['Alta', 'Média', 'Baixa'], 
       datasets: [{
         label: 'Quantidade de Tarefas',
-        data: [tarefaPrioridadeAlta, tarefaPrioridadeMedia, tarefaPrioridadeBaixa], // números que representam os dados
+        data: [tarefaPrioridadeAlta, tarefaPrioridadeMedia, tarefaPrioridadeBaixa], 
         backgroundColor: [
-          'rgba(220, 53, 69, 0.7)', // vermelho (alta)
-          'rgba(255, 193, 7, 0.7)',  // amarelo (média)
-          'rgba(23, 162, 184, 0.7)'  // azul (baixa)
+          'rgba(220, 53, 69, 0.7)', 
+          'rgba(255, 193, 7, 0.7)',  
+          'rgba(23, 162, 184, 0.7)'  
         ],
         borderColor: [
           'rgba(220, 53, 69, 1)',
