@@ -13,6 +13,8 @@ WORKDIR /app
 
 # Instalar dependências do sistema e bibliotecas necessárias
 RUN apt-get update && apt-get install -y \
+    libxml2-dev \
+    cron \
     autoconf \
     g++ \
     make \
@@ -27,7 +29,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     git \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd mysqli pdo pdo_mysql zip \
+    && docker-php-ext-install gd mysqli pdo pdo_mysql zip pcntl dom \
     && pecl install redis \
     && docker-php-ext-enable redis \
     && docker-php-ext-install pcntl \
@@ -40,11 +42,21 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&
     php composer-setup.php --install-dir=/usr/local/bin --filename=composer && \
     php -r "unlink('composer-setup.php');"
 
+RUN git config --global --add safe.directory /app
+
 # Configurar o tempo máximo de execução do PHP
-RUN echo "max_execution_time = 5000" >> /usr/local/etc/php/conf.d/docker-php-max-execution-time.ini
+RUN echo "max_execution_time = 100" >> /usr/local/etc/php/conf.d/docker-php-max-execution-time.ini
+
+
+COPY .docker/cron/laravel-scheduler /etc/cron.d/laravel-scheduler
+
+RUN chmod 0644 /etc/cron.d/laravel-scheduler
+
+RUN crontab /etc/cron.d/laravel-scheduler
+
 
 # Expor a porta necessária para o PHP-FPM
 EXPOSE 9000
 
 # Comando padrão ao iniciar o container
-ENTRYPOINT ["sh", "-c", "composer install && php-fpm"]
+ENTRYPOINT ["sh", "-c", "composer install && cron -f && php-fpm "]
