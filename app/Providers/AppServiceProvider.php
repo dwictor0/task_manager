@@ -14,16 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->booted(function () {
-            app(Schedule::class)->everyMinute()->call(function () {
-
-                $tarefasProximas = app(TarefasService::class)->buscarTarefasProximas();
-
-                foreach ($tarefasProximas as $tarefa) {
-                    dispatch(new EnviarAlertaTarefaJob($tarefa->id));
-                }
-            });
-        });
+        //
     }
 
     /**
