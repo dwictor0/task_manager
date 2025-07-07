@@ -31,28 +31,23 @@ class EnviarAlertaTarefaJob implements ShouldQueue
      */
     public function handle()
     {
+        try {
         $tarefa = ListaTarefas::find($this->tarefaId);
-        if (!$tarefa) {
-            Log::warning("Tarefa {$this->tarefaId} não encontrada.");
-            return;
-        }
-
 
         event(new PusherEvent($tarefa));
 
-
         // Mail::to($tarefa->user->email)->send(new AlertaTarefaMail($tarefa));
 
+            $tarefa->update([
+                'alerta_enviado' => true,
+                'alerta_enviado_at' => now(),
+            ]);
 
-        $tarefa->update([
-         'alerta_enviado' => true,
-         'alerta_enviado_at' => now(), 
-        ]);
-
-
-
-        Log::info("Alerta enviado para tarefa {$this->tarefaId}.");
-
+            // Log::info("Atualização feita com sucesso");
+        } catch (\Exception $e) {
+            Log::error("Erro ao atualizar tarefa: " . $e->getMessage());
+        }
+        // Log::info("Alerta enviado para tarefa {$this->tarefaId}.");
     }
 
     /**
