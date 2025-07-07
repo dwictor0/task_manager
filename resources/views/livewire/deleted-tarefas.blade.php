@@ -39,7 +39,7 @@
         @csrf
         @method('DELETE')
         <button type="submit" class="btn btn-danger btn-sm btn-block">
-          <i class="fas fa-trash"></i> Excluir Permanentemente
+          <i class="fas fa-trash"></i> Excluir 
         </button>
         </form>
       </div>
