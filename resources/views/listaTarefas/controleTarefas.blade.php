@@ -7,22 +7,7 @@
 @endsection
 
 @section('content')
-
-<input type="hidden" name="prioridade_alta" id="prioridade_alta" value="{{ $totalTarefasPrioridade['alta'] ?? 0  }}">
-<input type="hidden" name="prioridade_media" id="prioridade_media" value="{{  $totalTarefasPrioridade['media'] ?? 0  }}">
-<input type="hidden" name="prioridade_baixa" id="prioridade_baixa" value="{{  $totalTarefasPrioridade['baixa'] ?? 0  }}">
-
-<div class="card">
-  <div class="card-header">
-    <h3 class="card-title">Gráfico de Tarefas - Prioridade</h3>
-  </div>
-  <div class="card-body">
-    <canvas id="tarefasChart" style="height: 250px;"></canvas>
-  </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<div class="info-box">
+<div class="info-box pt-2">
   <span class="info-box-icon bg-danger"><i class="fas fa-tasks"></i></span>
 
   <div class="info-box-content">
@@ -47,6 +32,21 @@
     <span class="info-box-number">{{ $totalTarefasStatus['em_progresso'] ?? 0 }}</span>
   </div>
 </div>
+
+<input type="hidden" name="prioridade_alta" id="prioridade_alta" value="{{ $totalTarefasPrioridade['alta'] ?? 0  }}">
+<input type="hidden" name="prioridade_media" id="prioridade_media" value="{{  $totalTarefasPrioridade['media'] ?? 0  }}">
+<input type="hidden" name="prioridade_baixa" id="prioridade_baixa" value="{{  $totalTarefasPrioridade['baixa'] ?? 0  }}">
+
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Gráfico de Tarefas - Prioridade</h3>
+  </div>
+  <div class="card-body">
+    <canvas id="tarefasChart" style="height: 250px;"></canvas>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <script>
