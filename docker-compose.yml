@@ -9,7 +9,13 @@ services:
       - laravel
     depends_on:
       - todoList-db
-    entrypoint: [ "sh", "-c", "composer install && chown -R chown -R www-data:www-data /app/storage && php artisan migrate && (while true; do php artisan app:verificar-tarefas-vencimento; sleep 5; done) & php-fpm" ]
+    command: >
+      sh -c "crontab /app/.docker/cron/laravel-scheduler &&
+             service cron start &&
+             php-fpm"
+    entrypoint: [ "sh", "-c", "composer install && chown -R www-data:www-data /app/storage && php artisan migrate && (while true; do php artisan schedule:run; sleep 5; done) & php-fpm" ]
+    
+
 
   nginx:
     build:
