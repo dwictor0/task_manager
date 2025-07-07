@@ -13,6 +13,7 @@ class SchedulerServiceProvider extends ServiceProvider
     public function register(): void
     {
         //
+        // \Log::info('SchedulerServiceProvider carregado com sucesso.');
     }
 
     /**
@@ -20,6 +21,6 @@ class SchedulerServiceProvider extends ServiceProvider
      */
     public function boot(Schedule $schedule): void
     {
-                $schedule->command('app:verificar-tarefas-vencimento')->everyMinute();
+        $schedule->command('app:verificar-tarefas-vencimento')->everyMinute();
     }
 }
