@@ -37,13 +37,17 @@ class VerificarTarefasVencimento extends Command
             $limite = $agora->copy()->addMinutes(30);
 
 
-            $tarefas = ListaTarefas::where('alerta_enviado', false)
+            $tarefas = ListaTarefas::where('alerta_enviado', 0) 
                 ->whereBetween('data_de_vencimento', [$agora, $limite])
-                ->pluck('id');
+                ->get();
 
-            foreach ($tarefas as $tarefaId) {
-                EnviarAlertaTarefaJob::dispatch($tarefaId);
+            // Log::info(" Verificando tarefas entre {$agora} e {$limite}. Encontradas: " . $tarefas->count());
+
+            foreach ($tarefas as $tarefa) {
+                // Log::info("Enfileirando job para tarefa ID {$tarefa->id}");
+                EnviarAlertaTarefaJob::dispatch($tarefa->id);
             }
+
             $this->info(count($tarefas) . ' ' . Str::plural('tarefa', count($tarefas)) . ' encontrada(s) e alertas disparados.');
 
         } catch (Exception $e) {
