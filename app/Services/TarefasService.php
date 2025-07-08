@@ -223,5 +223,15 @@ class TarefasService
         return $totais;
     }
 
+    /**
+     * Summary of filtraTarefaEnviadas
+     * @return \Illuminate\Database\Eloquent\Collection<int, ListaTarefas>
+     */
+    public function filtraTarefaEnviadas()
+    {
+        $userId = Auth::id();
+        return $this->listaTarefas->where('alerta_enviado',1)->where('user_id',$userId)->get();
+    }
+
 
 }
