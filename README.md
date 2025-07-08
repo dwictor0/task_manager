@@ -58,6 +58,12 @@ Siga os passos abaixo para rodar o projeto localmente:
      php artisan key:generate
    ```
 
+7. **Sistema de filas**:
+    Execute o sistema de filas para enviar Jobs:
+    ```bash
+    php artisan queue:work
+    ```
+
 ## 🔧 Configuração do WebSocket (Pusher)
 
 Para que as notificações em tempo real funcionem corretamente, é necessário configurar o serviço de broadcasting com o **Pusher**.
@@ -81,11 +87,20 @@ PUSHER_APP_CLUSTER=us2
     - Verifique se as variáveis de ambiente estão corretamente configuradas no arquivo `.env`.
     - Se estiver utilizando um servidor remoto, verifique as configurações do banco de dados e serviços auxiliares como fila e WebSocket.
 
-2. **Sistema de filas**:
-    Caso tenha configurado um sistema de filas para envio de e-mails ou notificações, execute os workers em background:
-    ```bash
-    php artisan queue:work
-    ```
+2. **Configuração de Cache**
+   - Em produção, é altamente recomendada a utilização de cache para otimizar a performance do sistema, especialmente em relação ao acesso ao banco de dados e ao carregamento de rotas. Você pode gerar o cache de configuração e rotas com os seguintes comandos:
+        ```bash
+           php artisan config:cache
+           php artisan route:cache
+        ```
+   - Para que as sessões sejam mantidas de forma eficiente, também é recomendável configurar a utilização do cache de sessão ou do driver de banco de dados:
+        ```bash
+           SESSION_DRIVER=redis
+        ```
+3. **Certificado SSL**
+   - Para garantir a segurança das comunicações em produção, especialmente se você estiver utilizando WebSockets (Pusher) ou outros meios de comunicação em tempo real, é importante configurar corretamente o SSL/TLS em seu servidor.
+
+   - Se estiver utilizando o Nginx ou Apache, certifique-se de que o HTTPS esteja corretamente configurado para proteger os dados trafegados.
 
 ## ⚠️ **Nota sobre produção:**
 
@@ -212,6 +227,11 @@ Embora ainda não tenha sido implementado um filtro dinâmico por status diretam
 Gráfico de prioridades (alta, média, baixa)
 
 Cards informativos com a contagem de tarefas por status (pendente, em progresso, concluída)
+
+Além disso, foi adicionado um **log** para monitorar quando uma tarefa é disparada. Esse log registra:
+- A **O momento exato que a tarefa foi disparada**
+- O **total de tarefas já disparadas**
+- O **código da tarefa** disparada.
 
 ## Justificativa técnica:
 Permite rápida análise do estado geral das tarefas
