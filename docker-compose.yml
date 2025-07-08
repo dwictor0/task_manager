@@ -15,8 +15,6 @@ services:
              php-fpm"
     entrypoint: [ "sh", "-c", "chown -R www-data:www-data /app/storage && (while true; do php artisan schedule:run; sleep 5; done) & php-fpm" ]
     
-
-
   nginx:
     build:
       context: .
