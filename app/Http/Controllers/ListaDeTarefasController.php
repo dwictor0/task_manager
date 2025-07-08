@@ -177,7 +177,7 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     public function controleTarefas(): View
     {
         $userId = (integer) Auth::id();
-        $totalAlertasEnviados = $this->listaTarefas->where('alerta_enviado',1)->where('user_id',Auth::id())->get();
+        $totalAlertasEnviados = $this->tarefasService->filtraTarefaEnviadas();
         $totalTarefasPrioridade = $this->tarefasService->filtraTarefaPorCampo('prioridade', ['alta', 'media', 'baixa'], $userId);
         $totalTarefasStatus = $this->tarefasService->filtraTarefaPorCampo('status', ['pendente', 'em_progresso', 'concluida'], $userId);
         
