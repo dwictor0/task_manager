@@ -46,6 +46,33 @@
   </div>
 </div>
 
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Log de Tarefas Enviadas</h3>
+  </div>
+  <div class="card-body">
+    <div class="alert alert-success alert-dismissible fade show shadow-sm rounded mb-4" role="alert">
+      <strong>
+        <i class="fas fa-check-circle me-2"></i> {{ count($totalAlertasEnviados) }}
+      </strong>
+      Notificações Enviadas
+      <button type="button" class="close" data-dismiss="alert" aria-label="Fechar">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <ul class="list-group">
+      @foreach ($totalAlertasEnviados as $log)
+        <li class="list-group-item">
+          <i class="fas fa-calendar-check text-success me-2"></i>
+          Cód Tarefa. <strong>{{ $log->id }}</strong> foi enviada com sucesso em
+          <span class="text-muted">{{ $log->created_at->format('d/m/Y H:i') }}</span>
+        </li>
+      @endforeach
+    </ul>
+  </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
