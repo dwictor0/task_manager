@@ -3,7 +3,6 @@ namespace App\Jobs;
 
 use App\Events\PusherEvent;
 use App\Models\ListaTarefas;
-use App\Services\TarefasService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Contracts\Queue\ShouldQueue;
