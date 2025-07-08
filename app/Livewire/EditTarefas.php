@@ -8,6 +8,7 @@ use Livewire\Component;
 class EditTarefas extends Component
 {
     public $tarefa;
+    public $usuario;
     public $id;
 
     /**
@@ -16,7 +17,7 @@ class EditTarefas extends Component
      */
     public function render()
     {
-        return view('livewire.edit-tarefas',['tarefa' => $this->tarefa]);
+        return view('livewire.edit-tarefas',['tarefa' => $this->tarefa ,'usuario' => $this->usuario]);
     }
 
     /**
@@ -29,5 +30,6 @@ class EditTarefas extends Component
     {
 
         $this->tarefa = $tarefasService->buscarTarefa($id);
+        $this->usuario = $tarefasService->buscaUsuário();
     }
 }
