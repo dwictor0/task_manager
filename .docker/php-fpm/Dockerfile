@@ -59,4 +59,4 @@ RUN crontab /etc/cron.d/laravel-scheduler
 EXPOSE 9000
 
 # Comando padrão ao iniciar o container
-ENTRYPOINT ["sh", "-c", "composer install && cron -f && php-fpm "]
+ENTRYPOINT ["sh", "-c", "composer install --no-interaction --prefer-dist &&  cron -f && php-fpm "]
