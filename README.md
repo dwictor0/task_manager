@@ -53,21 +53,11 @@ Siga os passos abaixo para rodar o projeto localmente:
 - Após executar o comando a interface pode ser acessada na URL<br>
      ```bash
          http://localhost:8000/horizon
-     ```
-6. **Credenciais** execute este comando para gerar as credenciais do .env:
-   ```bash
-     php artisan key:generate
-   ```
 
-7. **Sistema de filas**:
+6. **Sistema de filas**:
     Execute o sistema de filas para enviar Jobs:
     ```bash
     php artisan queue:work
-    ```
-7. **Migrations**:
-    Rode todas as migrações:
-    ```bash
-    php artisan migrate
     ```
 
 ## 🔧 Configuração do WebSocket (Pusher)
