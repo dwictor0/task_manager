@@ -115,7 +115,6 @@ class TarefasService
             $dataValidade = Carbon::parse($request->input('data_vencimento') . ' ' . now()->format('H:i:s'));
             $prioridade = $request->input('prioridade');
             $usuarioRequest = $request->input('usuario');
-            // $userId = (integer) Auth::id();
     
             $tarefa->update([
                 'titulo' => $titulo,
