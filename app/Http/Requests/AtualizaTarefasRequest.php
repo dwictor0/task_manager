@@ -23,6 +23,7 @@ class AtualizaTarefasRequest extends FormRequest
     {
         return [
             'titulo' => 'required|max:255',
+            'data_vencimento' => 'required',
         ];
     }
 
