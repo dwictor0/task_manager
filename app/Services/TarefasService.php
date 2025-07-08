@@ -112,7 +112,7 @@ class TarefasService
             $tarefaStatusUpdate = (string) $request->input('status');
             $titulo = (string) $request->input('titulo');
             $descricao = (string) $request->input('descricao');
-            $dataValidade = $request->input('data_vencimento');
+            $dataValidade = Carbon::parse($request->input('data_vencimento') . ' ' . now()->format('H:i:s'));
             $prioridade = $request->input('prioridade');
             $usuarioRequest = $request->input('usuario');
             // $userId = (integer) Auth::id();
@@ -122,6 +122,7 @@ class TarefasService
                 'descricao' => $descricao,
                 'status' => $tarefaStatusUpdate,
                 'data_de_vencimento' => $dataValidade,
+                'alerta_enviado' => 0,
                 'prioridade' => $prioridade,
                 'user_id' => $usuarioRequest,
             ]);
