@@ -45,7 +45,8 @@ Siga os passos abaixo para rodar o projeto localmente:
     docker-compose down --rmi all
     docker-compose up -d
     ```
-5. Para monitorar e gerenciar as filas com uma interface visual, utilize o Horizon , ative o painel com o comando:
+5. **Laravel Horizon** 
+- Para monitorar e gerenciar as filas com uma interface visual, utilize o Horizon , ative o painel com o comando:
    ```bash
     php artisan horizon 
     ```
@@ -53,7 +54,7 @@ Siga os passos abaixo para rodar o projeto localmente:
      ```bash
          http://localhost:8000/horizon
      ```
-6. Para gerar as credenciais do arquivo .env, execute o seguinte comando:
+6. **Credenciais** execute este comando para gerar as credenciais do .env:
    ```bash
      php artisan key:generate
    ```
@@ -62,6 +63,11 @@ Siga os passos abaixo para rodar o projeto localmente:
     Execute o sistema de filas para enviar Jobs:
     ```bash
     php artisan queue:work
+    ```
+7. **Migrations**:
+    Rode todas as migrações:
+    ```bash
+    php artisan migrate
     ```
 
 ## 🔧 Configuração do WebSocket (Pusher)
@@ -98,7 +104,7 @@ PUSHER_APP_CLUSTER=us2
            SESSION_DRIVER=redis
         ```
 3. **Certificado SSL**
-   - Para garantir a segurança das comunicações em produção, especialmente se você estiver utilizando WebSockets (Pusher) ou outros meios de comunicação em tempo real, é importante configurar corretamente o SSL/TLS em seu servidor.
+   - Para garantir a segurança das comunicações em produção, especialmente utilizando WebSockets (Pusher) ou outros meios de comunicação em tempo real, é importante configurar corretamente o SSL/TLS em seu servidor.
 
    - Se estiver utilizando o Nginx ou Apache, certifique-se de que o HTTPS esteja corretamente configurado para proteger os dados trafegados.
 
