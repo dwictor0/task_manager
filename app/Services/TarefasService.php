@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\User;
 use App\Models\ListaTarefas;
 use App\Events\PusherEvent;
 use Auth;
@@ -14,14 +15,16 @@ use Illuminate\Support\Facades\Log;
 class TarefasService
 {
     private ListaTarefas $listaTarefas;
+    private User $usuarioTarefa;
 
 
     /**
      * Create a new class instance.
      */
-    public function __construct(ListaTarefas $listaTarefas)
+    public function __construct(ListaTarefas $listaTarefas,User $usuarioTarefa)
     {
         $this->listaTarefas = $listaTarefas;
+        $this->usuarioTarefa = $usuarioTarefa;
     }
 
     /**
@@ -76,6 +79,12 @@ class TarefasService
         
     }
 
+    public function buscaUsuario()
+    {
+        return $this->usuarioTarefa->select('id', 'name')
+            ->get(); 
+    }
+
     /**
      * Summary of buscarTarefa
      * @param mixed $tarefaId
@@ -105,7 +114,8 @@ class TarefasService
             $descricao = (string) $request->input('descricao');
             $dataValidade = $request->input('data_vencimento');
             $prioridade = $request->input('prioridade');
-            $userId = (integer) Auth::id();
+            $usuarioRequest = $request->input('usuario');
+            // $userId = (integer) Auth::id();
     
             $tarefa->update([
                 'titulo' => $titulo,
@@ -113,7 +123,7 @@ class TarefasService
                 'status' => $tarefaStatusUpdate,
                 'data_de_vencimento' => $dataValidade,
                 'prioridade' => $prioridade,
-                'user_id' => $userId,
+                'user_id' => $usuarioRequest,
             ]);
             DB::commit();
             event(new PusherEvent($tarefa));
