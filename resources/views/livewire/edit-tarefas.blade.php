@@ -35,7 +35,16 @@
                 <option value="media">Média</option>
                 <option value="baixa">Baixa</option>
               </select>
-            </div>        
+            </div>
+            
+            <div class="form-group mb-4">
+              <label for="usuario" class="form-label">Alterar usuário</label>
+              <select name="usuario" id="usuario" class="form-control">
+                @foreach ($usuario as $user)
+                <option value="{{ $user->id }}"  @if ($user->id == Auth::id()) selected @endif>{{ $user->id }} - {{ ucfirst($user->name) }}</option>
+                @endforeach
+              </select>
+            </div>
 
             <div class="form-group mb-4">
               <label for="status" class="form-label">Status</label>
