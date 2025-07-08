@@ -13,7 +13,7 @@ services:
       sh -c "crontab /app/.docker/cron/laravel-scheduler &&
              service cron start &&
              php-fpm"
-    entrypoint: [ "sh", "-c", "chown -R www-data:www-data /app/storage && (while true; do php artisan schedule:run; sleep 5; done) & php-fpm" ]
+    entrypoint: ["/usr/local/bin/entrypoint.sh"]
     
   nginx:
     build:
