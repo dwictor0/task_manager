@@ -30,6 +30,6 @@ class EditTarefas extends Component
     {
 
         $this->tarefa = $tarefasService->buscarTarefa($id);
-        $this->usuario = $tarefasService->buscaUsuário();
+        $this->usuario = $tarefasService->buscaUsuario();
     }
 }
