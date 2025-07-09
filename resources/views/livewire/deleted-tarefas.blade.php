@@ -21,11 +21,10 @@
       </p>
 
       <p><strong>Vencimento:</strong>
-        {{ \Carbon\Carbon::parse($tarefa->data_de_vencimento)->format('d/m/Y') }}
+        {{ $tarefa->data_de_vencimento->format('d/m/Y') }}
       </p>
 
       <div class="d-flex justify-content-between">
-        {{-- Botão restaurar --}}
         <form action="{{ route('tarefas.restore', $tarefa->id) }}" method="POST" class="mr-2 w-100 me-1">
         @csrf
         <button type="submit" class="btn btn-success btn-sm btn-block">
@@ -33,7 +32,6 @@
         </button>
         </form>
 
-        {{-- Botão excluir permanentemente --}}
         <form action="{{ route('tarefas.destroy', $tarefa->id) }}" method="POST" class="w-100 ms-1"
         onsubmit="return confirm('Tem certeza que deseja excluir esta tarefa permanentemente? Esta ação não pode ser desfeita.');">
         @csrf
