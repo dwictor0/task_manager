@@ -3,8 +3,10 @@
 namespace App\Jobs;
 
 use App\Mail\ConteudoEmail;
+use Exception;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Support\Facades\Log;
 use Mail;
 
 class EnviarEmail implements ShouldQueue
@@ -36,8 +38,8 @@ class EnviarEmail implements ShouldQueue
             ];
 
             Mail::to('email@example.com')->send(new ConteudoEmail($emailData));
-        } catch (\Exception $e) {
-            \Log::error("Erro ao enviar e-mail: " . $e->getMessage());
+        } catch (Exception $e) {
+            Log::error("Erro ao enviar e-mail: " . $e->getMessage());
             throw $e;
         }
     }
