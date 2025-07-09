@@ -171,7 +171,7 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     }
 
     /**
-     * Summary of controleTarefas
+     * Método ControleTarefas
      * @return View
      * @author dwictor0
      */
