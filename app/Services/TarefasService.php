@@ -87,6 +87,10 @@ class TarefasService
         
     }
 
+    /**
+     * Summary of buscaUsuario
+     * @return \Illuminate\Database\Eloquent\Collection<int, User>
+     */
     public function buscaUsuario()
     {
         try {
