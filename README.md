@@ -136,12 +136,6 @@ Se encontrar algum erro durante a execução, aqui estão algumas dicas para sol
     - Verifique se o MySQL está rodando corretamente no Docker.
     - Execute `docker-compose logs mysql` para verificar o estado do serviço de banco de dados.
 
-- **Erro de conexão com o banco de dados:**
-
-    - Verifique se o MySQL está rodando corretamente no Docker.
-
-    - Execute docker-compose logs mysql para verificar o estado do serviço de banco de dados.
-
 - **Erros com Docker**:
     - Se o Docker não estiver rodando, execute `docker ps` para verificar se os containers estão em execução.
     - Caso haja problemas com a rede, tente reiniciar o Docker ou limpar volumes e imagens antigas.
@@ -157,7 +151,7 @@ Se encontrar algum erro durante a execução, aqui estão algumas dicas para sol
    - Exemplo de configuração no .env:
      ```env
       DB_CONNECTION=mysql
-      DB_HOST=todoList-db  # nome do container ou endereço de rede
+      DB_HOST=todoList-db  
       DB_PORT=3306
       DB_DATABASE=task_manager
       DB_USERNAME=root
