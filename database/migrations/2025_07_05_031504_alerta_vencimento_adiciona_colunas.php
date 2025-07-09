@@ -24,7 +24,6 @@ return new class extends Migration {
        Schema::table('lista_tarefas', function (Blueprint $table) {
             $table->dropColumn('alerta_enviado');
             $table->dropColumn('alerta_enviado_at');
-            // 'alerta_enviado_at'
         });
     }
 };
