@@ -44,10 +44,10 @@ class ConteudoEmail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.alerta',  // Aqui define o nome da view
+            view: 'emails.alerta',  
             with: [
-                'tarefa' => $this->tarefa,   // Passando a tarefa para a view
-                'userId' => $this->userId,   // Passando o userId para a view
+                'tarefa' => $this->tarefa,   
+                'userId' => $this->userId,   
             ]        
         );
     }
