@@ -89,8 +89,13 @@ class TarefasService
 
     public function buscaUsuario()
     {
-        return $this->usuarioTarefa->select('id', 'name')
-            ->get(); 
+        try {
+            return $this->usuarioTarefa->select('id', 'name')
+                ->get(); 
+        } catch (Exception $e) {
+            Log::error("Erro ao buscar usuarios cadastrados: {$e->getMessage()}");
+            throw $e;
+        }
     }
 
     /**
@@ -100,9 +105,15 @@ class TarefasService
      */
     public function buscarTarefa($tarefaId)
     {
-        return $this->listaTarefas->select('id', 'titulo', 'descricao', 'status', 'data_de_vencimento','prioridade')
-            ->where('id', $tarefaId)
-            ->first();
+        try {
+            return $this->listaTarefas->select('id', 'titulo', 'descricao', 'status', 'data_de_vencimento','prioridade')
+                ->where('id', $tarefaId)
+                ->first();
+
+        } catch (Exception $e) {
+            Log::error("Erro ao carregar os dados para edicao: {$e->getMessage()}");
+            throw $e;
+        }
 
     }
 
@@ -149,10 +160,15 @@ class TarefasService
      */
     public function buscaTarefaDeletada()
     {
-        return $this->listaTarefas
-            ->where('user_id', Auth::id())
-            ->whereNotNull('deleted_at')
-            ->withTrashed()->get();
+        try {
+          return $this->listaTarefas->where('user_id', Auth::id())->whereNotNull('deleted_at')
+            ->withTrashed()
+            ->get();
+
+        } catch (Exception $e) {
+            Log::error("Erro ao carregar tarefas deletadas: {$e->getMessage()}");
+            throw $e;
+        }
 
 
     }
@@ -219,16 +235,21 @@ class TarefasService
      */
     public function filtraTarefaPorCampo(string $campo, array $valores, int $userId): array
     {
-        $totais = [];
-
-        foreach ($valores as $valor) {
-            $totais[$valor] = $this->listaTarefas
-                ->where('user_id', $userId)
-                ->where($campo, $valor)
-                ->count();
+        try {
+            $totais = [];
+    
+            foreach ($valores as $valor) {
+                $totais[$valor] = $this->listaTarefas
+                    ->where('user_id', $userId)
+                    ->where($campo, $valor)
+                    ->count();
+            }
+    
+            return $totais;
+        } catch (Exception $e) {
+            Log::error("Erro ao buscar tarefas pelo filtro fornecido: {$e->getMessage()}");
+            throw $e;
         }
-
-        return $totais;
     }
 
     /**
@@ -237,8 +258,14 @@ class TarefasService
      */
     public function filtraTarefaEnviadas()
     {
-        $userId = Auth::id();
-        return $this->listaTarefas->where('alerta_enviado',1)->where('user_id',$userId)->get();
+        try {
+            $userId = Auth::id();
+
+            return $this->listaTarefas->where('alerta_enviado',1)->where('user_id',$userId)->get();
+        } catch (Exception $e) {
+            Log::error("Erro ao filtrar usuarios com alerta ja recebidos: {$e->getMessage()}");
+            throw $e;
+        }
     }
 
 
