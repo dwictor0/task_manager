@@ -23,6 +23,9 @@ done &
 echo "Gerando credenciais"
 php artisan key:generate
 
+echo "Configurando laravel horizon"
+php artisan horizon:install
+
 # Iniciar o PHP-FPM em segundo plano
 echo "Iniciando o PHP-FPM..."
 php-fpm
