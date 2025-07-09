@@ -74,6 +74,24 @@ PUSHER_APP_SECRET=your-app-secret
 PUSHER_APP_CLUSTER=us2
 ```
 
+## 🔧 Configuração do MailTrap (Notificação por Email)
+
+Para garantir que o disparo de email funcione corretamente, é necessário seguir as orientações.
+
+No arquivo `.env`, adicione suas credenciais:
+
+```env
+MAIL_MAILER=smtp
+MAIL_SCHEME=null
+MAIL_URL=null
+MAIL_HOST=sandbox.smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=YOUR_MAIL_USERNAME
+MAIL_PASSWORD=YOUR_MAIL_PASSWORD
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=YOUR_EMAIL_ADDRESS
+MAIL_FROM_NAME="${APP_NAME}"
+```
 
 
 
@@ -118,10 +136,39 @@ Se encontrar algum erro durante a execução, aqui estão algumas dicas para sol
     - Verifique se o MySQL está rodando corretamente no Docker.
     - Execute `docker-compose logs mysql` para verificar o estado do serviço de banco de dados.
 
+- **Erro de conexão com o banco de dados:**
+
+    - Verifique se o MySQL está rodando corretamente no Docker.
+
+    - Execute docker-compose logs mysql para verificar o estado do serviço de banco de dados.
+
 - **Erros com Docker**:
     - Se o Docker não estiver rodando, execute `docker ps` para verificar se os containers estão em execução.
     - Caso haja problemas com a rede, tente reiniciar o Docker ou limpar volumes e imagens antigas.
 
+- **Erro relacionado ao DB_USERNAME e DB_PASSWORD**
+
+    - Se você receber um erro de "Access denied for user" ou "Can't connect to database" ao tentar acessar o MySQL no Docker, verifique o arquivo .env da sua aplicação para garantir que as variáveis de configuração do banco de dados estão corretas
+
+- **Usuário e senha padrão**
+
+   - Se você está usando o MySQL no Docker e não alterou as credenciais, o usuário padrão é geralmente root e a senha também é root.
+
+   - Exemplo de configuração no .env:
+     ```env
+      DB_CONNECTION=mysql
+      DB_HOST=todoList-db  # nome do container ou endereço de rede
+      DB_PORT=3306
+      DB_DATABASE=task_manager
+      DB_USERNAME=root
+      DB_PASSWORD=root
+     ```
+ - **Reiniciar os containers**
+
+    - Às vezes, é necessário reiniciar o contêiner MySQL após alterar o .env. Para isso, execute:
+      ```bash
+       docker compose restart mysql
+      ```
 ---
 
 ## 🧱 Arquitetura da Solução 
@@ -237,11 +284,27 @@ Fornece uma visão macro para usuários gestores
 Reduz carga de interação com a tabela principal
 
 ## 10. ✉️ Notificação por E-mail — Em Desenvolvimento
-Embora a estrutura do sistema já esteja preparada para envio de e-mails no Job, a funcionalidade de notificação por e-mail não foi implementada nesta versão.
+Foi implementado o envio de e-mails na criação de uma tarefa , notificando sobre a tarefa criada.
 
 ## Justificativa Técnica:
-A prioridade foi dada ao envio de alertas via WebSocket e à estabilidade do sistema assíncrono.
+Engajamento do usuário: Notificar os usuários sobre novas tarefas é essencial para garantir que todos os envolvidos no gerenciamento da tarefa estejam sempre atualizados, melhorando o engajamento e a resposta a prazos.
 
+Escalabilidade: A implementação inicial de notificações por e-mail foca em eventos críticos como criação , enquanto em futuras versões será possível escalar essa funcionalidade para outros cenários, como alterações de proprietário ou vencimento das tarefas.
+
+## 11. ✉️ Escolha do Mailtrap para Envio de E-mails
+
+A solução de envio de e-mails foi configurada utilizando o Mailtrap, um serviço de captura e visualização de e-mails enviados durante o desenvolvimento. Ele é utilizado para testar e garantir que o envio de e-mails funcione corretamente, sem afetar o ambiente de produção ou enviar e-mails reais para os usuários.
+Justificativa Técnica:
+
+## Justificativa Técnica:
+
+Ambiente Seguro para Desenvolvimento: O Mailtrap oferece um ambiente seguro e isolado onde os e-mails podem ser capturados e visualizados sem serem realmente entregues aos destinatários finais. Isso é extremamente útil para testes durante o desenvolvimento e para garantir que os e-mails estão sendo enviados corretamente antes de entrar em produção.
+
+Facilidade de Configuração: A configuração do Mailtrap é simples e rápida, especialmente para um ambiente de desenvolvimento local ou staging, onde você não quer enviar e-mails reais enquanto está testando funcionalidades como notificações ou alertas.
+
+Visualização de E-mails: Mailtrap permite visualizar como os e-mails serão formatados, ajudando a ajustar o conteúdo e o layout do e-mail antes de serem enviados para os usuários finais. Isso melhora a qualidade das notificações enviadas pela aplicação.
+
+   
 #### Proximas Atualizações:
 - Alternância entre idiomas no painel
 - Textos externos extraídos para arquivos de tradução
