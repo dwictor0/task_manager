@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Jobs\EnviarEmail;
 use App\Models\User;
 use App\Models\ListaTarefas;
 use App\Events\PusherEvent;
@@ -70,6 +71,13 @@ class TarefasService
                 'user_id' => $userId,
             ]);
             DB::commit();
+            
+            $emailData = [
+             'tarefa' => $tarefa,  
+             'user_id' => $userId, 
+            ];
+
+            EnviarEmail::dispatch($emailData);
             event(new PusherEvent($tarefa));
         } catch (Exception $e) {
             DB::rollBack();
