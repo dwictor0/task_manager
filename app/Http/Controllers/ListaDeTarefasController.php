@@ -173,6 +173,7 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     /**
      * Summary of controleTarefas
      * @return View
+     * @author dwictor0
      */
     public function controleTarefas(): View
     {
