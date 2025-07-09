@@ -35,15 +35,13 @@ class EnviarAlertaTarefaJob implements ShouldQueue
 
         event(new PusherEvent($tarefa));
 
-        // Mail::to($tarefa->user->email)->send(new AlertaTarefaMail($tarefa));
-
             $tarefa->update([
                 'alerta_enviado' => true,
                 'alerta_enviado_at' => now(),
             ]);
 
             // Log::info("Atualização feita com sucesso");
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::error("Erro ao atualizar tarefa: " . $e->getMessage());
         }
         // Log::info("Alerta enviado para tarefa {$this->tarefaId}.");
