@@ -48,6 +48,7 @@ RUN git config --global --add safe.directory /app
 RUN echo "max_execution_time = 100" >> /usr/local/etc/php/conf.d/docker-php-max-execution-time.ini
 
 
+
 COPY .docker/cron/laravel-scheduler /etc/cron.d/laravel-scheduler
 
 RUN chmod 0644 /etc/cron.d/laravel-scheduler
@@ -58,5 +59,7 @@ RUN crontab /etc/cron.d/laravel-scheduler
 # Expor a porta necessária para o PHP-FPM
 EXPOSE 9000
 
-# Comando padrão ao iniciar o container
-ENTRYPOINT ["sh", "-c", "composer install --no-interaction --prefer-dist &&  cron -f && php-fpm "]
+
+COPY .docker/php-fpm/docker-entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

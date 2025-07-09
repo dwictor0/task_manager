@@ -29,7 +29,7 @@
 
   <script>
 
-    Pusher.logToConsole = true;
+    Pusher.logToConsole = false;
 
     var pusher = new Pusher('2c0d6c5c3b525a1e9679', {
     cluster: 'us2',
@@ -45,7 +45,6 @@
     var channel = pusher.subscribe('private-usuario.' + userId);
 
     channel.bind('evento-teste', function (data) {
-    console.log('Evento Pusher recebido:', data);
     window.dispatchEvent(new CustomEvent('evento', { detail: data }));
 
     });

@@ -23,7 +23,7 @@ class AtualizaTarefasRequest extends FormRequest
     {
         return [
             'titulo' => 'required|max:255',
-            'data_vencimento' => 'required',
+            'data_vencimento' => 'required|date',
         ];
     }
 
@@ -36,6 +36,8 @@ class AtualizaTarefasRequest extends FormRequest
         return [
           'titulo.required'=> 'Não é possivel atualizar uma tarefa sem informar o titulo!.',
           'titulo.max'=> 'A tarefa não pode ser atualizada se o titulo tiver mais de 255 caracteres!.',
+          'data_vencimento.required' => 'Informe uma data para atualizar a tarefa!.',
+          'data_vencimento.date' => 'A data informada não é valida!.'
         ];
     }
 }
