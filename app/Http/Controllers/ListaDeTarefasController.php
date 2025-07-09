@@ -176,13 +176,17 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
      */
     public function controleTarefas(): View
     {
-        $userId = (integer) Auth::id();
-        $totalAlertasEnviados = $this->tarefasService->filtraTarefaEnviadas();
-        $totalTarefasPrioridade = $this->tarefasService->filtraTarefaPorCampo('prioridade', ['alta', 'media', 'baixa'], $userId);
-        $totalTarefasStatus = $this->tarefasService->filtraTarefaPorCampo('status', ['pendente', 'em_progresso', 'concluida'], $userId);
-        
-        
+        try {
+            $userId = (integer) Auth::id();
+            $totalAlertasEnviados = $this->tarefasService->filtraTarefaEnviadas();
+            $totalTarefasPrioridade = $this->tarefasService->filtraTarefaPorCampo('prioridade', ['alta', 'media', 'baixa'], $userId);
+            $totalTarefasStatus = $this->tarefasService->filtraTarefaPorCampo('status', ['pendente', 'em_progresso', 'concluida'], $userId);
 
-        return view('listaTarefas.controleTarefas', @compact(['totalTarefasPrioridade', $totalTarefasPrioridade, 'totalTarefasStatus', $totalTarefasStatus,'totalAlertasEnviados',$totalAlertasEnviados]));
+            return view('listaTarefas.controleTarefas', @compact(['totalTarefasPrioridade', $totalTarefasPrioridade, 'totalTarefasStatus', $totalTarefasStatus,'totalAlertasEnviados',$totalAlertasEnviados]));
+        } catch (Exception $e) {
+            DB::rollBack();
+            Log::error("Erro ao carregar dados para controle da tarefa:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
+            return view('errors.exception');
+        }
     }
 }
