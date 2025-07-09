@@ -20,6 +20,11 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
      * @var ListaTarefas
      */
     private ListaTarefas $listaTarefas;
+    
+    /**
+     * 
+     * @var TarefasService
+     */
     private TarefasService $tarefasService;
 
     /**
