@@ -147,16 +147,17 @@ Se encontrar algum erro durante a execução, aqui estão algumas dicas para sol
 - **Usuário e senha padrão**
 
    - Se você está usando o MySQL no Docker e não alterou as credenciais, o usuário padrão é geralmente root e a senha também é root.
-
+     
    - Exemplo de configuração no .env:
      ```env
       DB_CONNECTION=mysql
       DB_HOST=todoList-db  
       DB_PORT=3306
       DB_DATABASE=task_manager
-      DB_USERNAME=root
-      DB_PASSWORD=root
+      DB_USERNAME=task-manager
+      DB_PASSWORD=pass
      ```
+   - Ou atualize para as credenciais padrão **DB_USERNAME** root e **DB_PASSWORD** root
  - **Reiniciar os containers**
 
     - Às vezes, é necessário reiniciar o contêiner MySQL após alterar o .env. Para isso, execute:
