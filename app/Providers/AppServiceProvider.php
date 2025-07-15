@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Gate;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Console\Scheduling\Schedule;
 use App\Jobs\EnviarAlertaTarefaJob;
@@ -22,6 +23,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+         Gate::define('viewPulse', function ($user) {
+            return in_array($user->email, [
+                'daniel.teste@gmail.com',
+            ]);
+        });
     }
 }
