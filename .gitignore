@@ -25,3 +25,7 @@ npm-debug.log
 Thumbs.db
 yarn-error.log
 .docker/db_data
+
+**/caddy
+frankenphp
+frankenphp-worker.php
