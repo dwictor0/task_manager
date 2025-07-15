@@ -62,7 +62,7 @@
                                 </span>
                             </span>
                             <span>
-                            Desenvolvido por <strong>Daniel Wictor</strong>
+                            <!-- Desenvolvido por <strong>Daniel Wictor</strong> -->
                             </span>
                         </li>
                         <li class="flex items-center gap-4 py-2 relative before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A] before:bottom-1/2 before:top-0 before:left-[0.4rem] before:absolute">
@@ -71,17 +71,17 @@
                                     <span class="rounded-full bg-[#dbdbd7] dark:bg-[#3E3E3A] w-1.5 h-1.5"></span>
                                 </span>
                             </span>
-                            <span>
-                                Acesse a Documentação do Projeto:
-                            </span>
+                            <!-- <span> -->
+                                <!-- Acesse a Documentação do Projeto: -->
+                            <!-- </span> -->
                         </li>
                     </ul>
                     <ul class="flex gap-3 text-sm leading-normal">
-                        <li>
-                            <a href="https://github.com/dwictor0/tarefas_list" target="_blank" class="inline-block dark:bg-[#eeeeec] dark:border-[#eeeeec] dark:text-[#1C1C1A] dark:hover:bg-white dark:hover:border-white hover:bg-black hover:border-black px-5 py-1.5 bg-[#1b1b18] rounded-sm border border-black text-white text-sm leading-normal">
-                                Documentação
-                            </a>
-                        </li>
+                        <!-- <li> -->
+                            <!-- <a href="https://github.com/dwictor0/tarefas_list" target="_blank" class="inline-block dark:bg-[#eeeeec] dark:border-[#eeeeec] dark:text-[#1C1C1A] dark:hover:bg-white dark:hover:border-white hover:bg-black hover:border-black px-5 py-1.5 bg-[#1b1b18] rounded-sm border border-black text-white text-sm leading-normal"> -->
+                                <!-- Documentação -->
+                            <!-- </a> -->
+                        <!-- </li> -->
                     </ul>
                 </div>
                 <div class="bg-[#fff2f2] dark:bg-[#1D0002] relative lg:-ml-px -mb-px lg:mb-0 rounded-t-lg lg:rounded-t-none lg:rounded-r-lg aspect-[335/376] lg:aspect-auto w-full lg:w-[438px] shrink-0 overflow-hidden">
