@@ -137,7 +137,7 @@ class TarefasService
             $descricao = (string) $request->input('descricao');
             $dataValidade = Carbon::parse($request->input('data_vencimento') . ' ' . now()->format('H:i:s'));
             $prioridade = $request->input('prioridade');
-            $usuarioRequest = $request->input('usuario');
+            // $usuarioRequest = $request->input('usuario');
     
             $tarefa->update([
                 'titulo' => $titulo,
@@ -146,7 +146,6 @@ class TarefasService
                 'data_de_vencimento' => $dataValidade,
                 'alerta_enviado' => 0,
                 'prioridade' => $prioridade,
-                'user_id' => $usuarioRequest,
             ]);
             DB::commit();
             event(new PusherEvent($tarefa));
