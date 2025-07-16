@@ -22,7 +22,8 @@ class AtualizaTarefasRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'titulo' => 'required|max:255',
+            'titulo' => ['required', 'max:255', 'regex:/^[a-zA-ZáàãâéèêíïóòôõúçÁÀÃÂÉÈÊÍÏÓÒÔÕÚÇ]+$/'],
+            'descricao' => ['sometimes', 'regex:/^[a-zA-ZáàãâéèêíïóòôõúçÁÀÃÂÉÈÊÍÏÓÒÔÕÚÇ]+$/'],
             'data_vencimento' => 'required|date',
         ];
     }
@@ -34,10 +35,12 @@ class AtualizaTarefasRequest extends FormRequest
     public function messages(): array
     {
         return [
-          'titulo.required'=> 'Não é possivel atualizar uma tarefa sem informar o titulo!.',
-          'titulo.max'=> 'A tarefa não pode ser atualizada se o titulo tiver mais de 255 caracteres!.',
-          'data_vencimento.required' => 'Informe uma data para atualizar a tarefa!.',
-          'data_vencimento.date' => 'A data informada não é valida!.'
+            'titulo.required' => 'Não é possivel atualizar uma tarefa sem informar o titulo!.',
+            'titulo.max' => 'A tarefa não pode ser atualizada se o titulo tiver mais de 255 caracteres!.',
+            'descricao.regex' => 'O texto informado para a descrição não é valido!',
+            'titulo.regex' => 'O texto informado para o titulo não é valido!',
+            'data_vencimento.required' => 'Informe uma data para atualizar a tarefa!.',
+            'data_vencimento.date' => 'A data informada não é valida!.'
         ];
     }
 }
