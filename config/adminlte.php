@@ -223,7 +223,7 @@ return [
     'sidebar_scrollbar_auto_hide' => 'l',
     'sidebar_nav_accordion' => true,
     'sidebar_nav_animation_speed' => 300,
-
+    
     /*
     |--------------------------------------------------------------------------
     | Control Sidebar (Right Sidebar)
@@ -297,7 +297,7 @@ return [
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Menu-Configuration
     |
     */
-
+    
     'menu' => [
         // Navbar items:
         [
@@ -320,7 +320,7 @@ return [
             'url' => 'admin/blog',
             'can' => 'manage-blog',
         ],
-        ['header' => 'TAREFAS'],
+        ['header' => 'Homepage'],
         [
             'text' => 'Inicio',
             'url' => '/dashboard',
@@ -328,6 +328,8 @@ return [
             // 'label' => 4,
             'label_color' => 'success',
         ],
+        
+        ['header' => 'Tarefas'],
         [
             'text' => 'Criar Tarefas',
             'url' => 'tarefas/create',
@@ -342,27 +344,22 @@ return [
             // 'label' => 4,
             'label_color' => 'success',
         ],
-        [
-            'text' => 'Horizon',
-            'url' => 'http://localhost:8000/horizon/dashboard',
-            'icon' => 'fa fa-rocket',
-            // 'label' => 4,
-            'label_color' => 'success',
-        ],        
-        ['header' => 'CONFIGURAÇÕES'],
+
+
+        ['header' => 'Configurações do Usuario'],
         [
             'text' => 'Usuário',
             'url' => '/profile',
             'icon' => 'fas fa-fw fa-user',
         ],
-       
-        ['header' => 'CONTROLE'],
+        
+        ['header' => 'Controle de Tarefas'],
         [
             'text' => 'Tarefas',
             'icon' => 'fa fa-cog',
             'url' => '/controle',
         ],
-      
+            
     ],
 
     /*
