@@ -22,7 +22,8 @@ class CriacaoDeTarefasRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'titulo' => 'required|max:255',
+            'titulo' => ['required', 'max:255', 'regex:/^[a-zA-ZáàãâéèêíïóòôõúçÁÀÃÂÉÈÊÍÏÓÒÔÕÚÇ]+$/'],
+            'descricao' => ['sometimes','regex:/^[a-zA-ZáàãâéèêíïóòôõúçÁÀÃÂÉÈÊÍÏÓÒÔÕÚÇ]+$/'],
             'prioridade' => 'required',
             'data_vencimento' => 'required',
             'status' => 'required',
@@ -35,8 +36,10 @@ class CriacaoDeTarefasRequest extends FormRequest
      */
     public function messages(): array
     {
-        return[
+        return [
             'titulo.required' => 'Para realizar a criação de uma tarefa informe o titulo!',
+            'titulo.regex' => 'O texto informado para o titulo não é valido!',
+            'descricao.regex' => 'O texto informado para a descrição não é valido!',
             'titulo.max' => 'O titulo da tarefa não pode conter mais de 255 caracteres!',
             'prioridade.required' => 'Não é possivel atualizar sem informar a prioridade da tarefa!',
             'data_vencimento.required' => 'Informe uma data de vencimento para criar uma tarefa!',
