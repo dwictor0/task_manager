@@ -22,8 +22,8 @@ class AtualizaTarefasRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'titulo' => ['required', 'max:255', 'regex:/^[a-zA-ZáàãâéèêíïóòôõúçÁÀÃÂÉÈÊÍÏÓÒÔÕÚÇ]+$/'],
-            'descricao' => ['sometimes', 'regex:/^[a-zA-ZáàãâéèêíïóòôõúçÁÀÃÂÉÈÊÍÏÓÒÔÕÚÇ]+$/'],
+            'titulo' => ['required', 'max:255', 'regex:/^[a-zA-ZáàãâéèêíïóòôõúçÁÀÃÂÉÈÊÍÏÓÒÔÕÚÇ\s]+$/'],
+            'descricao' => ['sometimes','regex:/^[a-zA-ZáàãâéèêíïóòôõúçÁÀÃÂÉÈÊÍÏÓÒÔÕÚÇ\s]+$/'],
             'data_vencimento' => 'required|date',
         ];
     }
