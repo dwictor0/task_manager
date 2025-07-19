@@ -22,5 +22,5 @@
 @endsection
 
 @section('content')
- <livewire:sugestao-sistema></livewire:sugestao-sistema>
+<a href="{{ route('sugestao.save') }}">Fazer Sugestões</a>
 @endsection
