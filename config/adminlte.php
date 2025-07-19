@@ -223,7 +223,7 @@ return [
     'sidebar_scrollbar_auto_hide' => 'l',
     'sidebar_nav_accordion' => true,
     'sidebar_nav_animation_speed' => 300,
-    
+
     /*
     |--------------------------------------------------------------------------
     | Control Sidebar (Right Sidebar)
@@ -297,7 +297,7 @@ return [
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Menu-Configuration
     |
     */
-    
+
     'menu' => [
         // Navbar items:
         [
@@ -320,7 +320,7 @@ return [
             'url' => 'admin/blog',
             'can' => 'manage-blog',
         ],
-        
+
         ['header' => 'TAREFAS'],
         [
             'text' => 'Tarefas',
@@ -352,21 +352,28 @@ return [
             // 'label' => 4,
             'label_color' => 'success',
         ],
-        
+
         ['header' => 'CONFIGURAÇÕES'],
         [
             'text' => 'Usuário',
             'url' => '/profile',
             'icon' => 'fas fa-fw fa-user',
         ],
-        
+
         ['header' => 'SUGESTÕES'],
         [
             'text' => 'Faça sua Sugestão!',
             'icon' => 'fa fa-comments',
             'url' => '/sugestoes',
         ],
-            
+
+        ['header' => 'SENADORES'],
+        [
+            'text' => 'Senadores',
+            'icon' => '',
+            'url' => '/senador',
+        ],
+
     ],
 
     /*
