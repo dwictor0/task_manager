@@ -21,10 +21,15 @@ class ListaTarefas extends Model
     'alerta_enviado',
     'alerta_enviado_at',
   ];
-  
+
   protected $casts = [
-     'data_de_vencimento' => 'datetime:Y-m-d H:i:s',
-     'alerta_enviado_at' => 'datetime',
+    'data_de_vencimento' => 'datetime:Y-m-d H:i:s',
+    'alerta_enviado_at' => 'datetime',
 
   ];
+
+  public function senador()
+  {
+    return $this->belongsTo(Deputados::class,'senador_id','id');
+  }
 }
