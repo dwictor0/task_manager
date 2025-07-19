@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApiController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ListaDeTarefasController;
@@ -20,6 +21,7 @@ Route::middleware('auth')->group(function () {
         return Broadcast::auth($request);
     });
     Route::resource('tarefas', ListaDeTarefasController::class);
+    Route::get('/api', [ApiController::class,'renderizaApi'])->name('api.controle');
     Route::post('/restore/{id}', [ListaDeTarefasController::class, 'restore'])->name('tarefas.restore');
     Route::get('/controle', [ListaDeTarefasController::class,'controleTarefas'])->name('tarefas.controle');
     Route::get('/deleted', [ListaDeTarefasController::class, 'indexSoftDelete'])->name('tarefas.delete');
