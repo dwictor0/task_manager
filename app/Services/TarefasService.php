@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Jobs\EnviarEmail;
+use App\Models\Deputados;
 use App\Models\User;
 use App\Models\ListaTarefas;
 use App\Events\PusherEvent;
@@ -18,14 +19,17 @@ class TarefasService
     private ListaTarefas $listaTarefas;
     private User $usuarioTarefa;
 
+    private Deputados $senadores;
+
 
     /**
      * Create a new class instance.
      */
-    public function __construct(ListaTarefas $listaTarefas,User $usuarioTarefa)
+    public function __construct(ListaTarefas $listaTarefas,User $usuarioTarefa,Deputados $senadores)
     {
         $this->listaTarefas = $listaTarefas;
         $this->usuarioTarefa = $usuarioTarefa;
+        $this->senadores = $senadores;
     }
 
     /**
@@ -60,6 +64,7 @@ class TarefasService
             $prioridadeTarefa = $request->input('prioridade');
             $userId = (integer) Auth::id();
             $data = Carbon::parse($request->input('data_vencimento') . ' ' . now()->format('H:i:s'));
+            $senadorId = $request->input('senador_id');
 
             
             $tarefa = $this->listaTarefas->create([
@@ -68,6 +73,7 @@ class TarefasService
                 'data_de_vencimento' => $data,
                 'prioridade' => $prioridadeTarefa,
                 'status' => $status,
+                'senador_id' => $senadorId,
                 'user_id' => $userId,
             ]);
             DB::commit();
@@ -269,6 +275,11 @@ class TarefasService
             Log::error("Erro ao filtrar usuarios com alerta ja recebidos: {$e->getMessage()}");
             throw $e;
         }
+    }
+
+    public function allSenadores()
+    {
+        return $this->senadores->where('id','>=','1')->get();
     }
 
 
