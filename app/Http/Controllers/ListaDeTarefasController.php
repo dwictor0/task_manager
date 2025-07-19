@@ -20,7 +20,7 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
      * @var ListaTarefas
      */
     private ListaTarefas $listaTarefas;
-    
+
     /**
      * 
      * @var TarefasService
@@ -45,16 +45,12 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
      */
     public function index(): View
     {
-      
+        $userId = (integer) Auth::id();
+        $totalAlertasEnviados = $this->tarefasService->filtraTarefaEnviadas();
+        $totalTarefasPrioridade = $this->tarefasService->filtraTarefaPorCampo('prioridade', ['alta', 'media', 'baixa'], $userId);
+        $totalTarefasStatus = $this->tarefasService->filtraTarefaPorCampo('status', ['pendente', 'em_progresso', 'concluida'], $userId);
 
-         $userId = (integer) Auth::id();
-            $totalAlertasEnviados = $this->tarefasService->filtraTarefaEnviadas();
-            $totalTarefasPrioridade = $this->tarefasService->filtraTarefaPorCampo('prioridade', ['alta', 'media', 'baixa'], $userId);
-            $totalTarefasStatus = $this->tarefasService->filtraTarefaPorCampo('status', ['pendente', 'em_progresso', 'concluida'], $userId);
-
-            return view('dashboard', @compact(['totalTarefasPrioridade', $totalTarefasPrioridade, 'totalTarefasStatus', $totalTarefasStatus,'totalAlertasEnviados',$totalAlertasEnviados]));
-
-       
+        return view('dashboard', @compact(['totalTarefasPrioridade', $totalTarefasPrioridade, 'totalTarefasStatus', $totalTarefasStatus, 'totalAlertasEnviados', $totalAlertasEnviados]));
     }
 
     /**
@@ -198,5 +194,15 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
             Log::error("Erro ao carregar dados para controle da tarefa:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
             return view('errors.exception');
         }
+    }
+
+    /**
+     * Summary of indexSenador
+     * @return View
+     */
+    public function indexSenador()
+    {
+      $senador = $this->tarefasService->allSenadores();
+      return view('listaTarefas.senadorTarefas',@compact('senador',$senador));
     }
 }
