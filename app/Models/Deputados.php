@@ -13,6 +13,7 @@ class Deputados extends Model
     'partido',
     'uf',
     'id_api',
+    'imagem_senador',
   ];
 
 }
