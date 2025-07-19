@@ -320,32 +320,39 @@ return [
             'url' => 'admin/blog',
             'can' => 'manage-blog',
         ],
-        ['header' => 'Homepage'],
-        [
-            'text' => 'Inicio',
-            'url' => '/dashboard',
-            'icon' => 'fa fa-home',
-            // 'label' => 4,
-            'label_color' => 'success',
-        ],
         
         ['header' => 'Tarefas'],
         [
-            'text' => 'Criar Tarefas',
-            'url' => 'tarefas/create',
-            'icon' => 'fa fa-calendar',
+            'text' => 'Tarefas',
+            'url' => '/controle',
+            'icon' => 'fa fa-address-book',
             // 'label' => 4,
             'label_color' => 'success',
         ],
         [
-            'text' => 'Tarefas Excluidas',
+            'text' => 'Criar',
+            'url' => 'tarefas/create',
+            'icon' => 'fa fa-calendar-check',
+            // 'label' => 4,
+            'label_color' => 'success',
+        ],
+        [
+            'text' => 'Lixeira',
             'url' => '/deleted',
             'icon' => 'fa fa-trash',
             // 'label' => 4,
             'label_color' => 'success',
         ],
 
-
+        ['header' => 'Homepage'],
+        [
+            'text' => 'Dashboard',
+            'url' => '/dashboard',
+            'icon' => 'fa fa-home',
+            // 'label' => 4,
+            'label_color' => 'success',
+        ],
+        
         ['header' => 'Configurações do Usuario'],
         [
             'text' => 'Usuário',
@@ -357,7 +364,7 @@ return [
         [
             'text' => 'Tarefas',
             'icon' => 'fa fa-cog',
-            'url' => '/controle',
+            'url' => '#',
         ],
             
     ],
