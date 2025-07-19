@@ -3,7 +3,6 @@
 @section('title', 'System - Tarefas')
 
 @section('content_header')
-  <h1 class="text-center">Envie sua Sugestão</h1>
  @if($errors->any())
   <div class="alert alert-danger alert-dismissible fade show shadow-sm rounded" role="alert">
     <strong>
@@ -23,5 +22,5 @@
 @endsection
 
 @section('content')
- 
+ <livewire:sugestao-sistema></livewire:sugestao-sistema>
 @endsection
