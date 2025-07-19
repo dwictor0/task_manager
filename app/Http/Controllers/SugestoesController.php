@@ -25,7 +25,8 @@ class SugestoesController extends Controller
      */
     public function indexSugestoes()
     {
-        return view('sugestao.indexSugestao');
+        $sugestoesAtivas = $this->sugestao->where('id','>=','1')->get();
+        return view('sugestao.indexSugestao',@compact('sugestoesAtivas',$sugestoesAtivas));
     }
 
     /**
@@ -55,5 +56,10 @@ class SugestoesController extends Controller
 
         return redirect()->route('sugestao.index');
 
+    }
+
+    public function atualizarSugestao(Request $request)
+    {
+      dd($request->all());
     }
 }
