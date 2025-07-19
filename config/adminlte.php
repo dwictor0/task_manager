@@ -360,10 +360,10 @@ return [
             'icon' => 'fas fa-fw fa-user',
         ],
         
-        ['header' => 'Controle de Tarefas'],
+        ['header' => 'SUGESTÕES'],
         [
-            'text' => 'Tarefas',
-            'icon' => 'fa fa-cog',
+            'text' => 'Faça sua Sugestão!',
+            'icon' => 'fa fa-comments',
             'url' => '#',
         ],
             
