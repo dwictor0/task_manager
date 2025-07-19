@@ -25,19 +25,23 @@
 
 <div class="row">
     <div class="col-md-6">
+        @foreach ($sugestoesAtivas as $sugestao)
+        
         <div class="card shadow-sm mb-4">
             <div class="card-header bg-info text-white">
                 <h5 class="card-title mb-0">
-                    <i class="fas fa-lightbulb mr-2"></i> Melhorar o sistema de tarefas
+                    <i class="fas fa-lightbulb mr-2"></i> {{ $sugestao->titulo }}
                 </h5>
             </div>
             <div class="card-body">
                 <p class="card-text">
-                   Teste
+                   {{ $sugestao->descricao }}
                 </p>
                 <div class="d-flex justify-content-between align-items-center">
                     <button class="btn btn-outline-success btn-sm">
-                        <i class="fas fa-thumbs-up"></i> Votar
+                        <a href="{{ route('sugestao.update') }}">
+                            <i class="fas fa-thumbs-up"></i> Votar
+                        </a>
                     </button>
                     <span class="badge badge-pill badge-primary">
                         <i class="fas fa-vote-yea"></i> 0 votos
@@ -46,6 +50,7 @@
             </div>
         </div>
     </div>
+        @endforeach
 
 </div>
 @endsection
