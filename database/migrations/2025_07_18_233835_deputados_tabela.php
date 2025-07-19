@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('nome');
             $table->string('partido')->nullable();
+            $table->string('imagem_senador')->nullable();
             $table->string('uf')->nullable();
             $table->unsignedBigInteger('id_api'); 
             $table->timestamps();
