@@ -15,7 +15,6 @@ class ApiController extends Controller
         $xml = simplexml_load_string($xmlString);
         $json = json_encode($xml);
         $array = json_decode($json, true);
-
         $collect = collect($array);
         $parlamentares = data_get($collect, 'Parlamentares.Parlamentar');
 
@@ -25,12 +24,12 @@ class ApiController extends Controller
         collect($parlamentares)->each(function ($parlamentar) {
             $identificacao = $parlamentar['IdentificacaoParlamentar'] ?? [];
 
-
             Deputados::create(
                 [
                     'nome' => $identificacao['NomeParlamentar'] ?? null,
                     'id_api' => $identificacao['CodigoParlamentar'] ?? null,
-                    'partido' => $identificacao['SiglaPartidoParlamentar']
+                    'partido' => $identificacao['SiglaPartidoParlamentar'],
+                    'imagem_senador' => $identificacao['UrlFotoParlamentar']
                 ]
             );
         });
