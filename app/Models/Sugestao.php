@@ -11,7 +11,8 @@ class Sugestao extends Model
   protected $fillable =  [
     'titulo',
     'descricao',
-    'total_votos'
+    'total_votos',
+    'usuario_id'
   ];
     
 }
