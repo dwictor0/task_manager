@@ -5,7 +5,7 @@
           <h3 class="card-title mb-0">Sugestão</h3>
         </div>
         <div class="card-body">
-          <form action="{{ route('#') }}" method="POST">
+          <form action="#" method="POST">
             @csrf
 
             <div class="form-group mb-3">
