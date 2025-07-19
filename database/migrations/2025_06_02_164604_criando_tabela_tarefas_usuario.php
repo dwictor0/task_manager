@@ -16,7 +16,6 @@ return new class extends Migration
        $table->string('titulo');
        $table->text('descricao')->nullable();
        $table->integer('user_id')->nullable();
-       $table->integer('senador_id')->nullable();
        $table->enum('status', ['pendente', 'concluida','em_progresso'])->default('pendente');
        $table->timestamps();
        $table->softDeletes();
