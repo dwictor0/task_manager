@@ -14,6 +14,7 @@ class ListaTarefas extends Model
     'titulo',
     'descricao',
     'status',
+    'senador_id',
     'user_id',
     'prioridade',
     'data_de_vencimento',
