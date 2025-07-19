@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/sugestoes', [SugestoesController::class, 'indexSugestoes'])->name('sugestao.index');
     Route::get('/save/sugestoes', [SugestoesController::class, 'criarSugestoes'])->name('sugestao.save');
     Route::post('/store/sugestoes', [SugestoesController::class, 'salvarSugestoes'])->name('sugestao.store');
+    Route::post('/update/sugestoes', [SugestoesController::class, 'atualizarSugestao'])->name('sugestao.update');
 });
 
 require __DIR__ . '/auth.php';
