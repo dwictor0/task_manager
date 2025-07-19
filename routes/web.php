@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SugestoesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ListaDeTarefasController;
 use Illuminate\Http\Request;
@@ -21,13 +22,14 @@ Route::middleware('auth')->group(function () {
         return Broadcast::auth($request);
     });
     Route::resource('tarefas', ListaDeTarefasController::class);
-    Route::get('/api', [ApiController::class,'renderizaApi'])->name('api.controle');
+    Route::get('/api', [ApiController::class, 'renderizaApi'])->name('api.controle');
     Route::post('/restore/{id}', [ListaDeTarefasController::class, 'restore'])->name('tarefas.restore');
-    Route::get('/controle', [ListaDeTarefasController::class,'controleTarefas'])->name('tarefas.controle');
+    Route::get('/controle', [ListaDeTarefasController::class, 'controleTarefas'])->name('tarefas.controle');
     Route::get('/deleted', [ListaDeTarefasController::class, 'indexSoftDelete'])->name('tarefas.delete');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/sugestoes', [SugestoesController::class, 'index'])->name('sugestao.index');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
