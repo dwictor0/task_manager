@@ -364,7 +364,7 @@ return [
         [
             'text' => 'Faça sua Sugestão!',
             'icon' => 'fa fa-comments',
-            'url' => '#',
+            'url' => '/sugestoes',
         ],
             
     ],
