@@ -321,7 +321,7 @@ return [
             'can' => 'manage-blog',
         ],
         
-        ['header' => 'Tarefas'],
+        ['header' => 'TAREFAS'],
         [
             'text' => 'Tarefas',
             'url' => '/controle',
@@ -344,7 +344,7 @@ return [
             'label_color' => 'success',
         ],
 
-        ['header' => 'Homepage'],
+        ['header' => 'HOMEPAGE'],
         [
             'text' => 'Dashboard',
             'url' => '/dashboard',
@@ -353,7 +353,7 @@ return [
             'label_color' => 'success',
         ],
         
-        ['header' => 'Configurações do Usuario'],
+        ['header' => 'CONFIGURAÇÕES'],
         [
             'text' => 'Usuário',
             'url' => '/profile',
