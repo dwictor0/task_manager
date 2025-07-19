@@ -45,9 +45,16 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
      */
     public function index(): View
     {
-        $tarefas = $this->tarefasService->indexTarefas();
+      
 
-        return view('dashboard', @compact('tarefas'));
+         $userId = (integer) Auth::id();
+            $totalAlertasEnviados = $this->tarefasService->filtraTarefaEnviadas();
+            $totalTarefasPrioridade = $this->tarefasService->filtraTarefaPorCampo('prioridade', ['alta', 'media', 'baixa'], $userId);
+            $totalTarefasStatus = $this->tarefasService->filtraTarefaPorCampo('status', ['pendente', 'em_progresso', 'concluida'], $userId);
+
+            return view('dashboard', @compact(['totalTarefasPrioridade', $totalTarefasPrioridade, 'totalTarefasStatus', $totalTarefasStatus,'totalAlertasEnviados',$totalAlertasEnviados]));
+
+       
     }
 
     /**
@@ -183,12 +190,9 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     public function controleTarefas(): View
     {
         try {
-            $userId = (integer) Auth::id();
-            $totalAlertasEnviados = $this->tarefasService->filtraTarefaEnviadas();
-            $totalTarefasPrioridade = $this->tarefasService->filtraTarefaPorCampo('prioridade', ['alta', 'media', 'baixa'], $userId);
-            $totalTarefasStatus = $this->tarefasService->filtraTarefaPorCampo('status', ['pendente', 'em_progresso', 'concluida'], $userId);
+            $tarefas = $this->tarefasService->indexTarefas();
 
-            return view('listaTarefas.controleTarefas', @compact(['totalTarefasPrioridade', $totalTarefasPrioridade, 'totalTarefasStatus', $totalTarefasStatus,'totalAlertasEnviados',$totalAlertasEnviados]));
+            return view('listaTarefas.controleTarefas', @compact('tarefas'));
         } catch (Exception $e) {
             DB::rollBack();
             Log::error("Erro ao carregar dados para controle da tarefa:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
