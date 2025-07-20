@@ -20,6 +20,7 @@ class ListaTarefas extends Model
     'data_de_vencimento',
     'alerta_enviado',
     'alerta_enviado_at',
+    'deleted_at',
   ];
 
   protected $casts = [
