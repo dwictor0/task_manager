@@ -22,7 +22,7 @@ class SugestoesController extends Controller
      * Summary of __construct
      * @param \App\Models\Sugestao $sugestao
      */
-    public function __construct(Sugestao $sugestao, SugestaoVotos $sugestaoVotos,SugestaoService $sugestaoService)
+    public function __construct(Sugestao $sugestao, SugestaoVotos $sugestaoVotos, SugestaoService $sugestaoService)
     {
         $this->sugestao = $sugestao;
         $this->sugestaoVotos = $sugestaoVotos;
@@ -36,7 +36,7 @@ class SugestoesController extends Controller
     public function indexSugestoes()
     {
         try {
-           $sugestoesAtivas = $this->sugestaoService->verificaSugestoesAtivas();
+            $sugestoesAtivas = $this->sugestaoService->verificaSugestoesAtivas();
 
             return view('sugestao.indexSugestao', @compact('sugestoesAtivas', $sugestoesAtivas));
         } catch (Exception $e) {
@@ -63,20 +63,11 @@ class SugestoesController extends Controller
     public function salvarSugestoes(SugestaoRequest $request)
     {
         try {
-            DB::beginTransaction();
-            $userId = Auth::id();
+            $this->sugestaoService->criandoSugestoes($request);
 
-            $this->sugestao->create([
-                'titulo' => $request->titulo,
-                'descricao' => $request->descricao,
-                'usuario_id' => $userId,
-            ]);
-            DB::commit();
-
-            return redirect()->route('sugestao.index')->with('success','Sugestão enviada com sucesso.');
+            return redirect()->route('sugestao.index')->with('success', 'Sugestão enviada com sucesso.');
         } catch (Exception $e) {
             Log::error("Erro ao criar sugestões:{$e->getMessage()} | Linha: {$e->getLine()} | Trace {$e->getTraceAsString()}");
-            DB::rollBack();
             return view('errors.exception');
         }
 
@@ -85,34 +76,16 @@ class SugestoesController extends Controller
     /**
      * Summary of atualizarSugestao
      * @param \Illuminate\Http\Request $request
-     * @return mixed|\Illuminate\Contracts\View\View|\Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Contracts\View\View
      */
     public function atualizarSugestao(Request $request)
     {
         try {
-            DB::beginTransaction();
-            $userId = Auth::id();
+            $this->sugestaoService->editandoSugestoes($request);
 
-            $validaVotos = $this->sugestaoVotos->where('sugestao_id', $request->input('sugestao_id'))
-                ->where('usuario_id', $userId)
-                ->exists();
-
-            if ($validaVotos) {
-                return redirect()->back()->with('errors','Já atingiu o limite de votação diaria');
-            }
-
-            $this->sugestaoVotos->create([
-                'usuario_id' => $userId,
-                'sugestao_id' => $request->input('sugestao_id'),
-            ]);
-
-            $this->sugestao->where('id', $request->input('sugestao_id'))->increment('total_votos');
-            DB::commit();
             return response()->json(['message' => 'Voto registrado com sucesso.']);
-          
         } catch (Exception $e) {
             Log::error("Erro ao atualizar sugestões:{$e->getMessage()} | Linha: {$e->getLine()} | Trace {$e->getTraceAsString()}");
-            DB::rollBack();
             return view('errors.exception');
         }
 
