@@ -277,16 +277,34 @@ class TarefasService
         }
     }
 
+    /**
+     * Summary of todosDeputados
+     * @return \Illuminate\Database\Eloquent\Collection<int, Deputados>
+     */
     public function todosDeputados()
     {
-        return $this->deputados->where('id', '>=', '1')->get();
+        try {
+            return $this->deputados->where('id', '>=', '1')->get();
+        } catch (Exception $e) {
+            Log::error("Erro ao carregar todos os deputados: {$e->getMessage()}");
+            throw $e;
+        }
     }
 
+    /**
+     * Summary of deputadosComTarefa
+     * @return \Illuminate\Database\Eloquent\Collection<int, Deputados>
+     */
     public function deputadosComTarefa()
     {
-        return $this->deputados->whereHas('tarefas')->withCount('tarefas')
-            ->having('tarefas_count', '>', 0)
-            ->get();
+        try {
+            return $this->deputados->whereHas('tarefas')->withCount('tarefas')
+                ->having('tarefas_count', '>', 0)
+                ->get();
+        } catch (Exception $e) {
+            Log::error("Erro ao filtrar todos os deputados com tarefa{$e->getMessage()}");
+            throw $e;
+        }
     }
 
 
