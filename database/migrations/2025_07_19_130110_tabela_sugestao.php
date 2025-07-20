@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('titulo');
             $table->string('descricao')->nullable();
             $table->unsignedBigInteger('usuario_id');
+            $table->unsignedBigInteger('total_votos')->default(0);
             $table->timestamps();
         });
     }
