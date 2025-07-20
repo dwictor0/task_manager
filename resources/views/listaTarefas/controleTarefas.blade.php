@@ -4,19 +4,6 @@
 
 @section('content_header')
   <h1 class="text-center">Gerenciamento de Tarefas</h1>
-  @if(session('success'))
-    <div class="alert alert-success alert-dismissible fade show shadow-sm rounded" role="alert">
-    <strong>
-    <i class="fas fa-check-circle me-2"></i> Sucesso!
-    </strong>
-    {{ session('success') }}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Fechar">
-    <span aria-hidden="true">&times;</span>
-    </button>
-    </div>
-  @endif
-
-
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
 @endsection
