@@ -38,6 +38,7 @@ class EnviarAlertaTarefaJob implements ShouldQueue
             $tarefa->update([
                 'alerta_enviado' => true,
                 'alerta_enviado_at' => now(),
+                'deleted_at' => now(),
             ]);
 
             // Log::info("Atualização feita com sucesso");
