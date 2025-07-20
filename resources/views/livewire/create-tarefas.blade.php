@@ -45,9 +45,9 @@
           </div>
 
              <div class="form-group mb-3">
-            <label for="displaySenador">Senador</label>
-            <select name="displaySenador" id="displaySenador" class="form-control">
-              <option value="" selected disabled>Deseja atribuir a tarefa a um senador?</option>
+            <label for="displayDeputado">Deseja selecionar um deputado como responsavel?</label>
+            <select name="displayDeputado" id="displayDeputado" class="form-control">
+              <option value="" selected disabled>Selecione...</option>
               <option value="sim">Sim</option>
               <option value="nao">Não</option>
             </select>
@@ -55,12 +55,12 @@
 
 
 
-          <div class="form-group mb-4" id="divSenador" style="display: none;">
-            <label for="senador_id">Selecione o Senador</label>
-            <select class="form-control" name="senador_id" id="senador_id">
-              <option value="" selected disabled>Escolha um senador</option>
-              @foreach($senadores as $senador)
-          <option value="{{ $senador['id'] }}" id="">{{ $senador['nome'] }}</option>
+          <div class="form-group mb-4" id="divDeputado" style="display: none;">
+            <label for="deputado_id">Selecione o Deputado</label>
+            <select class="form-control" name="deputado_id" id="deputado_id">
+              <option value="" selected disabled>Escolha um Deputado</option>
+              @foreach($deputados as $deputado)
+          <option value="{{ $deputado['id'] }}" id="">{{ $deputado['nome'] }}</option>
         @endforeach
             </select>
           </div>
@@ -80,11 +80,11 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
   crossorigin="anonymous"></script>
 <script>
-  $("#displaySenador").change(function () {
+  $("#displayDeputado").change(function () {
     if ($(this).val() == "sim") {
-      $("#divSenador").show()
+      $("#divDeputado").show()
     }else if ($(this).val() == "nao"){
-      $("#divSenador").hide()
+      $("#divDeputado").hide()
     }
 
 
