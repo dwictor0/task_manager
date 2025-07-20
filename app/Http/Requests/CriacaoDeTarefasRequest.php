@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\LimitaDeputadosTarefaRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CriacaoDeTarefasRequest extends FormRequest
@@ -27,6 +28,7 @@ class CriacaoDeTarefasRequest extends FormRequest
             'prioridade' => 'required',
             'data_vencimento' => 'required',
             'status' => 'required',
+            'deputado_id' => [new LimitaDeputadosTarefaRule]
         ];
     }
 
