@@ -68,7 +68,7 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
      * Método Store
      * @author dwictor0
      * @param CriacaoDeTarefasRequest $request
-     * @return View|Redirect
+     * @return View|RedirectResponse
      */
     public function store(CriacaoDeTarefasRequest $request): View|RedirectResponse
     {
