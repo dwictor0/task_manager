@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AtualizarSugestao;
+use App\Http\Requests\AtualizarSugestaoRequest;
 use App\Http\Requests\SugestaoRequest;
 use App\Models\Sugestao;
 use App\Models\SugestaoVotos;
@@ -92,20 +94,10 @@ class SugestoesController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
      */
-    public function atualizarSugestao(Request $request)
+    public function atualizarSugestao(AtualizarSugestaoRequest $request)
     {
         try {
             $this->sugestaoService->editandoSugestoes($request);
-
-            $userId = Auth::id();
-
-            $validaVotos = $this->sugestaoVotos->where('sugestao_id', $request->input('sugestao_id'))
-                ->where('usuario_id', $userId)
-                ->exists();
-    
-            if ($validaVotos) {
-                return redirect()->back()->withErrors(['Você já votou uma vez nessa sugestão.']);
-            }
     
             return redirect()->back()->with('success','Voto enviado!');
         } catch (Exception $e) {
