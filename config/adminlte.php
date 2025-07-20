@@ -362,16 +362,16 @@ return [
 
         ['header' => 'SUGESTÕES'],
         [
-            'text' => 'Faça sua Sugestão!',
+            'text' => 'Canal de Sugestões',
             'icon' => 'fa fa-comments',
             'url' => '/sugestoes',
         ],
 
-        ['header' => 'SENADORES'],
+        ['header' => 'Deputados'],
         [
-            'text' => 'Senadores',
-            'icon' => '',
-            'url' => '/senador',
+            'text' => 'Deputados',
+            'icon' => 'fa fa-folder-open',
+            'url' => '/deputado',
         ],
 
     ],
