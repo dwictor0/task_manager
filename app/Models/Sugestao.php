@@ -12,7 +12,6 @@ class Sugestao extends Model
     'titulo',
     'descricao',
     'total_votos',
-    'usuario_id'
+    'usuario_id',
   ];
-    
 }
