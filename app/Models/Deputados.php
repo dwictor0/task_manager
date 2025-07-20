@@ -7,13 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 class Deputados extends Model
 {
   protected $table = 'deputados';
-    
+
   protected $fillable = [
     'nome',
     'partido',
     'uf',
-    'id_api',
-    'imagem_senador',
+    'imagem_deputado',
   ];
+
+  public function tarefas()
+  {
+    return $this->hasMany(ListaTarefas::class, 'deputado_id');
+  }
 
 }
