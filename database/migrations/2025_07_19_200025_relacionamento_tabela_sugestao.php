@@ -10,8 +10,8 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::table('sugestao', function (Blueprint $table) {
-            $table->foreignId('sugestao_id')->constrained('sugestao_votos')->onDelete('cascade');
+        Schema::table('sugestao_votos', function (Blueprint $table) {
+            $table->foreignId('sugestao_id')->default(null)->constrained('sugestao')->onDelete('cascade');
         });
     }
 
@@ -20,7 +20,7 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::table('sugestao', function (Blueprint $table) {
+        Schema::table('sugestao_votos', function (Blueprint $table) {
             $table->dropColumn(['sugestao_id']);
         });
     }
