@@ -13,7 +13,6 @@ return new class extends Migration
     {
          Schema::create('sugestao_votos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('votos_id');
             $table->unsignedBigInteger('usuario_id');
             $table->timestamps();
         });
