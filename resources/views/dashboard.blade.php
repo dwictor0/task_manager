@@ -3,7 +3,17 @@
 @section('title', 'System - Tarefas')
 
 @section('content_header')
-
+  @if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show shadow-sm rounded" role="alert">
+    <strong>
+    <i class="fas fa-check-circle me-2"></i> Sucesso!
+    </strong>
+    {{ session('success') }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Fechar">
+    <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+  @endif
 @endsection
 
 @section('content')
@@ -109,5 +119,21 @@
     }
   });
 
+
+    window.addEventListener('DOMContentLoaded', function () {
+        $.ajax({
+            url: '/api',
+            method: 'GET',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            success: function(response) {
+                console.log(response.message);
+            },
+            error: function(xhr) {
+                console.error('Erro na sincronização:', xhr.responseJSON?.message || xhr.statusText);
+            }
+        });
+    });
  </script>
 @endsection
