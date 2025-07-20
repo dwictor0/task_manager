@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->string('partido')->nullable();
             $table->string('imagem_deputado')->nullable();
             $table->string('uf')->nullable();
-            $table->unsignedBigInteger('id_api'); 
+            $table->foreignId('deputado_id')->nullable()->constrained('deputados')->onDelete('cascade');
             $table->timestamps();
         });
 
