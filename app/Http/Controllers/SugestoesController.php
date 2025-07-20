@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SugestaoRequest;
 use App\Models\Sugestao;
 use App\Models\SugestaoVotos;
+use App\Services\SugestaoService;
 use Auth;
 use DB;
 use Exception;
@@ -14,15 +16,17 @@ class SugestoesController extends Controller
 {
     private $sugestao;
     private $sugestaoVotos;
+    private $sugestaoService;
 
     /**
      * Summary of __construct
      * @param \App\Models\Sugestao $sugestao
      */
-    public function __construct(Sugestao $sugestao, SugestaoVotos $sugestaoVotos)
+    public function __construct(Sugestao $sugestao, SugestaoVotos $sugestaoVotos,SugestaoService $sugestaoService)
     {
         $this->sugestao = $sugestao;
         $this->sugestaoVotos = $sugestaoVotos;
+        $this->sugestaoService = $sugestaoService;
     }
 
     /**
@@ -32,7 +36,7 @@ class SugestoesController extends Controller
     public function indexSugestoes()
     {
         try {
-            $sugestoesAtivas = $this->sugestao->where('id', '>=', '1')->get();
+           $sugestoesAtivas = $this->sugestaoService->verificaSugestoesAtivas();
 
             return view('sugestao.indexSugestao', @compact('sugestoesAtivas', $sugestoesAtivas));
         } catch (Exception $e) {
@@ -56,7 +60,7 @@ class SugestoesController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return mixed|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
      */
-    public function salvarSugestoes(Request $request)
+    public function salvarSugestoes(SugestaoRequest $request)
     {
         try {
             DB::beginTransaction();
@@ -69,7 +73,7 @@ class SugestoesController extends Controller
             ]);
             DB::commit();
 
-            return redirect()->route('sugestao.index');
+            return redirect()->route('sugestao.index')->with('success','Sugestão enviada com sucesso.');
         } catch (Exception $e) {
             Log::error("Erro ao criar sugestões:{$e->getMessage()} | Linha: {$e->getLine()} | Trace {$e->getTraceAsString()}");
             DB::rollBack();
