@@ -38,13 +38,15 @@
                    {{ $sugestao->descricao }}
                 </p>
                 <div class="d-flex justify-content-between align-items-center">
-                    <button class="btn btn-outline-success btn-sm">
-                        <a href="{{ route('sugestao.update') }}">
-                            <i class="fas fa-thumbs-up"></i> Votar
-                        </a>
-                    </button>
+                    <form action="{{ route('sugestao.update') }}" method="post">
+                        @csrf
+                            <button class="btn btn-outline-success btn-sm" >
+                                <i class="fas fa-thumbs-up"></i> Votar
+                                <input type="hidden" name="sugestao_id" id="sugestao_id" value="{{ $sugestao->id }}">
+                            </button>
+                        </form>
                     <span class="badge badge-pill badge-primary">
-                        <i class="fas fa-vote-yea"></i> 0 votos
+                        <i class="fas fa-vote-yea"></i> Votos {{ $sugestao->total_votos }}
                     </span>
                 </div>
             </div>
