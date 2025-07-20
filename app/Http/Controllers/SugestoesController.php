@@ -14,8 +14,22 @@ use Log;
 
 class SugestoesController extends Controller
 {
+    /**
+     * Summary of sugestao
+     * @var 
+     */
     private $sugestao;
+
+    /**
+     * Summary of sugestaoVotos
+     * @var 
+     */
     private $sugestaoVotos;
+
+    /**
+     * Summary of sugestaoService
+     * @var 
+     */
     private $sugestaoService;
 
     /**
@@ -76,14 +90,24 @@ class SugestoesController extends Controller
     /**
      * Summary of atualizarSugestao
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Contracts\View\View
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
      */
     public function atualizarSugestao(Request $request)
     {
         try {
             $this->sugestaoService->editandoSugestoes($request);
 
-            return response()->json(['message' => 'Voto registrado com sucesso.']);
+            $userId = Auth::id();
+
+            $validaVotos = $this->sugestaoVotos->where('sugestao_id', $request->input('sugestao_id'))
+                ->where('usuario_id', $userId)
+                ->exists();
+    
+            if ($validaVotos) {
+                return redirect()->back()->withErrors(['Você já votou uma vez nessa sugestão.']);
+            }
+    
+            return redirect()->back()->with('success','Voto enviado!');
         } catch (Exception $e) {
             Log::error("Erro ao atualizar sugestões:{$e->getMessage()} | Linha: {$e->getLine()} | Trace {$e->getTraceAsString()}");
             return view('errors.exception');
