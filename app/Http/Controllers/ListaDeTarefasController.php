@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Http\Requests\AtualizaTarefasRequest;
 use App\Http\Requests\CriacaoDeTarefasRequest;
+use App\Models\Deputados;
 use Illuminate\Contracts\View\View;
 use App\ListaDeTarefasInterface;
 use Illuminate\Http\RedirectResponse;
@@ -197,12 +198,12 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
     }
 
     /**
-     * Summary of indexSenador
+     * Summary of indexDeputado
      * @return View
      */
-    public function indexSenador()
+    public function indexDeputado()
     {
-      $senador = $this->tarefasService->allSenadores();
-      return view('listaTarefas.senadorTarefas',@compact('senador',$senador));
+      $deputado = $this->tarefasService->deputadosComTarefa();
+      return view('listaTarefas.deputadoTarefas',@compact('deputado',$deputado));
     }
 }
