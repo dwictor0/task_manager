@@ -77,7 +77,6 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
 
             return redirect()->route('dashboard')->with('success', 'Tarefa criada com sucesso!.');
         } catch (Exception $e) {
-            DB::rollBack();
             Log::error("Erro ao executar a criação da tarefa:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
             return view('errors.exception');
         }
@@ -118,7 +117,6 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
 
             return redirect()->route('dashboard')->with('success', 'Tarefa atualizada!');
         } catch (Exception $e) {
-            DB::rollBack();
             Log::error("Erro ao realizar a edição da tarefa:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
             return view('errors.exception');
         }
@@ -154,7 +152,6 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
 
             return redirect()->route('dashboard')->with('success', 'Tarefa deletada com sucesso!');
         } catch (Exception $e) {
-            DB::rollBack();
             Log::error("Erro ao processar a exclusão da tarefa:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
             return view('errors.exception');
         }
@@ -173,7 +170,6 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
 
             return redirect()->route('dashboard')->with('success', 'A tarefa foi restaurada com sucesso!');
         } catch (Exception $e) {
-            DB::rollBack();
             Log::error("Erro ao tentar restaurar a tarefa excluida:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
             return view('errors.exception');
         }
@@ -191,7 +187,6 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
 
             return view('listaTarefas.controleTarefas', @compact('tarefas'));
         } catch (Exception $e) {
-            DB::rollBack();
             Log::error("Erro ao carregar dados para controle da tarefa:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
             return view('errors.exception');
         }
