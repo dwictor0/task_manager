@@ -56,7 +56,7 @@
 
 
           <div class="form-group mb-4" id="divDeputado" style="display: none;">
-            <label for="deputado_id">Selecione o Deputado</label>
+            <label for="deputado_id">Deputados</label>
             <select class="form-control" name="deputado_id" id="deputado_id">
               <option value="" selected disabled>Escolha um Deputado</option>
               @foreach($deputados as $deputado)
