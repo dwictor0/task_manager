@@ -31,6 +31,11 @@ class CreateTarefas extends Component
         return view('livewire.create-tarefas',['deputados' => $this->deputados]);
     }
     
+    /**
+     * Summary of mount
+     * @param \App\Services\TarefasService $tarefasService
+     * @return void
+     */
     public function mount(TarefasService $tarefasService)
     {
       $this->deputados = $tarefasService->todosDeputados();
