@@ -178,7 +178,7 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
      * @return View
      * @author dwictor0
      */
-    public function controleTarefas(): View
+    public function tarefas(): View
     {
         try {
             $tarefas = $this->tarefasService->indexTarefas();
