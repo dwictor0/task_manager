@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
     {
          Gate::define('viewPulse', function ($user) {
             return in_array($user->email, [
-                'daniel.teste@gmail.com',
+                'daniel.dev@gmail.com',
             ]);
         });
     }
