@@ -45,7 +45,7 @@
           </div>
 
              <div class="form-group mb-3">
-            <label for="displayDeputado">Deseja selecionar um deputado como responsavel?</label>
+            <label for="displayDeputado">Deseja atribuir um deputado como responsavel?</label>
             <select name="displayDeputado" id="displayDeputado" class="form-control">
               <option value="" selected disabled>Selecione...</option>
               <option value="sim">Sim</option>
