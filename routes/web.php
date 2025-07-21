@@ -24,7 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('tarefas', ListaDeTarefasController::class);
     Route::get('/api', [ApiController::class, 'renderizaApi'])->name('api.controle');
     Route::post('/restore/{id}', [ListaDeTarefasController::class, 'restore'])->name('tarefas.restore');
-    Route::get('/controle', [ListaDeTarefasController::class, 'controleTarefas'])->name('tarefas.controle');
+    Route::get('/tarefas', [ListaDeTarefasController::class, 'tarefas'])->name('tarefas.home');
     Route::get('/deleted', [ListaDeTarefasController::class, 'indexSoftDelete'])->name('tarefas.delete');
     Route::get('/deputado', [ListaDeTarefasController::class, 'indexDeputado'])->name('tarefas.deputado');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
