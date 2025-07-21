@@ -35,7 +35,7 @@ class SugestoesController extends Controller implements SugestoesInterface
     private $sugestaoService;
 
     /**
-     * Summary of __construct
+     * Método __construct
      * @param \App\Models\Sugestao $sugestao
      */
     public function __construct(Sugestao $sugestao, SugestaoVotos $sugestaoVotos, SugestaoService $sugestaoService)
@@ -46,8 +46,9 @@ class SugestoesController extends Controller implements SugestoesInterface
     }
 
     /**
-     * Summary of indexSugestoes
+     * Método indexSugestoes
      * @return \Illuminate\Contracts\View\View
+     * @author dwictor0
      */
     public function indexSugestoes(): View
     {
@@ -62,8 +63,9 @@ class SugestoesController extends Controller implements SugestoesInterface
     }
 
     /**
-     * Summary of criarSugestoes
+     * Método criarSugestoes
      * @param \Illuminate\Http\Request $request
+     * @author dwictor0
      * @return \Illuminate\Contracts\View\View
      */
     public function criarSugestoes(Request $request): View
@@ -72,8 +74,9 @@ class SugestoesController extends Controller implements SugestoesInterface
     }
 
     /**
-     * Summary of salvarSugestoes
+     * Método salvarSugestoes
      * @param \Illuminate\Http\Request $request
+     * @author dwictor0
      * @return mixed|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
      */
     public function salvarSugestoes(SugestaoRequest $request): RedirectResponse|View
@@ -90,7 +93,8 @@ class SugestoesController extends Controller implements SugestoesInterface
     }
 
     /**
-     * Summary of atualizarSugestao
+     * Método atualizarSugestao
+     * @author dwictor0
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
      */
