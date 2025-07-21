@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 use App\Http\Requests\AtualizaTarefasRequest;
 use App\Http\Requests\CriacaoDeTarefasRequest;
-use App\Models\Deputados;
 use Illuminate\Contracts\View\View;
 use App\ListaDeTarefasInterface;
 use Illuminate\Http\RedirectResponse;
