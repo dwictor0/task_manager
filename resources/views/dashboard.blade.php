@@ -128,10 +128,8 @@
                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
             },
             success: function(response) {
-                console.log(response.message);
             },
             error: function(xhr) {
-                console.error('Erro na sincronização:', xhr.responseJSON?.message || xhr.statusText);
             }
         });
     });
