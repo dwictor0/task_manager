@@ -11,7 +11,6 @@ use App\Models\ListaTarefas;
 use App\Services\TarefasService;
 use Illuminate\Support\Facades\Log;
 use Exception;
-use DB;
 use Auth;
 
 class ListaDeTarefasController extends Controller implements ListaDeTarefasInterface
