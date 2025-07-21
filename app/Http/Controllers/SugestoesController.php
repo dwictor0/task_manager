@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AtualizarSugestao;
 use App\Http\Requests\AtualizarSugestaoRequest;
 use App\Http\Requests\SugestaoRequest;
 use App\Models\Sugestao;
@@ -11,8 +10,6 @@ use App\Services\SugestaoService;
 use App\SugestoesInterface;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Auth;
-use DB;
 use Exception;
 use Illuminate\Http\Request;
 use Log;
