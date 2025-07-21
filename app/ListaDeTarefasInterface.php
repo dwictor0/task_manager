@@ -68,5 +68,5 @@ interface ListaDeTarefasInterface
      * Controle geral das tarefas
      * @return void
      */
-    public function controleTarefas(): View;
+    public function tarefas(): View;
 }
