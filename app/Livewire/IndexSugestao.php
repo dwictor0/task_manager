@@ -10,10 +10,20 @@ class IndexSugestao extends Component
 {
     public $sugestao;
 
+    /**
+     * Summary of mount
+     * @param \App\Services\SugestaoService $sugestaoService
+     * @return void
+     */
     public function mount(SugestaoService $sugestaoService)
     {
       $this->sugestao = $sugestaoService->verificaSugestoesAtivas();
     }
+
+    /**
+     * Summary of render
+     * @return \Illuminate\Contracts\View\View
+     */
     public function render()
     {
         return view('livewire.index-sugestao',['sugestoesAtivas' => $this->sugestao]);
