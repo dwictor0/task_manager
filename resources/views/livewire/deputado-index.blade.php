@@ -16,9 +16,6 @@
                 <p class="card-text">
                     <strong>Total de Tarefas:</strong> {{ $deputados->tarefas_count }}
                 </p>
-                <a href="#" class="btn btn-primary btn-sm">
-                    <i class="fas fa-info-circle mr-1"></i> Detalhes
-                </a>
             </div>
         </div>
     </div>
