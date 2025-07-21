@@ -8,13 +8,16 @@ use App\Http\Requests\SugestaoRequest;
 use App\Models\Sugestao;
 use App\Models\SugestaoVotos;
 use App\Services\SugestaoService;
+use App\SugestoesInterface;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Auth;
 use DB;
 use Exception;
 use Illuminate\Http\Request;
 use Log;
 
-class SugestoesController extends Controller
+class SugestoesController extends Controller implements SugestoesInterface
 {
     /**
      * Summary of sugestao
@@ -49,7 +52,7 @@ class SugestoesController extends Controller
      * Summary of indexSugestoes
      * @return \Illuminate\Contracts\View\View
      */
-    public function indexSugestoes()
+    public function indexSugestoes(): View
     {
         try {
             $sugestoesAtivas = $this->sugestaoService->verificaSugestoesAtivas();
@@ -66,7 +69,7 @@ class SugestoesController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Contracts\View\View
      */
-    public function criarSugestoes(Request $request)
+    public function criarSugestoes(Request $request): View
     {
         return view('sugestao.createSugestao');
     }
@@ -76,7 +79,7 @@ class SugestoesController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return mixed|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
      */
-    public function salvarSugestoes(SugestaoRequest $request)
+    public function salvarSugestoes(SugestaoRequest $request): RedirectResponse|View
     {
         try {
             $this->sugestaoService->criandoSugestoes($request);
@@ -94,7 +97,7 @@ class SugestoesController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
      */
-    public function atualizarSugestao(AtualizarSugestaoRequest $request)
+    public function atualizarSugestao(AtualizarSugestaoRequest $request): RedirectResponse|View
     {
         try {
             $this->sugestaoService->editandoSugestoes($request);
