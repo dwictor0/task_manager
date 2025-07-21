@@ -324,7 +324,7 @@ return [
         ['header' => 'TAREFAS'],
         [
             'text' => 'Tarefas',
-            'url' => '/controle',
+            'url' => '/tarefas',
             'icon' => 'fa fa-address-book',
             // 'label' => 4,
             'label_color' => 'success',
