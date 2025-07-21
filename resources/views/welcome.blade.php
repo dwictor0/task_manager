@@ -74,9 +74,9 @@
                                     <span class="rounded-full bg-[#dbdbd7] dark:bg-[#3E3E3A] w-1.5 h-1.5"></span>
                                 </span>
                             </span>
-                            <!-- <span> -->
-                                <!-- Acesse a Documentação do Projeto: -->
-                            <!-- </span> -->
+                            <span>
+                                Versão <strong>v1.0</strong>
+                            </span>
                         </li>
                     </ul>
                     <ul class="flex gap-3 text-sm leading-normal">
