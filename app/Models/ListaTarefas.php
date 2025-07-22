@@ -14,16 +14,23 @@ class ListaTarefas extends Model
     'titulo',
     'descricao',
     'status',
+    'deputado_id',
     'user_id',
     'prioridade',
     'data_de_vencimento',
     'alerta_enviado',
     'alerta_enviado_at',
+    'deleted_at',
   ];
-  
+
   protected $casts = [
-     'data_de_vencimento' => 'datetime:Y-m-d H:i:s',
-     'alerta_enviado_at' => 'datetime',
+    'data_de_vencimento' => 'datetime:Y-m-d H:i:s',
+    'alerta_enviado_at' => 'datetime',
 
   ];
+
+  public function deputado()
+  {
+    return $this->belongsTo(Deputados::class,'deputado_id','id');
+  }
 }

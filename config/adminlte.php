@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'Sistema de Tarefas',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -223,7 +223,7 @@ return [
     'sidebar_scrollbar_auto_hide' => 'l',
     'sidebar_nav_accordion' => true,
     'sidebar_nav_animation_speed' => 300,
-    
+
     /*
     |--------------------------------------------------------------------------
     | Control Sidebar (Right Sidebar)
@@ -297,7 +297,7 @@ return [
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Menu-Configuration
     |
     */
-    
+
     'menu' => [
         // Navbar items:
         [
@@ -320,46 +320,60 @@ return [
             'url' => 'admin/blog',
             'can' => 'manage-blog',
         ],
-        ['header' => 'Homepage'],
+
+        ['header' => 'TAREFAS'],
         [
-            'text' => 'Inicio',
-            'url' => '/dashboard',
-            'icon' => 'fa fa-home',
+            'text' => 'Tarefas',
+            'url' => '/tarefas',
+            'icon' => 'fa fa-address-book',
             // 'label' => 4,
             'label_color' => 'success',
         ],
-        
-        ['header' => 'Tarefas'],
         [
-            'text' => 'Criar Tarefas',
+            'text' => 'Criar',
             'url' => 'tarefas/create',
-            'icon' => 'fa fa-calendar',
+            'icon' => 'fa fa-calendar-check',
             // 'label' => 4,
             'label_color' => 'success',
         ],
         [
-            'text' => 'Tarefas Excluidas',
+            'text' => 'Lixeira',
             'url' => '/deleted',
             'icon' => 'fa fa-trash',
             // 'label' => 4,
             'label_color' => 'success',
         ],
 
+        ['header' => 'HOMEPAGE'],
+        [
+            'text' => 'Dashboard',
+            'url' => '/dashboard',
+            'icon' => 'fa fa-home',
+            // 'label' => 4,
+            'label_color' => 'success',
+        ],
 
-        ['header' => 'Configurações do Usuario'],
+        ['header' => 'CONFIGURAÇÕES'],
         [
             'text' => 'Usuário',
             'url' => '/profile',
             'icon' => 'fas fa-fw fa-user',
         ],
-        
-        ['header' => 'Controle de Tarefas'],
+
+        ['header' => 'SUGESTÕES'],
         [
-            'text' => 'Tarefas',
-            'icon' => 'fa fa-cog',
-            'url' => '/controle',
+            'text' => 'Canal de Sugestões',
+            'icon' => 'fa fa-comments',
+            'url' => '/sugestoes',
         ],
-            
+
+        ['header' => 'Deputados'],
+        [
+            'text' => 'Deputados',
+            'icon' => 'fa fa-folder-open',
+            'url' => '/deputado',
+        ],
+
     ],
 
     /*

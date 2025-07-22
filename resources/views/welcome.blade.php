@@ -62,7 +62,10 @@
                                 </span>
                             </span>
                             <span>
-                            <!-- Desenvolvido por <strong>Daniel Wictor</strong> -->
+                                Acesse o 
+                                <a href="https://discord.gg/JFRRTCaB" target="__blank">
+                                Discord
+                                </a>
                             </span>
                         </li>
                         <li class="flex items-center gap-4 py-2 relative before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A] before:bottom-1/2 before:top-0 before:left-[0.4rem] before:absolute">
@@ -71,9 +74,9 @@
                                     <span class="rounded-full bg-[#dbdbd7] dark:bg-[#3E3E3A] w-1.5 h-1.5"></span>
                                 </span>
                             </span>
-                            <!-- <span> -->
-                                <!-- Acesse a Documentação do Projeto: -->
-                            <!-- </span> -->
+                            <span>
+                                Versão <strong>v1.0</strong>
+                            </span>
                         </li>
                     </ul>
                     <ul class="flex gap-3 text-sm leading-normal">

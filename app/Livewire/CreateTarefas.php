@@ -9,6 +9,8 @@ use Validator;
 
 class CreateTarefas extends Component
 {
+    public $deputados;
+
     /**
      * Summary of save
      * @param \App\Services\TarefasService $service
@@ -26,6 +28,16 @@ class CreateTarefas extends Component
      */
     public function render()
     {
-        return view('livewire.create-tarefas');
+        return view('livewire.create-tarefas',['deputados' => $this->deputados]);
+    }
+    
+    /**
+     * Summary of mount
+     * @param \App\Services\TarefasService $tarefasService
+     * @return void
+     */
+    public function mount(TarefasService $tarefasService)
+    {
+      $this->deputados = $tarefasService->todosDeputados();
     }
 }

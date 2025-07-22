@@ -10,7 +10,6 @@ use App\Models\ListaTarefas;
 use App\Services\TarefasService;
 use Illuminate\Support\Facades\Log;
 use Exception;
-use DB;
 use Auth;
 
 class ListaDeTarefasController extends Controller implements ListaDeTarefasInterface
@@ -20,7 +19,7 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
      * @var ListaTarefas
      */
     private ListaTarefas $listaTarefas;
-    
+
     /**
      * 
      * @var TarefasService
@@ -45,9 +44,12 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
      */
     public function index(): View
     {
-        $tarefas = $this->tarefasService->indexTarefas();
+        $userId = (integer) Auth::id();
+        $totalAlertasEnviados = $this->tarefasService->filtraTarefaEnviadas();
+        $totalTarefasPrioridade = $this->tarefasService->filtraTarefaPorCampo('prioridade', ['alta', 'media', 'baixa'], $userId);
+        $totalTarefasStatus = $this->tarefasService->filtraTarefaPorCampo('status', ['pendente', 'em_progresso', 'concluida'], $userId);
 
-        return view('dashboard', @compact('tarefas'));
+        return view('dashboard', @compact(['totalTarefasPrioridade', $totalTarefasPrioridade, 'totalTarefasStatus', $totalTarefasStatus, 'totalAlertasEnviados', $totalAlertasEnviados]));
     }
 
     /**
@@ -64,7 +66,7 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
      * Método Store
      * @author dwictor0
      * @param CriacaoDeTarefasRequest $request
-     * @return View|Redirect
+     * @return View|RedirectResponse
      */
     public function store(CriacaoDeTarefasRequest $request): View|RedirectResponse
     {
@@ -73,7 +75,6 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
 
             return redirect()->route('dashboard')->with('success', 'Tarefa criada com sucesso!.');
         } catch (Exception $e) {
-            DB::rollBack();
             Log::error("Erro ao executar a criação da tarefa:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
             return view('errors.exception');
         }
@@ -114,7 +115,6 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
 
             return redirect()->route('dashboard')->with('success', 'Tarefa atualizada!');
         } catch (Exception $e) {
-            DB::rollBack();
             Log::error("Erro ao realizar a edição da tarefa:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
             return view('errors.exception');
         }
@@ -150,7 +150,6 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
 
             return redirect()->route('dashboard')->with('success', 'Tarefa deletada com sucesso!');
         } catch (Exception $e) {
-            DB::rollBack();
             Log::error("Erro ao processar a exclusão da tarefa:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
             return view('errors.exception');
         }
@@ -169,7 +168,6 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
 
             return redirect()->route('dashboard')->with('success', 'A tarefa foi restaurada com sucesso!');
         } catch (Exception $e) {
-            DB::rollBack();
             Log::error("Erro ao tentar restaurar a tarefa excluida:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
             return view('errors.exception');
         }
@@ -180,19 +178,25 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
      * @return View
      * @author dwictor0
      */
-    public function controleTarefas(): View
+    public function tarefas(): View
     {
         try {
-            $userId = (integer) Auth::id();
-            $totalAlertasEnviados = $this->tarefasService->filtraTarefaEnviadas();
-            $totalTarefasPrioridade = $this->tarefasService->filtraTarefaPorCampo('prioridade', ['alta', 'media', 'baixa'], $userId);
-            $totalTarefasStatus = $this->tarefasService->filtraTarefaPorCampo('status', ['pendente', 'em_progresso', 'concluida'], $userId);
+            $tarefas = $this->tarefasService->indexTarefas();
 
-            return view('listaTarefas.controleTarefas', @compact(['totalTarefasPrioridade', $totalTarefasPrioridade, 'totalTarefasStatus', $totalTarefasStatus,'totalAlertasEnviados',$totalAlertasEnviados]));
+            return view('listaTarefas.controleTarefas', @compact('tarefas'));
         } catch (Exception $e) {
-            DB::rollBack();
             Log::error("Erro ao carregar dados para controle da tarefa:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
             return view('errors.exception');
         }
+    }
+
+    /**
+     * Summary of indexDeputado
+     * @return View
+     */
+    public function indexDeputado()
+    {
+      $deputado = $this->tarefasService->deputadosComTarefa();
+      return view('listaTarefas.deputadoTarefas',@compact('deputado',$deputado));
     }
 }
