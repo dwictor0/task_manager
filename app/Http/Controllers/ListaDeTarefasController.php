@@ -189,14 +189,4 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
             return view('errors.exception');
         }
     }
-
-    /**
-     * Summary of indexDeputado
-     * @return View
-     */
-    public function indexDeputado()
-    {
-      $deputado = $this->tarefasService->deputadosComTarefa();
-      return view('listaTarefas.deputadoTarefas',@compact('deputado',$deputado));
-    }
 }
