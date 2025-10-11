@@ -9,7 +9,7 @@ use Validator;
 
 class CreateTarefas extends Component
 {
-    public $deputados;
+    
 
     /**
      * Summary of save
@@ -28,7 +28,7 @@ class CreateTarefas extends Component
      */
     public function render()
     {
-        return view('livewire.create-tarefas',['deputados' => $this->deputados]);
+        return view('livewire.create-tarefas');
     }
     
     /**
@@ -38,6 +38,6 @@ class CreateTarefas extends Component
      */
     public function mount(TarefasService $tarefasService)
     {
-      $this->deputados = $tarefasService->todosDeputados();
+      //
     }
 }
