@@ -44,26 +44,10 @@
             <input type="date" name="data_vencimento" id="data_vencimento" class="form-control">
           </div>
 
-             <div class="form-group mb-3">
-            <label for="displayDeputado">Deseja atribuir um deputado como responsavel?</label>
-            <select name="displayDeputado" id="displayDeputado" class="form-control">
-              <option value="" selected disabled>Selecione...</option>
-              <option value="sim">Sim</option>
-              <option value="nao">Não</option>
-            </select>
-          </div>
 
 
 
-          <div class="form-group mb-4" id="divDeputado" style="display: none;">
-            <label for="deputado_id">Deputados</label>
-            <select class="form-control" name="deputado_id" id="deputado_id">
-              <option value="" selected disabled>Escolha um Deputado</option>
-              @foreach($deputados as $deputado)
-          <option value="{{ $deputado['id'] }}" id="">{{ $deputado['nome'] }}</option>
-        @endforeach
-            </select>
-          </div>
+  
 
 
           <div class="text-end">
@@ -79,14 +63,3 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
   crossorigin="anonymous"></script>
-<script>
-  $("#displayDeputado").change(function () {
-    if ($(this).val() == "sim") {
-      $("#divDeputado").show()
-    }else if ($(this).val() == "nao"){
-      $("#divDeputado").hide()
-    }
-
-
-  }); 
-</script>
