@@ -14,7 +14,6 @@ class ListaTarefas extends Model
     'titulo',
     'descricao',
     'status',
-    'deputado_id',
     'user_id',
     'prioridade',
     'data_de_vencimento',
@@ -28,8 +27,5 @@ class ListaTarefas extends Model
 
   ];
 
-  public function deputado()
-  {
-    return $this->belongsTo(Deputados::class,'deputado_id','id');
-  }
+ 
 }
