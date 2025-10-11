@@ -367,13 +367,6 @@ return [
             'url' => '/sugestoes',
         ],
 
-        ['header' => 'Deputados'],
-        [
-            'text' => 'Deputados',
-            'icon' => 'fa fa-folder-open',
-            'url' => '/deputado',
-        ],
-
     ],
 
     /*
