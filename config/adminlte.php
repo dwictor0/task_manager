@@ -133,12 +133,12 @@ return [
     |
     */
 
-    'usermenu_enabled' => true,
-    'usermenu_header' => true,
+    'usermenu_enabled' => null,
+    'usermenu_header' => null,
     'usermenu_header_class' => 'bg-primary',
-    'usermenu_image' => true,
-    'usermenu_desc' => true,
-    'usermenu_profile_url' => true,
+    'usermenu_image' => null,
+    'usermenu_desc' => null,
+    'usermenu_profile_url' => null,
 
     /*
     |--------------------------------------------------------------------------
