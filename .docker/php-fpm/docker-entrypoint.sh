@@ -2,8 +2,8 @@
 set -e
 
 echo "Corrigindo permissões de storage..."
-chown -R www-data:www-data /app/storage
-chmod -R 775 /app/storage
+#chown -R www-data:www-data /app/storage
+#chmod -R 775 /app/storage
 
 echo "Instalando dependências Composer..."
 composer install --no-interaction --prefer-dist
