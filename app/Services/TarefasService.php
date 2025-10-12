@@ -36,9 +36,13 @@ class TarefasService
     public function indexTarefas()
     {
         try {
-            $userId = (integer) Auth::id();
-
-            return $this->listaTarefas->where('user_id', $userId)->get();
+            $userId =  Auth::user();
+            
+            return $this->listaTarefas
+            ->where('user_id', $userId->id)
+            ->when($userId->tipo_usuario == 'administrador', function ($query) {
+                return $query->orWhere('user_id','>=',1);
+            })->get();
         } catch (Exception $e) {
             Log::error("Erro ao carregar as tarefas:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
             return view('errors.exception');
