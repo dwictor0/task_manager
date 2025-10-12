@@ -168,7 +168,12 @@ class TarefasService
     public function buscaTarefaDeletada()
     {
         try {
+            $usuarioAutenticado = Auth::user();
+                
             return $this->listaTarefas->where('user_id', Auth::id())->whereNotNull('deleted_at')
+                ->when($usuarioAutenticado->tipo_usuario == 'administrador', function ($query) {
+                    return $query->orWhere('user_id','>=',1)->whereNotNull('deleted_at');
+                })
                 ->withTrashed()
                 ->get();
 
