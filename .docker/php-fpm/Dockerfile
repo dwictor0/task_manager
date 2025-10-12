@@ -42,6 +42,12 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&
     php composer-setup.php --install-dir=/usr/local/bin --filename=composer && \
     php -r "unlink('composer-setup.php');"
 
+
+COPY . /app
+
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+
+
 RUN git config --global --add safe.directory /app
 
 # Configurar o tempo máximo de execução do PHP
@@ -63,3 +69,8 @@ EXPOSE 9000
 COPY .docker/php-fpm/docker-entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+ENV PATH="/usr/local/bin:$PATH"
+
+RUN mkdir -p /app/storage /app/bootstrap/cache \
+    && chown -R www-data:www-data /app \
+    && chmod -R 775 /app/storage /app/bootstrap/cache

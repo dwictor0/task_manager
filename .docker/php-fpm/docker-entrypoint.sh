@@ -2,32 +2,42 @@
 set -e
 
 echo "Corrigindo permissões de storage..."
-#chown -R www-data:www-data /app/storage
-#chmod -R 775 /app/storage
+chown -R www-data:www-data /app/storage /app/bootstrap/cache
+chmod -R 775 /app/storage /app/bootstrap/cache
 
 echo "Instalando dependências Composer..."
-composer install --no-interaction --prefer-dist
+composer install --no-interaction --prefer-dist --optimize-autoloader
 
 echo "Aguardando banco de dados ficar pronto..."
-until php artisan migrate:status > /dev/null 2>&1; do
-    sleep 2
-    echo "Esperando DB..."
-done
-
-echo "Executando migrações..."
-php artisan migrate --force
+# Você pode adicionar um loop de espera aqui se quiser garantir que o MySQL esteja pronto
 
 echo "Gerando chave de aplicação..."
 php artisan key:generate
 
+echo "Executando migrações..."
+php artisan migrate --force
+
 echo "Instalando Laravel Horizon..."
 php artisan horizon:install
+
+echo "Limpando caches..."
+php artisan config:clear
+php artisan cache:clear
+php artisan route:clear
+php artisan view:clear
+
+echo "Otimizando autoload..."
+composer dump-autoload --optimize
+
+echo "Configurando cron..."
+crontab /app/.docker/cron/laravel-scheduler
+service cron start
 
 echo "Iniciando scheduler em background..."
 (
   while true; do
     php artisan schedule:run
-    sleep 5
+    sleep 60
   done
 ) &
 

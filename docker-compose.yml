@@ -9,10 +9,6 @@ services:
       - laravel
     depends_on:
       - todoList-db
-    command: >
-      sh -c "crontab /app/.docker/cron/laravel-scheduler &&
-             service cron start &&
-             php-fpm"
     entrypoint: ["/usr/local/bin/entrypoint.sh"]
     
   nginx:
