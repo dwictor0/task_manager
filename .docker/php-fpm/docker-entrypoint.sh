@@ -1,31 +1,35 @@
 #!/bin/bash
+set -e
 
-# Defina as permissões para o diretório de armazenamento
-echo "Definindo permissões..."
+echo "Corrigindo permissões de storage..."
 chown -R www-data:www-data /app/storage
+chmod -R 775 /app/storage
 
-# Instalar as dependências do Composer
-echo "Instalando dependências com Composer..."
+echo "Instalando dependências Composer..."
 composer install --no-interaction --prefer-dist
 
-# Rodar as migrações do banco de dados
-echo "Executando migrações do banco de dados..."
+echo "Aguardando banco de dados ficar pronto..."
+until php artisan migrate:status > /dev/null 2>&1; do
+    sleep 2
+    echo "Esperando DB..."
+done
+
+echo "Executando migrações..."
 php artisan migrate --force
 
-# Rodar os comandos do Laravel Scheduler em loop
-echo "Iniciando o Laravel Scheduler em loop..."
-while true; do
-    php artisan schedule:run
-    sleep 5
-done &
-
-# Credenciais
-echo "Gerando credenciais"
+echo "Gerando chave de aplicação..."
 php artisan key:generate
 
-echo "Configurando laravel horizon"
+echo "Instalando Laravel Horizon..."
 php artisan horizon:install
 
-# Iniciar o PHP-FPM em segundo plano
-echo "Iniciando o PHP-FPM..."
-php-fpm
+echo "Iniciando scheduler em background..."
+(
+  while true; do
+    php artisan schedule:run
+    sleep 5
+  done
+) &
+
+echo "Iniciando PHP-FPM..."
+exec php-fpm
