@@ -39,7 +39,12 @@ Siga os passos abaixo para rodar o projeto localmente:
     docker-compose up -d
     ```
     Esse comando vai configurar o ambiente com o servidor web, PHP, banco de dados e outros serviços necessários.
-
+    
+4. **Migrate**:
+    Após os containers inicializar , rode o comando abaixo para criar as tabelas necessárias:
+    ```bash
+    php artisan migrate 
+    ```
 4. **Caso haja problemas com o Docker** (conexões ou inconsistências), execute os seguintes comandos para reiniciar a configuração:
     ```bash
     docker-compose down --rmi all
