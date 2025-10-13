@@ -17,8 +17,7 @@ php artisan key:generate
 echo "Executando migrações..."
 # php artisan migrate --force
 
-echo "Instalando Laravel Horizon..."
-php artisan horizon:install
+php artisan horizon
 
 echo "Limpando caches..."
 
