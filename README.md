@@ -39,31 +39,33 @@ Siga os passos abaixo para rodar o projeto localmente:
     docker-compose up -d
     ```
     Esse comando vai configurar o ambiente com o servidor web, PHP, banco de dados e outros serviços necessários.
-    
-4. **Migrate**:
-    Após os containers inicializar , rode o comando abaixo para criar as tabelas necessárias:
-    ```bash
-    php artisan migrate 
-    ```
-4. **Caso haja problemas com o Docker** (conexões ou inconsistências), execute os seguintes comandos para reiniciar a configuração:
-    ```bash
-    docker-compose down --rmi all
-    docker-compose up -d
-    ```
-5. **Laravel Horizon** 
-- Para monitorar e gerenciar as filas com uma interface visual, utilize o Horizon , ative o painel com o comando:
-   ```bash
-    php artisan horizon 
-    ```
-- Após executar o comando a interface pode ser acessada na URL<br>
-     ```bash
-         http://localhost:8000/horizon
 
+4. **Entre no Container do PHP**:
+    Entre no container do PHP executando o comando abaixo:
+    ```bash
+    docker exec -it (id do container) /bin/bash
+    ```
+5. **Migrate**:
+    Após entrar no container do PHP ,rode o comando abaixo para criar as tabelas necessárias:
+    ```bash
+      php artisan migrate
+    ```
 6. **Sistema de filas**:
     Execute o sistema de filas para enviar Jobs:
     ```bash
     php artisan queue:work
     ```
+7. **Caso haja problemas com o Docker** (conexões ou inconsistências), execute os seguintes comandos para reiniciar a configuração:
+    ```bash
+    docker-compose down --rmi all
+    docker-compose up -d
+    ```
+
+- Após executar o comandos a interface do horizon pode ser acessada na URL<br>
+     ```bash
+         http://localhost:8000/horizon
+     ``` 
+
 
 ## 🔧 Configuração do WebSocket (Pusher)
 
