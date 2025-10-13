@@ -15,16 +15,12 @@ echo "Gerando chave de aplicação..."
 php artisan key:generate
 
 echo "Executando migrações..."
-php artisan migrate --force
+# php artisan migrate --force
 
 echo "Instalando Laravel Horizon..."
 php artisan horizon:install
 
 echo "Limpando caches..."
-php artisan config:clear
-php artisan cache:clear
-php artisan route:clear
-php artisan view:clear
 
 echo "Otimizando autoload..."
 composer dump-autoload --optimize
