@@ -44,12 +44,6 @@
             <input type="date" name="data_vencimento" id="data_vencimento" class="form-control">
           </div>
 
-
-
-
-  
-
-
           <div class="text-end">
             <button type="submit" class="btn btn-success">
               <i class="fas fa-check"></i> Salvar Tarefa
