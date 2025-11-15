@@ -3,14 +3,19 @@
 namespace App\Http\Controllers;
 use App\Http\Requests\AtualizaTarefasRequest;
 use App\Http\Requests\CriacaoDeTarefasRequest;
+use File;
 use Illuminate\Contracts\View\View;
 use App\ListaDeTarefasInterface;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use App\Models\ListaTarefas;
 use App\Services\TarefasService;
 use Illuminate\Support\Facades\Log;
 use Exception;
 use Auth;
+use Response;
+use Storage;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ListaDeTarefasController extends Controller implements ListaDeTarefasInterface
 {
@@ -188,5 +193,26 @@ class ListaDeTarefasController extends Controller implements ListaDeTarefasInter
             Log::error("Erro ao carregar dados para controle da tarefa:{$e->getMessage()} | Linha: {$e->getLine()} | Trace: {$e->getTraceAsString()}");
             return view('errors.exception');
         }
+    }
+   
+    /**
+     * Summary of download
+     * @param mixed $id
+     * @return JsonResponse|BinaryFileResponse
+     */
+    public function download($id)
+    {
+        $tarefaAnexo = ListaTarefas::find($id);  
+
+        if (!$tarefaAnexo || !$tarefaAnexo->anexo) {
+            return response()->json(['error' => 'Arquivo não encontrado'], 404);
+        }
+        $filePath = storage_path('app/public/' . $tarefaAnexo->anexo);
+
+        if (!file_exists($filePath)) {
+            return response()->json(['error' => 'Arquivo não encontrado'], 404);
+        }
+
+        return Response::download($filePath);  
     }
 }
