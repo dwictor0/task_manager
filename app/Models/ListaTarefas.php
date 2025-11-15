@@ -16,6 +16,7 @@ class ListaTarefas extends Model
     'status',
     'user_id',
     'prioridade',
+    'anexo',
     'data_de_vencimento',
     'alerta_enviado',
     'alerta_enviado_at',
