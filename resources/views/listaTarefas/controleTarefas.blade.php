@@ -15,11 +15,10 @@
   <script src="https://js.pusher.com/8.4.0/pusher.min.js"></script>
 
   <script>
-
     Pusher.logToConsole = false;
 
-    var pusher = new Pusher('2c0d6c5c3b525a1e9679', {
-    cluster: 'us2',
+    var pusher = new Pusher('211010f1afce3180acaa', {
+    cluster: 'sa1',
     authEndpoint: '/pusher/auth',
     auth: {
       headers: {
