@@ -24,6 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('tarefas', ListaDeTarefasController::class);
     Route::get('/api', [ApiController::class, 'renderizaApi'])->name('api.controle');
     Route::post('/restore/{id}', [ListaDeTarefasController::class, 'restore'])->name('tarefas.restore');
+    Route::get('/download/{id}', [ListaDeTarefasController::class, 'download'])->name('tarefas.download');
     Route::get('/tarefas', [ListaDeTarefasController::class, 'tarefas'])->name('tarefas.home');
     Route::get('/deleted', [ListaDeTarefasController::class, 'indexSoftDelete'])->name('tarefas.delete');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
