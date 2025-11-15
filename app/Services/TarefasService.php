@@ -63,6 +63,7 @@ class TarefasService
             $descricao = (string) $request->input('descricao');
             $status = $request->input('status');
             $prioridadeTarefa = $request->input('prioridade');
+            $anexoTarefa = $request->file('tarefa_anexo');
             $userId = (integer) Auth::id();
             $data = Carbon::parse($request->input('data_vencimento') . ' ' . now()->format('H:i:s'));
 
@@ -72,6 +73,7 @@ class TarefasService
                 'descricao' => $descricao,
                 'data_de_vencimento' => $data,
                 'prioridade' => $prioridadeTarefa,
+                'anexo' => $anexoTarefa,
                 'status' => $status,
                 'user_id' => $userId,
             ]);
