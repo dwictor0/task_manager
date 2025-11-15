@@ -5,7 +5,7 @@
         <h3 class="card-title mb-0">Nova Tarefa</h3>
       </div>
       <div class="card-body">
-        <form action="{{ route('tarefas.store') }}" method="POST">
+        <form action="{{ route('tarefas.store') }}" method="POST" enctype="multipart/form-data">
           @csrf
           <div class="form-group mb-3">
             <label for="titulo">Título</label>
@@ -37,6 +37,10 @@
           <div class="form-group mb-4">
             <label for="data_vencimento">Data de Vencimento</label>
             <input type="date" name="data_vencimento" id="data_vencimento" class="form-control">
+          </div>
+          <div class="form-group mb-4">
+            <label for="tarefa_anexo">Deseja Anexar algum arquivo?</label>
+            <input type="file" name="tarefa_anexo" id="tarefa_anexo" class="form-control">
           </div>
           <div class="text-end">
             <button type="submit" class="btn btn-success">
