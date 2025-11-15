@@ -48,6 +48,10 @@
                         <a href="{{ route('tarefas.edit', $tarefa->id) }}" class="btn btn-outline-primary" title="Editar">
                           <i class="fas fa-edit"></i>
                         </a>
+                        <a href="{{ route('tarefas.download', $tarefa->id) }}" class="btn btn-outline-success" title="Editar">
+                          <i class="fas fa-download"></i>
+                        </a>
+                        
                         <form action="{{ route('tarefas.destroy', $tarefa->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir esta tarefa?');">
                           @csrf
                           @method('DELETE')
